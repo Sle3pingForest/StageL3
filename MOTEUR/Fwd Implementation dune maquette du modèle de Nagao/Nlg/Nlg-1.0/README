@@ -1,0 +1,58 @@
+===== Nlg Module =====
+
+Python2 package for analogy purpose.
+
+Version: 1.0
+License: This module is under GPLv3 license.
+
+==============================================================================
+
+Dependencies:
+1. swig (wrapper for C program)
+2. Python libraries:
+	- numpy
+	- matplotlib
+	- tabulate
+
+How to install:
+1. fast_distance
+	- Download
+		http://lepage-lab.ips.waseda.ac.jp/public_cms_data/kakenhi_15K00317/tools/fast_distance_in_c.zip
+	- Extract the zip file
+	- Open Terminal
+	- Install
+		>$ cd fast_distance_in_c/
+		>$ sudo -H pip install .
+2. Nlg
+	- Extract the zip file
+	- Open Terminal
+	- Install
+		>$ cd Nlg-1.0/
+		>$ sudo -H pip install .
+
+==============================================================================
+
+Use the following command to test the help:
+	>$ python2 Words2Clusters.py -h
+
+Use the following commands to test the execution:
+	>$ printf "toto\ntata\npopo\npapa\n" | python2 Words2Clusters.py -V
+
+printf "ahah\nohoh\nbaba\nbobo\n" | python2 Words2Clusters.py -V
+
+
+You should get the following output on your terminal.
+
+	# Reading words and computing feature vectors (features=characters)...
+	# Clustering the words according to their feature vectors...
+	# Add the indistinguishables...
+	# Checking distance constraints...
+	# 
+	toto : tata :: popo : papa
+	toto : popo :: tata : papa
+
+==============================================================================
+
+If you encounter any problem, please do not hesitate to contact us.
+	fam.rashel@fuji.waseda.jp
+	yves.lepage@waseda.jp
