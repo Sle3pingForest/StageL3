@@ -1,0 +1,9 @@
+I love apples.	J’aime les pommes.	제가 사과를 좋아해요.	我爱苹果。	Saya suka apel.
+I love this apple.	J’aime cette pomme.	제가 이 사과를 종아해요.	我爱这个苹果。	Saya suka apel ini.
+I hate apples.	Je déteste les pommes.	제가 사과를 싫어해요.	我恨苹果。	Saya benci apel.
+I love green apples.	J’aime les pommes vertes.	제가 녹색 사과를 좋아해요.	我爱绿苹果。	Saya suka apel hijau.
+I do not love apples.	Je n’aime pas les pommes.	제가 사과를 좋아하지 않아요.	我不爱苹果。	Saya tidak suka apel.
+I eat an apple.	Je mange une pomme.	제가 사과를 먹어요.	我吃一个苹果。	Saya makan sebuah apel.
+I love eating apples.	J’ai mangé des pommes.	제가 사과를 먹는 것을 좋아해요.	我爱吃苹果。	Saya suka makan apel.
+I finished an apple.	J’ai fini une pomme.	제가 사과를 다 먹었어요.	我吃完了一个苹果。	Saya menghabiskan sebuah apel.
+Who bought an apple?	Qui a acheté une pomme?	누가 사과를 샀어요?	谁买了一个苹果?	Siapa yang membeli sebuah apel?
