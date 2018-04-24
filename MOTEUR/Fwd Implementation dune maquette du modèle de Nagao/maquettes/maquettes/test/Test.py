@@ -65,32 +65,36 @@ def translate(bicorpus, file=sys.stdin):
 #	bidictionary = bicorpus
 	for Bs in file:
 		#compteur de la plus basse distance entre la chaine et les cas dans le dictionnaire
-		dist = sys.maxint;
+		dist = sys.maxint
+		super_dist = sys.maxint
+		init_memo_fast_distance(Bs)
 		Bs = Bs.rstrip('\n')
 		if __verbose__: print >> sys.stderr, '\n# Translating sentence: {}'.format(Bs)
 #		for As in bicorpus:
 		for As in bicorpus.iter(string=Bs, strategy='by distance', method='direct'):
-			#print As
-			init_memo_fast_distance(Bs)
 #			Case where the sentence is already in the case base
-			if dist > memo_fast_distance(As[0]): 
-				dist = memo_fast_distance(As[0])
-				if  dist == 0:
-					print Bs,'\t',As[1]
+			dist = memo_fast_distance(As[0])
+			if  dist == 0:
+				print Bs,'\t',As[1]
 
-				else :
-					a_s, b_s, c_s = single_substitution(As[0], Bs, As[1])
-					#print(As + ' | ' + Bs + '        ' +  a_s + ' | ' + b_s + '\n')
-					"""try:
-						print 'jesuisalafin', bicorpus[a_s] , bicorpus[b_s]
-						a_t, b_t = bicorpus[a_s], bicorpus[b_s]
-						#print(a_t + ' | ' + b_t + '        ' +  a_s + ' | ' + b_s + '\n')
-					except KeyError:
-						continue
-					else:
-					"""
-					if __verbose__: print >> sys.stderr, '#\t{} : {} :: {} : {}\n'.format(a_s, a_t, b_s, b_t)
-					print '{}\t{}'.format(Bs, a_s+b_s+c_s)
+			else :
+				a_s, b_s, c_s = single_substitution(As[0], Bs, As[1])
+				#print(As + ' | ' + Bs + '        ' +  a_s + ' | ' + b_s + '\n')
+				"""try:
+					print 'jesuisalafin', bicorpus[a_s] , bicorpus[b_s]
+					a_t, b_t = bicorpus[a_s], bicorpus[b_s]
+					#print(a_t + ' | ' + b_t + '        ' +  a_s + ' | ' + b_s + '\n')
+				except KeyError:
+					continue
+				else:
+				"""
+				if __verbose__: print >> sys.stderr, '#\t{} : {} :: {} : {}\n'.format(a_s, a_t, b_s, b_t)
+
+				#compare distance between Bs and his correction
+				dist_correc = memo_fast_distance(a_s+b_s+c_s)
+				if super_dist >= dist_correc and dist_correc != 0: 
+					super_dist = dist_correc
+					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s)
 
 if __name__ == '__main__':
 	options = read_argv()
