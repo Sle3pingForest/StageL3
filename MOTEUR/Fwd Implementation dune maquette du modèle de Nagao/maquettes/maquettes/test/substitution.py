@@ -46,7 +46,7 @@ def single_substitution(As, Bs):
 
 ################################################################################
 
-def single_substitution(As, Bs, Cs):
+def single_correction(As, Bs, Cs):
 	"""
 	Extract a single substitution between two strings.
 	>>> single_substitution('this is an example', 'that is an example')
@@ -66,14 +66,26 @@ def single_substitution(As, Bs, Cs):
 	def commonsuffix(list):
 		return commonprefix([s[::-1] for s in list])[::-1]
 
+
 	#prefix suffix entre le probleme source et probleme cible
 	prefix, suffix = commonprefix([As, Bs]), commonsuffix([As, Bs])
 	prefix, suffix = commonprefix([Bs, As]), commonsuffix([Bs, As])
 
+	"""
+	pos2_int = 0
 
-	#si il y a un debut qui ressemble ou une fin qui ressemble
-	if len(prefix) > 0 or len(suffix) > 1:	
+	#cas ou il n'y a pas de ressemblance avec le debut et la fin 
+	if len(prefix) < 1 and len(suffix) < 2:
+		#regarde et recupere la plus longue chaine consecutive commune qui est situee "au milieu"
+		tab = lcs(As,Bs)
+		prefix = tab[len(tab)-1]
+		#initialisation pour la position du prefix a la fin de la phrase
+		pos2_int = len(Bs) -1
+	"""
+
 	
+	if  len(prefix) > 1 or len(suffix) > 1:	
+	#Cas ou il y a un debut ou une fin qui ressemble
 		
 		pos1 = Bs.find(prefix)
 		pos2 = Bs.find(suffix)
@@ -126,8 +138,8 @@ def single_substitution(As, Bs, Cs):
 			fin_dep = len(sousChaine)+1
 
 			Fs = Bs[0:len(sousChaine)] + sousChaine2 + Bs[fin_dep+len(sousChaine3):len(Bs)]
-		"""
-		if As == 'AYAYAYAAY.' or 1:
+		
+		if As == 'Je t\'aimes.' or As == 'Je tues.':
 			print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 			print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
 			print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
@@ -141,15 +153,77 @@ def single_substitution(As, Bs, Cs):
 			print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 			print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 			print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-		"""
+		
 		
 
 	else:
-		prefix2 = ''
-		sousChaine2 = ''
-		pos_prefix2_dans_cible = 0
-		sousChaine3 = ''
-		fin_dep =0
+
+	#Cas ou une string ressemble, utilisation de la distance lcs (longest common string)
+		
+		tab = lcs(As,Bs)
+		prefix = tab[len(tab)-1]
+		#print 'Test Lcs ', prefix, As, Bs
+
+		
+		if len(prefix) > 2:
+			pos1 = Bs.find( prefix )
+			pos2 = len(Bs) -1
+			#extraction sans le '/a'
+			sousChaine = Bs[pos1+len(prefix):pos2]
+		
+			#prefix suffix entre la solution du probleme source et le probleme dans la solution
+			prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
+		
+			pos_prefix2 = Cs.find(prefix2)
+			pos_suffix2 = Cs.find(suffix2)
+			# souschaine2 = chaine qui remplace qui se trouve entre le prefix et le suffixe
+			sousChaine2 = Cs[pos_prefix2+len(prefix2):pos_suffix2]
+
+
+
+
+
+			taille = pos_prefix2+len(prefix2) + len(sousChaine2)
+
+			#position du prefix2 dans le probleme cible
+			pos_prefix2_dans_cible = Bs.find(prefix2)
+
+		
+		
+	
+
+			#prefix suffix entre le probleme source et sa solution dans le src
+			prefix3, suffix3 = commonprefix([As, Cs]), commonsuffix([As, Cs])
+
+			pos3 = As.find(prefix3)
+			pos4 = As.find(suffix3)
+			# souschaine3 = chaine qui va etre remplacer par la souschaine 2
+			sousChaine3 = As[pos3+len(prefix3):pos4]
+			#print prefix3,sousChaine3,suffix3
+
+		
+			#borne de fin de prefix
+			fin_dep = pos_prefix2_dans_cible+len(prefix2)
+
+			#chaine "corrigee"
+			if pos_prefix2_dans_cible == -1:
+				#avoir l'espace manquant
+				fin_dep = len(sousChaine)+1
+
+				Fs = Bs[0:len(sousChaine)] + sousChaine2 + Bs[fin_dep+len(sousChaine3):len(Bs)]
+
+
+			
+
+		else:
+		
+		#Cas où il n'y a aucune ressemblance
+
+			prefix2 = ''
+			sousChaine2 = ''
+			pos_prefix2_dans_cible = 0
+			sousChaine3 = ''
+			fin_dep =0
 
 		
 
@@ -181,18 +255,18 @@ def lcs(S,T):
     n = len(T)
     counter = [[0]*(n+1) for x in range(m+1)]
     longest = 0
-    lcs_set = set()
+    lcs_set = []
     for i in range(m):
         for j in range(n):
             if S[i] == T[j]:
                 c = counter[i][j] + 1
                 counter[i+1][j+1] = c
                 if c > longest:
-                    lcs_set = set()
+                    lcs_set = []
                     longest = c
-                    lcs_set.add(S[i-c+1:i+1])
+                    lcs_set.insert(0,S[i-c+1:i+1])
                 elif c == longest:
-                    lcs_set.add(S[i-c+1:i+1])
+                    lcs_set.insert(0,S[i-c+1:i+1])
 
     return lcs_set
 

@@ -1,5 +1,4 @@
 Phrase fausse.	Phrase corrigée.	Source.
-Je suis sur Nancy.	Je suis à Nancy.	Wikipedia.
 J'aime pas les pommes.	Je n'aime pas les pommes.	Exemple Yves Lepage.
 Je suis sur Nancy.	Je suis à Nancy.	Wikipedia.
 Au jour d'aujourd'hui.	Aujourd'hui.	Site LCI.	

@@ -5,7 +5,7 @@ import sys
 import time
 
 from bilingual_data import Bicorpus, Bidictionary
-from substitution import single_substitution
+from substitution import single_substitution, single_correction
 from _fast_distance import init_memo_fast_distance, memo_fast_distance, memo_fast_similitude, fast_distance
 
 #...!....1....!....2....!....3....!....4....!....5....!....6....!....7....!....8
@@ -31,7 +31,7 @@ def read_argv():
 	this_usage = '''
 		%(prog)s  CORPUS
 
-		Ex: printf "J'aime pas les pommes" | python Test.py base_de_cas.txt -s 1 -t 2
+		Ex: printf "J'aime pas les pommes." | python Test.py base_de_cas.txt -s 1 -t 2
 	'''
 
 	parser = argparse.ArgumentParser(version=this_version, description=this_description, usage=this_usage)
@@ -78,7 +78,7 @@ def translate(bicorpus, file=sys.stdin):
 				print Bs,'\t',As[1]
 
 			else :
-				a_s, b_s, c_s = single_substitution(As[0], Bs, As[1])
+				a_s, b_s, c_s = single_correction(As[0], Bs, As[1])
 				#print(As + ' | ' + Bs + '        ' +  a_s + ' | ' + b_s + '\n')
 				"""try:
 					print 'jesuisalafin', bicorpus[a_s] , bicorpus[b_s]
@@ -90,11 +90,14 @@ def translate(bicorpus, file=sys.stdin):
 				"""
 				if __verbose__: print >> sys.stderr, '#\t{} : {} :: {} : {}\n'.format(a_s, a_t, b_s, b_t)
 
+				"""
 				#compare distance between Bs and his correction
 				dist_correc = memo_fast_distance(a_s+b_s+c_s)
-				if super_dist >= dist_correc and dist_correc != 0: 
+				if super_dist >= dist_correc and dist_correc != 0 or 1: 
 					super_dist = dist_correc
-					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s)
+				"""
+				if memo_fast_distance(a_s+b_s+c_s) != 0:
+					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0]
 
 if __name__ == '__main__':
 	options = read_argv()

@@ -53,7 +53,6 @@ def direct_iteration_strategy(self, string=None, strategy='naive'):
 			yield As, self[As]
 			exit(0)
 		
-		#print As,'  ' , memo_fast_distance(As)
 		yield As, self[As]
 	
 
