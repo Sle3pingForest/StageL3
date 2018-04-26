@@ -106,18 +106,10 @@ def single_correction(As, Bs, Cs):
 		# souschaine2 = chaine qui remplace qui se trouve entre le prefix et le suffixe
 		sousChaine2 = Cs[pos_prefix2+len(prefix2):pos_suffix2]
 
-
-
-
-
 		taille = pos_prefix2+len(prefix2) + len(sousChaine2)
 
 		#position du prefix2 dans le probleme cible
 		pos_prefix2_dans_cible = Bs.find(prefix2)
-
-		
-		
-	
 
 		#prefix suffix entre le probleme source et sa solution dans le src
 		prefix3, suffix3 = commonprefix([As, Cs]), commonsuffix([As, Cs])
@@ -127,7 +119,6 @@ def single_correction(As, Bs, Cs):
 		# souschaine3 = chaine qui va etre remplacer par la souschaine 2
 		sousChaine3 = As[pos3+len(prefix3):pos4]
 		#print prefix3,sousChaine3,suffix3
-
 		
 		#borne de fin de prefix
 		fin_dep = pos_prefix2_dans_cible+len(prefix2)
@@ -157,9 +148,10 @@ def single_correction(As, Bs, Cs):
 		
 
 	else:
-
-	#Cas ou une string ressemble, utilisation de la distance lcs (longest common string)
-		
+	"""
+	Cas ou une string ressemble dans la chaine mais ne commence et ne finit pas comme la phrase cible
+	utilisation de la distance lcs (longest common string)
+	"""
 		tab = lcs(As,Bs)
 		prefix = tab[len(tab)-1]
 		#print 'Test Lcs ', prefix, As, Bs
@@ -180,16 +172,12 @@ def single_correction(As, Bs, Cs):
 			sousChaine2 = Cs[pos_prefix2+len(prefix2):pos_suffix2]
 
 
-
-
-
 			taille = pos_prefix2+len(prefix2) + len(sousChaine2)
+
 
 			#position du prefix2 dans le probleme cible
 			pos_prefix2_dans_cible = Bs.find(prefix2)
 
-		
-		
 	
 
 			#prefix suffix entre le probleme source et sa solution dans le src
@@ -210,14 +198,40 @@ def single_correction(As, Bs, Cs):
 				#avoir l'espace manquant
 				fin_dep = len(sousChaine)+1
 
-				Fs = Bs[0:len(sousChaine)] + sousChaine2 + Bs[fin_dep+len(sousChaine3):len(Bs)]
-
 
 			
+			#Cas d une suppression de caractere donc quand la souschaine2 est vide
+			#Je suppose que cest toujours la fin du mot qui est supprimee
+			if sousChaine2 == "":
+				#Calcul i eme mot modifie
+				phrase_modif = prefix3 + sousChaine3
+				phrase_modif = phrase_modif.split(' ')
+				
+				#numero du mot qui est modifie
+				taille_pm = len( phrase_modif )
+
+				phrase_modif2 = prefix+sousChaine
+				phrase_modif2 = phrase_modif2.split(' ')
+
+				#Si le bout de phrase cible est aussi grand ou plus que la phrase source
+				if len( phrase_modif2) >= taille_pm:
+					#calcul de la diff entre la phrase source et sa correction : nombre de caractere a supprime
+					diff = len(prefix3 + sousChaine3) - len(prefix2) 
+
+					#taille de la chaine quon supprimera par la fin
+					t=0
+					for x in range(0,taille_pm):
+						t+=len(phrase_modif2[x])
+
+					#ajout des espaces entre chaque mot
+					t += taille_pm-1
+					
+					fin_dep = pos1 + t- diff
+					
 
 		else:
-		
-		#Cas où il n'y a aucune ressemblance
+
+		#Cas où il n'y a aucune ressemblance retourne la meme chaine
 
 			prefix2 = ''
 			sousChaine2 = ''

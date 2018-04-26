@@ -96,7 +96,7 @@ def translate(bicorpus, file=sys.stdin):
 				if super_dist >= dist_correc and dist_correc != 0 or 1: 
 					super_dist = dist_correc
 				"""
-				if memo_fast_distance(a_s+b_s+c_s) != 0:
+				if memo_fast_distance(a_s+b_s+c_s) != 0:# and 1+1 ==5:
 					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0]
 
 if __name__ == '__main__':
