@@ -115,20 +115,28 @@ def single_correction(As, Bs, Cs):
 		#Cas d une suppression de caractere donc quand la souschaine2 est vide
 		#Je suppose que cest toujours la fin du mot qui est supprimee
 		if sousChaine2 == "":
+
+			tab = lcs(As,Bs)
+			prefix = tab[len(tab)-1]
+			pos1 = Bs.find( prefix )
+			pos2 = len(Bs) -1
+			sousChaine = Bs[pos1+len(prefix):pos2]
+
+
 			#Calcul i eme mot modifie
-			phrase_modif = prefix3 + sousChaine3+suffix3
+			phrase_modif = prefix3 + sousChaine3
 			phrase_modif = phrase_modif.split(' ')
 
 			#numero du mot qui est modifie
 			taille_pm = len( phrase_modif )
 
-			phrase_modif2 = prefix+sousChaine+suffix
+			phrase_modif2 = prefix+sousChaine
 			phrase_modif2 = phrase_modif2.split(' ')
 
 			#Si le bout de phrase cible est aussi grand ou plus que la phrase source
 			if len( phrase_modif2) >= taille_pm:
 				#calcul de la diff entre la phrase source et sa correction : nombre de caractere a supprime
-				diff = len(prefix3 + sousChaine3 + suffix3) - len(prefix2) 
+				diff = len(prefix3 + sousChaine3) - len(prefix2) 
 
 				#taille de la chaine quon supprimera par la fin
 				t=0
