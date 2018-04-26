@@ -79,23 +79,9 @@ def translate(bicorpus, file=sys.stdin):
 
 			else :
 				a_s, b_s, c_s = single_correction(As[0], Bs, As[1])
-				#print(As + ' | ' + Bs + '        ' +  a_s + ' | ' + b_s + '\n')
-				"""try:
-					print 'jesuisalafin', bicorpus[a_s] , bicorpus[b_s]
-					a_t, b_t = bicorpus[a_s], bicorpus[b_s]
-					#print(a_t + ' | ' + b_t + '        ' +  a_s + ' | ' + b_s + '\n')
-				except KeyError:
-					continue
-				else:
-				"""
 				if __verbose__: print >> sys.stderr, '#\t{} : {} :: {} : {}\n'.format(a_s, a_t, b_s, b_t)
 
-				"""
-				#compare distance between Bs and his correction
-				dist_correc = memo_fast_distance(a_s+b_s+c_s)
-				if super_dist >= dist_correc and dist_correc != 0 or 1: 
-					super_dist = dist_correc
-				"""
+				#Filtre les cas où il n'y a pas eu de changement lors de la correction
 				if memo_fast_distance(a_s+b_s+c_s) != 0:# and 1+1 ==5:
 					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0]
 

@@ -71,18 +71,6 @@ def single_correction(As, Bs, Cs):
 	prefix, suffix = commonprefix([As, Bs]), commonsuffix([As, Bs])
 	prefix, suffix = commonprefix([Bs, As]), commonsuffix([Bs, As])
 
-	"""
-	pos2_int = 0
-
-	#cas ou il n'y a pas de ressemblance avec le debut et la fin 
-	if len(prefix) < 1 and len(suffix) < 2:
-		#regarde et recupere la plus longue chaine consecutive commune qui est situee "au milieu"
-		tab = lcs(As,Bs)
-		prefix = tab[len(tab)-1]
-		#initialisation pour la position du prefix a la fin de la phrase
-		pos2_int = len(Bs) -1
-	"""
-
 	
 	if  len(prefix) > 1 or len(suffix) > 1:	
 	#Cas ou il y a un debut ou une fin qui ressemble
@@ -91,13 +79,7 @@ def single_correction(As, Bs, Cs):
 		pos2 = Bs.find(suffix)
 		#extraction sans le '/a'
 		sousChaine = Bs[pos1+len(prefix):pos2]
-		
-		"""
-		if len(As) > len(Cs):
-			echange = As
-			As = Cs
-			Cs = echange
-		"""
+
 		#prefix suffix entre la solution du probleme source et le probleme dans la solution
 		prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
 		
@@ -129,7 +111,36 @@ def single_correction(As, Bs, Cs):
 			fin_dep = len(sousChaine)+1
 
 			Fs = Bs[0:len(sousChaine)] + sousChaine2 + Bs[fin_dep+len(sousChaine3):len(Bs)]
-		
+
+		#Cas d une suppression de caractere donc quand la souschaine2 est vide
+		#Je suppose que cest toujours la fin du mot qui est supprimee
+		if sousChaine2 == "":
+			#Calcul i eme mot modifie
+			phrase_modif = prefix3 + sousChaine3+suffix3
+			phrase_modif = phrase_modif.split(' ')
+
+			#numero du mot qui est modifie
+			taille_pm = len( phrase_modif )
+
+			phrase_modif2 = prefix+sousChaine+suffix
+			phrase_modif2 = phrase_modif2.split(' ')
+
+			#Si le bout de phrase cible est aussi grand ou plus que la phrase source
+			if len( phrase_modif2) >= taille_pm:
+				#calcul de la diff entre la phrase source et sa correction : nombre de caractere a supprime
+				diff = len(prefix3 + sousChaine3 + suffix3) - len(prefix2) 
+
+				#taille de la chaine quon supprimera par la fin
+				t=0
+				for x in range(0,taille_pm):
+					t+=len(phrase_modif2[x])
+
+				#ajout des espaces entre chaque mot
+				t += taille_pm-1
+
+				fin_dep = pos1 + t- diff
+
+		"""
 		if As == 'Je t\'aimes.' or As == 'Je tues.':
 			print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 			print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
@@ -144,14 +155,15 @@ def single_correction(As, Bs, Cs):
 			print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 			print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 			print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-		
+		"""
 		
 
 	else:
-	"""
-	Cas ou une string ressemble dans la chaine mais ne commence et ne finit pas comme la phrase cible
-	utilisation de la distance lcs (longest common string)
-	"""
+		"""
+		Cas ou une string ressemble dans la chaine mais ne commence et ne finit pas comme la phrase cible
+		utilisation de la distance lcs (longest common string)
+		"""
+
 		tab = lcs(As,Bs)
 		prefix = tab[len(tab)-1]
 		#print 'Test Lcs ', prefix, As, Bs
@@ -206,7 +218,7 @@ def single_correction(As, Bs, Cs):
 				#Calcul i eme mot modifie
 				phrase_modif = prefix3 + sousChaine3
 				phrase_modif = phrase_modif.split(' ')
-				
+
 				#numero du mot qui est modifie
 				taille_pm = len( phrase_modif )
 
@@ -249,6 +261,12 @@ def single_correction(As, Bs, Cs):
 	deb_fin = fin_dep+len(sousChaine3)
 	if deb_fin > len(Bs) and fin_dep < len(Bs): deb_fin = fin_dep
 
+	"""
+	point a checker	
+	print ' AAAAAAAAAAAAAAAAAAAAAAAAAAA ', As[len(prefix):-len(suffix)], Bs[len(prefix):-len(suffix)]
+	"""
+
+	print fin_dep, deb_fin, Bs[0:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)]
 	return Bs[0:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)]
 
 ################################################################################
