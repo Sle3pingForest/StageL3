@@ -87,17 +87,32 @@ def translate(bicorpus, file=sys.stdin):
 
 				init_memo_fast_distance(As[0])
 				dist_src = memo_fast_distance(As[1])
-				if memo_fast_distance(a_s+b_s+c_s) != 0:# and dist_cible == dist_src:
-					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0], As
+				if memo_fast_distance(a_s+b_s+c_s) != 0 and dist_cible == dist_src:
+					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0]
 
 if __name__ == '__main__':
-	options = read_argv()
-	__verbose__ = options.verbose
-	t1 = time.time()
-	bidata = Bicorpus()
-	for filename in options.training_data:
-		print filename
-		bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
+
+	if len(sys.argv)  == 1:
+		phrase = input('Rentrez la phrase à corriger : ')
+		
+		choix = input('Voulez vous entrer une correction ? O/n ')
+		if ( choix == 'O'):
+			src = input('Rentrez la phrase source fausse : ')
+			src_corr = input('Rentrez la phrase source corrigée : ')
+			bidata = Bicorpus()
+			bidata = {}
+			bidata[src] = A[src_corr]
+		elif choix == 'n':
+			# 'base_de_cas.txt', '-s', '1', '-t', '2']
+			print blalba
+	else:	
+		sys.stdin = 'base_de_cas_2.txt'
+		options = read_argv()
+		__verbose__ = options.verbose
+		t1 = time.time()
+		bidata = Bicorpus()
+		for filename in options.training_data:
+			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
 	translate(bidata)
 	if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
 	
