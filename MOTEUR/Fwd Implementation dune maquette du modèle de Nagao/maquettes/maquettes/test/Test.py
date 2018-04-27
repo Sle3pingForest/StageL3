@@ -67,11 +67,11 @@ def translate(bicorpus, file=sys.stdin):
 		#compteur de la plus basse distance entre la chaine et les cas dans le dictionnaire
 		dist = sys.maxint
 		super_dist = sys.maxint
-		init_memo_fast_distance(Bs)
 		Bs = Bs.rstrip('\n')
 		if __verbose__: print >> sys.stderr, '\n# Translating sentence: {}'.format(Bs)
 #		for As in bicorpus:
 		for As in bicorpus.iter(string=Bs, strategy='by distance', method='direct'):
+			init_memo_fast_distance(Bs)
 #			Case where the sentence is already in the case base
 			dist = memo_fast_distance(As[0])
 			if  dist == 0:
@@ -82,8 +82,13 @@ def translate(bicorpus, file=sys.stdin):
 				if __verbose__: print >> sys.stderr, '#\t{} : {} :: {} : {}\n'.format(a_s, a_t, b_s, b_t)
 
 				#Filtre les cas où il n'y a pas eu de changement lors de la correction
-				if memo_fast_distance(a_s+b_s+c_s) != 0:# and 1+1 ==5:
-					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0]
+
+				dist_cible = memo_fast_distance(a_s+b_s+c_s)
+
+				init_memo_fast_distance(As[0])
+				dist_src = memo_fast_distance(As[1])
+				if memo_fast_distance(a_s+b_s+c_s) != 0:# and dist_cible == dist_src:
+					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0], As
 
 if __name__ == '__main__':
 	options = read_argv()

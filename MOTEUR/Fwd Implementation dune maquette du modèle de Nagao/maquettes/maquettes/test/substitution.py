@@ -68,13 +68,11 @@ def single_correction(As, Bs, Cs):
 
 
 	#prefix suffix entre le probleme source et probleme cible
-	prefix, suffix = commonprefix([As, Bs]), commonsuffix([As, Bs])
 	prefix, suffix = commonprefix([Bs, As]), commonsuffix([Bs, As])
 
 	
 	if  len(prefix) > 1 or len(suffix) > 1:	
 	#Cas ou il y a un debut ou une fin qui ressemble
-		
 		pos1 = Bs.find(prefix)
 		pos2 = Bs.find(suffix)
 		#extraction sans le '/a'
@@ -110,8 +108,6 @@ def single_correction(As, Bs, Cs):
 			#avoir l'espace manquant
 			fin_dep = len(sousChaine)+1
 
-			Fs = Bs[0:len(sousChaine)] + sousChaine2 + Bs[fin_dep+len(sousChaine3):len(Bs)]
-
 		#Cas d une suppression de caractere donc quand la souschaine2 est vide
 		#Je suppose que cest toujours la fin du mot qui est supprimee
 		if sousChaine2 == "":
@@ -146,10 +142,17 @@ def single_correction(As, Bs, Cs):
 				#ajout des espaces entre chaque mot
 				t += taille_pm-1
 
-				fin_dep = pos1 + t- diff
+				fin_dep = pos1 + t - diff
+		
+				#si la suppression n'est pas en fin de phrase il faut enlever un espace
 
-		"""
-		if As == 'Je t\'aimes.' or As == 'Je tues.':
+				phrase_modif2 = prefix+sousChaine+suffix
+				phrase_modif2 = phrase_modif2.split(' ')
+
+				if taille_pm < len(phrase_modif2): sousChaine3 += ' '
+
+		
+		if As == 'Je t\'aimes.' or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 			print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 			print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
 			print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
@@ -163,7 +166,7 @@ def single_correction(As, Bs, Cs):
 			print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 			print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 			print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-		"""
+		
 		
 
 	else:
@@ -171,7 +174,6 @@ def single_correction(As, Bs, Cs):
 		Cas ou une string ressemble dans la chaine mais ne commence et ne finit pas comme la phrase cible
 		utilisation de la distance lcs (longest common string)
 		"""
-
 		tab = lcs(As,Bs)
 		prefix = tab[len(tab)-1]
 		#print 'Test Lcs ', prefix, As, Bs
@@ -247,6 +249,12 @@ def single_correction(As, Bs, Cs):
 					t += taille_pm-1
 					
 					fin_dep = pos1 + t- diff
+
+
+					phrase_modif2 = prefix+sousChaine+suffix
+					phrase_modif2 = phrase_modif2.split(' ')
+
+					if taille_pm < len(phrase_modif2): sousChaine3 += ' '
 					
 
 		else:
@@ -274,7 +282,6 @@ def single_correction(As, Bs, Cs):
 	print ' AAAAAAAAAAAAAAAAAAAAAAAAAAA ', As[len(prefix):-len(suffix)], Bs[len(prefix):-len(suffix)]
 	"""
 
-	print fin_dep, deb_fin, Bs[0:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)]
 	return Bs[0:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)]
 
 ################################################################################
@@ -291,22 +298,22 @@ def tree_substitution(As, Bs):
 ################################################################################
 
 def lcs(S,T):
-    m = len(S)
-    n = len(T)
-    counter = [[0]*(n+1) for x in range(m+1)]
-    longest = 0
-    lcs_set = []
-    for i in range(m):
-        for j in range(n):
-            if S[i] == T[j]:
-                c = counter[i][j] + 1
-                counter[i+1][j+1] = c
-                if c > longest:
-                    lcs_set = []
-                    longest = c
-                    lcs_set.insert(0,S[i-c+1:i+1])
-                elif c == longest:
-                    lcs_set.insert(0,S[i-c+1:i+1])
+	m = len(S)
+	n = len(T)
+	counter = [[0]*(n+1) for x in range(m+1)]
+	longest = 0
+	lcs_set = []
+	for i in range(m):
+		for j in range(n):
+		    if S[i] == T[j]:
+			c = counter[i][j] + 1
+			counter[i+1][j+1] = c
+			if c > longest:
+			    lcs_set = []
+			    longest = c
+			    lcs_set.insert(0,S[i-c+1:i+1])
+			elif c == longest:
+			    lcs_set.insert(0,S[i-c+1:i+1])
 
-    return lcs_set
+	return lcs_set
 
