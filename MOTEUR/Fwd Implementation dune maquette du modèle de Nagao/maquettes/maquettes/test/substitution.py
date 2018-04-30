@@ -151,7 +151,7 @@ def single_correction(As, Bs, Cs):
 
 				if taille_pm < len(phrase_modif2): sousChaine3 += ' '
 
-		
+		"""
 		if As == 'Je t\'aimes.' or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 			print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 			print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
@@ -166,7 +166,7 @@ def single_correction(As, Bs, Cs):
 			print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 			print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 			print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-		
+		"""
 		
 
 	else:
@@ -174,8 +174,11 @@ def single_correction(As, Bs, Cs):
 		Cas ou une string ressemble dans la chaine mais ne commence et ne finit pas comme la phrase cible
 		utilisation de la distance lcs (longest common string)
 		"""
+		
+		print 'SUBSTI ',As,Bs
 		tab = lcs(As,Bs)
-		prefix = tab[len(tab)-1]
+		prefix = ''
+		if tab: prefix = tab[len(tab)-1]
 		#print 'Test Lcs ', prefix, As, Bs
 
 		

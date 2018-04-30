@@ -54,7 +54,7 @@ def read_argv():
 
 ################################################################################
 
-def translate(bicorpus, file=sys.stdin):
+def translate(bicorpus, sentence = False, file=sys.stdin):
 	"""
 	input: Bs, a sentence in the source language
 	output: list of Bt, sentences in the target language, candidate translations
@@ -62,20 +62,26 @@ def translate(bicorpus, file=sys.stdin):
 		bicorpus = list of pairs (As, At) where At is the translation of As.
 		bidictionary = bilingual dictionary of (a_s, a_t) where a_s is a word, and a_t its translation.
 	"""
+	if sentence != False: 
+		tab = [sentence]
+		file = tab
 #	bidictionary = bicorpus
 	for Bs in file:
+		print 'Bs', Bs
 		#compteur de la plus basse distance entre la chaine et les cas dans le dictionnaire
 		dist = sys.maxint
 		super_dist = sys.maxint
 		Bs = Bs.rstrip('\n')
 		if __verbose__: print >> sys.stderr, '\n# Translating sentence: {}'.format(Bs)
 #		for As in bicorpus:
-		for As in bicorpus.iter(string=Bs, strategy='by distance', method='direct'):
+		string = sentence
+		if sentence == False: string = Bs
+		for As in bicorpus.iter(string, strategy='by distance', method='direct'):
 			init_memo_fast_distance(Bs)
 #			Case where the sentence is already in the case base
 			dist = memo_fast_distance(As[0])
 			if  dist == 0:
-				print Bs,'\t',As[1]
+				print 'Result', Bs,'\t',As[1]
 
 			else :
 				a_s, b_s, c_s = single_correction(As[0], Bs, As[1])
@@ -92,29 +98,30 @@ def translate(bicorpus, file=sys.stdin):
 
 if __name__ == '__main__':
 
+	
+	bidata = Bicorpus()
 	if len(sys.argv)  == 1:
-		phrase = input('Rentrez la phrase à corriger : ')
-		
-		choix = input('Voulez vous entrer une correction ? O/n ')
-		if ( choix == 'O'):
-			src = input('Rentrez la phrase source fausse : ')
-			src_corr = input('Rentrez la phrase source corrigée : ')
-			bidata = Bicorpus()
-			bidata = {}
-			bidata[src] = A[src_corr]
+		phrase = raw_input('Rentrez la phrase à corriger : ')
+		choix = raw_input('Voulez vous entrer une correction ? O/n : ')
+		if choix == 'O':
+			src = raw_input('Rentrez la phrase source fausse : ')
+			src_corr = raw_input('Rentrez la phrase source corrigée : ')
+			bidata += Bicorpus.fromInput(src,src_corr)
 		elif choix == 'n':
-			# 'base_de_cas.txt', '-s', '1', '-t', '2']
-			print blalba
+			base_de_cas = raw_input('Rentrez le nom de la base de cas à utiliser : ')
+			sys.stdin = base_de_cas
+			bidata += Bicorpus.fromFile(open(base_de_cas), 0, 1)
+		
+		translate(bidata, phrase)
 	else:	
-		sys.stdin = 'base_de_cas_2.txt'
 		options = read_argv()
 		__verbose__ = options.verbose
 		t1 = time.time()
-		bidata = Bicorpus()
 		for filename in options.training_data:
 			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
-	translate(bidata)
-	if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
+		translate(bidata)
+		if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
+
 	
 	
 	

@@ -41,6 +41,12 @@ class Bicorpus(dict):
 			bidata[A[source]] = A[target]
 		return cls(bidata=bidata)
 
+	@classmethod
+	def fromInput(cls,src,corr):
+		bidata = {}
+		bidata[src] = corr
+		return cls(bidata=bidata)
+
 	def __add__(self, other):
 		for As in other:
 			if As not in self:
