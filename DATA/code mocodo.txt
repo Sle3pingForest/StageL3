@@ -1,0 +1,6 @@
+BASE_CASE: idBase, SentanceFalse, SentanceTrue, idUser
+edit, 1N ADMIN, 11 BASE_CASE
+ADMIN: idAdmin, firstname, lastname, adresssMail
+
+comming, 11 BASE_CASE, 1N ORIGIN
+ORIGIN: idOrigin, originSource
