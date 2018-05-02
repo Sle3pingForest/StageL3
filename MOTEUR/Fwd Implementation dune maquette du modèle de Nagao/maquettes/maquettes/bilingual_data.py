@@ -37,7 +37,6 @@ class Bicorpus(dict):
 		"""
 		bidata = {}
 		for line in file:
-			print line
 			A = line.rstrip('\n').split('\t')
 			bidata[A[source]] = A[target]
 		return cls(bidata=bidata)

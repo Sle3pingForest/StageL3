@@ -151,8 +151,8 @@ def single_correction(As, Bs, Cs):
 
 				if taille_pm < len(phrase_modif2): sousChaine3 += ' '
 
-		"""
-		if As == 'Je t\'aimes.' or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
+		
+		if 1:# As == 'Je t\'aimes.' or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 			print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 			print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
 			print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
@@ -166,7 +166,7 @@ def single_correction(As, Bs, Cs):
 			print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 			print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 			print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-		"""
+		
 		
 
 	else:

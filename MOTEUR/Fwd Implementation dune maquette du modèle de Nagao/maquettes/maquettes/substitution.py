@@ -12,7 +12,7 @@ __date__, __version__ = '10/10/2017', '1.0'
 __description__ = '''
 	Module to extract substitutions.
 '''
-__verbose__ = False
+__verbose__ = True
 
 ################################################################################
 
@@ -32,7 +32,7 @@ def single_substitution(As, Bs):
 		return commonprefix([s[::-1] for s in list])[::-1]
 	
 	prefix, suffix = commonprefix([As, Bs]), commonsuffix([As, Bs])
-	if __verbose__: print >> sys.stderr, 'prefix/suffix({}, {}) = {}, {}'.format(As, Bs, prefix, suffix)
+	if __verbose__ and As == 'They love pears.': print >> sys.stderr, 'prefix/suffix({}, {}) = {}, {}'.format(As, Bs, prefix, suffix)
 	return As[len(prefix):-len(suffix)], Bs[len(prefix):-len(suffix)]
 
 ################################################################################

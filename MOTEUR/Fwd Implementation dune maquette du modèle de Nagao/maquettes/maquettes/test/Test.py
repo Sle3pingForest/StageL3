@@ -19,7 +19,7 @@ __description__ = '''
 	For that, uses the bicorpus and the bilingual dictionary
 	passed as positional arguments.
 '''
-__verbose__ = False
+__verbose__ = True
 
 ################################################################################
 
@@ -85,7 +85,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 
 			else :
 				a_s, b_s, c_s = single_correction(As[0], Bs, As[1])
-				if __verbose__: print >> sys.stderr, '#\t{} : {} :: {} : {}\n'.format(a_s, a_t, b_s, b_t)
+				if __verbose__: print >> sys.stderr, '#\t{} : {} : {} :: {} : {} : {}\n'.format(a_s, b_s, c_s, As[0], Bs, As[1])
 
 				#Filtre les cas où il n'y a pas eu de changement lors de la correction
 

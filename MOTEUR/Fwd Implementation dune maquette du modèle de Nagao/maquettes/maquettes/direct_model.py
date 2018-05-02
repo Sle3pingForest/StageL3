@@ -68,14 +68,16 @@ def translate(bicorpus, file=sys.stdin):
 #		for As in bicorpus:
 		for As in bicorpus.iter(string=Bs, strategy='by distance', method='direct'):
 			a_s, b_s = single_substitution(As, Bs)
-			#print(As + ' | ' + Bs + '        ' +  a_s + ' | ' + b_s + '\n')
+			#print ' 1ER ',As + ' | ' + Bs + '        ' +  a_s + ' | ' + b_s + '\n'
 			try:
 				a_t, b_t = bicorpus[a_s], bicorpus[b_s]
-				#print(a_t + ' | ' + b_t + '        ' +  a_s + ' | ' + b_s + '\n')
+				print As, Bs
+				print ' 2EME ',a_t + ' | ' + b_t + '        ' +  a_s + ' | ' + b_s + '\n'
 			except KeyError:
 				continue
 			else:
 				if __verbose__: print >> sys.stderr, '#\t{} : {} :: {} : {}\n'.format(a_s, a_t, b_s, b_t)
+				print As, Bs
 				print '{}\t{}'.format(Bs, bicorpus[As].replace(a_t, b_t))
 
 if __name__ == '__main__':
