@@ -31,7 +31,7 @@ def read_argv():
 	this_usage = '''
 		%(prog)s  CORPUS
 
-		Ex: printf "J'aime pas les pommes." | python Test.py base_de_cas.txt -s 1 -t 2
+		Ex: printf "J'aime pas nager." | python Test.py base_de_cas.txt -s 1 -t 2
 	'''
 
 	parser = argparse.ArgumentParser(version=this_version, description=this_description, usage=this_usage)
@@ -67,7 +67,6 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 		file = tab
 #	bidictionary = bicorpus
 	for Bs in file:
-		print 'Bs', Bs
 		#compteur de la plus basse distance entre la chaine et les cas dans le dictionnaire
 		dist = sys.maxint
 		super_dist = sys.maxint
@@ -93,8 +92,9 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 
 				init_memo_fast_distance(As[0])
 				dist_src = memo_fast_distance(As[1])
-				if memo_fast_distance(a_s+b_s+c_s) != 0 and dist_cible == dist_src:
-					print ' RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0]
+				
+				if dist_cible != 0:# and dist_cible == dist_src:
+					print 'RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0], dist_cible
 
 if __name__ == '__main__':
 

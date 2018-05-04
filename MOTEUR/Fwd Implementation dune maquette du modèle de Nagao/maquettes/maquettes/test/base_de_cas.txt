@@ -10,3 +10,4 @@ Tu veux du poulet va chez KFC et je t'aime pas.	Tu veux du poulet va chez KFC et
 Je t'aimes.	Je t'aime.	Moi.
 Je dors pas.	Je ne dors pas.		Lieber.
 Je tues.	Je tue.	Moi.
+Inné.	nées.	Moi.
