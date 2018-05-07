@@ -19,7 +19,7 @@ __description__ = '''
 	For that, uses the bicorpus and the bilingual dictionary
 	passed as positional arguments.
 '''
-__verbose__ = True
+__verbose__ = False
 
 ################################################################################
 
@@ -80,7 +80,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 #			Case where the sentence is already in the case base
 			dist = memo_fast_distance(As[0])
 			if  dist == 0:
-				print 'Result', Bs,'\t',As[1]
+				print 'Result: ', Bs,'\t',As[1]
 
 			else :
 				a_s, b_s, c_s = single_correction(As[0], Bs, As[1])
@@ -93,8 +93,9 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				init_memo_fast_distance(As[0])
 				dist_src = memo_fast_distance(As[1])
 				
-				if dist_cible != 0:# and dist_cible == dist_src:
-					print 'RESULTAT {}\t{}'.format(Bs, a_s+b_s+c_s), '|', As[0], dist_cible
+				if dist_cible != 0 or 1:# and dist_cible == dist_src:
+					print 'Result: {}\t{}'.format(Bs, a_s+b_s+c_s), '|', 'phrase fausse source', As[0]
+		print 'fini'
 
 if __name__ == '__main__':
 

@@ -69,7 +69,7 @@ def single_correction(As, Bs, Cs):
 
 	#prefix suffix entre le probleme source et probleme cible
 	prefix, suffix = commonprefix([Bs, As]), commonsuffix([Bs, As])
-
+	verif = False
 	if  len(prefix) > 1 or len(suffix) > 1:	
 	#Cas ou il y a un debut ou une fin qui ressemble
 		pos1 = Bs.find(prefix)
@@ -77,7 +77,7 @@ def single_correction(As, Bs, Cs):
 		#extraction sans le '/a'
 		sousChaine = Bs[pos1+len(prefix):pos2]
 
-		prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible,fin_dep = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
+		prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible,fin_dep,verif = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
 
 		#chaine "corrigee"
 		if pos_prefix2_dans_cible == -1:
@@ -97,14 +97,11 @@ def single_correction(As, Bs, Cs):
 
 
 			fin_dep, sousChaine3 = suppr_char(As,Bs,pos1,prefix,sousChaine, suffix, prefix2, prefix3, sousChaine3, fin_dep)
-			print fin_dep, sousChaine3, 'ehe'
 	else:
 		"""
 		Cas ou une string ressemble dans la chaine mais ne commence et ne finit pas comme la phrase cible
 		utilisation de la distance lcs (longest common string)
 		"""
-
-		print 'hihi'
 		tab = lcs(As,Bs)
 		prefix = ''
 		if tab: prefix = tab[len(tab)-1]
@@ -115,7 +112,7 @@ def single_correction(As, Bs, Cs):
 			#extraction sans le '/a'
 			sousChaine = Bs[pos1+len(prefix):pos2]
 		
-			prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible,fin_dep = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
+			prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible,fin_dep, verif = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
 
 			#cas ou la modif est dans le prefix de Bs
 			if pos_prefix2_dans_cible == -1:
@@ -158,6 +155,14 @@ def single_correction(As, Bs, Cs):
 
 	if __verbose__: print >> sys.stderr, 'prefix/suffix({}, {}) = {}, {}'.format(As, Bs, prefix, suffix)
 
+
+	
+	debut = 0
+	if verif:
+		debut = As.find(prefix3)
+		fin_dep = debut + len(prefix3.decode('utf-8'))
+
+
 	# borne de debut du suffix
 	deb_fin = fin_dep+len(sousChaine3)
 	if deb_fin > len(Bs) and fin_dep < len(Bs): 
@@ -168,7 +173,7 @@ def single_correction(As, Bs, Cs):
 	print ' AAAAAAAAAAAAAAAAAAAAAAAAAAA ', As[len(prefix):-len(suffix)], Bs[len(prefix):-len(suffix)]
 	"""
 
-	return Bs[0:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)]
+	return Bs[debut:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)]
 
 ################################################################################
 
@@ -215,14 +220,17 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 
 	def commonsuffix(list):
 		return commonprefix([s[::-1] for s in list])[::-1]
-
-	tab = lcs(As,Cs)
+	
+	tab = {}
 	prefix4 = ''
 	verif = False
-	if tab: 
-		prefix4 = tab[len(tab)-1]
-		verif = True
 
+	if Cs.find(prefix) < As.find(prefix) and Cs.find(prefix) != -1:
+		tab = lcs(As,Cs)
+		if tab: 
+			prefix4 = tab[len(tab)-1]
+			verif = True
+	
 
 	#prefix suffix entre la solution du probleme source et le probleme dans la solution
 	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
@@ -248,8 +256,8 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	
 	#borne de fin de prefix
 	fin_dep = pos_prefix2_dans_cible+len(prefix2)
-	
-	if As == 'Je suis sur Nancy.' or As == 'Inné.':
+	"""
+	if As == 'J\'aime pas les pommes.' or As == 'Inné.':
 		print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 		print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
 		print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
@@ -263,14 +271,15 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 		print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 		print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 		debut = 0
+		
 		if verif:
 			debut = pos3
 			fin_dep = debut + len(prefix4.decode('utf-8'))
-			 
-		print Bs[debut:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
 		
+		print Bs[debut:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
+	"""	
 
-	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep
+	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif
 
 
 ############################################################################
