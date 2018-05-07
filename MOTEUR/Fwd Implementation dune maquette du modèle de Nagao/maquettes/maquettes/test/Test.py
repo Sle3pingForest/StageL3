@@ -93,8 +93,8 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				init_memo_fast_distance(As[0])
 				dist_src = memo_fast_distance(As[1])
 				
-				if dist_cible != 0 or 1:# and dist_cible == dist_src:
-					print 'Result: {}\t{}'.format(Bs, a_s+b_s+c_s), '|', 'phrase fausse source', As[0]
+				if dist_cible != 0:# and dist_cible == dist_src:
+					print 'Result: {}\t{}'.format(Bs, a_s+b_s+c_s), '|', 'phrase fausse source: ', As[0]
 		print 'fini'
 
 if __name__ == '__main__':

@@ -225,16 +225,16 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	prefix4 = ''
 	verif = False
 
-	if Cs.find(prefix) < As.find(prefix) and Cs.find(prefix) != -1:
-		tab = lcs(As,Cs)
-		if tab: 
-			prefix4 = tab[len(tab)-1]
+	tab = lcs(As,Cs)
+	if tab: 
+		prefix4 = tab[len(tab)-1]
+		if Cs.find(prefix4) < As.find(prefix4) and Cs.find(prefix4) != -1:
 			verif = True
-	
+
 
 	#prefix suffix entre la solution du probleme source et le probleme dans la solution
 	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
-	if tab: prefix2 = prefix4
+	if verif: prefix2 = prefix4
 	pos_prefix2 = Cs.find(prefix2)
 	pos_suffix2 = Cs.find(suffix2)
 	# souschaine2 = chaine qui remplace qui se trouve entre le prefix et le suffixe
@@ -247,7 +247,7 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 
 	#prefix suffix entre le probleme source et sa solution dans le src
 	prefix3, suffix3 = commonprefix([As, Cs]), commonsuffix([As, Cs])
-	if tab: prefix3 = prefix4
+	if verif: prefix3 = prefix4
 	pos3 = As.find(prefix3)
 	pos4 = As.find(suffix3)
 	# souschaine3 = chaine qui va etre remplacer par la souschaine 2
