@@ -2,25 +2,36 @@
 /*create table*/
 
 DROP TABLE IF EXISTS `ADMINS`;
+DROP TABLE IF EXISTS `CASE_BASE`;
+DROP TABLE IF EXISTS `CASES_TO_BE_VALIDATED`;
 DROP TABLE IF EXISTS `ORIGIN`;
-DROP TABLE IF EXISTS `BASE_CASE`;
 
 CREATE TABLE IF NOT EXISTS ADMINS(
-		idAdmin int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		password varchar(30) DEFAULT NULL,
-		firstname varchar(30) DEFAULT NULL,
-		lastname varchar(30) DEFAULT NULL,
-		mailAdmin varchar(30) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+	idAdmin int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	password varchar(30) DEFAULT NULL,
+	firstname varchar(30) DEFAULT NULL,
+	lastname varchar(30) DEFAULT NULL,
+	email varchar(30) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 		
 CREATE TABLE IF NOT EXISTS ORIGIN(
-		idOrigin int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		originSource varchar(200) CHARACTER SET utf8,
-		note varchar(200) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+	idOrigin int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	originSource varchar(200) CHARACTER SET utf8,
+	note varchar(200) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
-CREATE TABLE IF NOT EXISTS BASE_CASE (
-	`idBaseCase` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`sentenceFalse` varchar (200) CHARACTER SET utf8,
-	`sentenceTrue` varchar(200) CHARACTER SET utf8,
-	`idProvenance` int NOT NULL ,
+CREATE TABLE IF NOT EXISTS CASE_BASE (
+	idBaseCase int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	problem varchar (200) CHARACTER SET utf8,
+	solution varchar(200) CHARACTER SET utf8,
+	lang varchar(10) CHARACTER SET utf8,
+	idProvenance int NOT NULL ,
 	
 CONSTRAINT fk__provenance FOREIGN KEY (idProvenance) REFERENCES ORIGIN(idOrigin)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS CASES_TO_BE_VALIDATED (
+	idValidated int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	problem_to_be_validated varchar (200) CHARACTER SET utf8,
+	solution_to_be_validated varchar(200) CHARACTER SET utf8,
+	lang__to_be_validated varchar(10) CHARACTER SET utf8,
+	idProvenance_to_be_validated int NOT NULL ,
+	
+CONSTRAINT fk__provenance_to_be_validated FOREIGN KEY (idProvenance_to_be_validated) REFERENCES ORIGIN(idOrigin)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
