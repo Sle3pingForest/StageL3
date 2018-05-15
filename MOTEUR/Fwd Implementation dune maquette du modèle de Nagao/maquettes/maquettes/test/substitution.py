@@ -188,24 +188,33 @@ def tree_substitution(As, Bs):
 
 ################################################################################
 
-def lcs(S,T):
+def fcs(S,T):
+	"""
+	first common substring
+
+	"""
 	m = len(S)
 	n = len(T)
 	counter = [[0]*(n+1) for x in range(m+1)]
 	longest = 0
 	lcs_set = []
-	for i in range(m):
-		for j in range(n):
-		    if S[i] == T[j]:
-			c = counter[i][j] + 1
-			counter[i+1][j+1] = c
-			if c > longest:
-			    lcs_set = []
-			    longest = c
-			    lcs_set.insert(0,S[i-c+1:i+1])
-			elif c == longest:
-			    lcs_set.insert(0,S[i-c+1:i+1])
-
+	i = 0
+	j_avant =  0
+	find = False
+	while i < m:
+		j = 0
+		while j < n:
+			if S[i] == T[j]:
+				c = counter[i][j] + 1
+				counter[i+1][j+1] = c
+				if c > longest and (j - j_avant) == 1:
+					lcs_set = []
+					longest = c
+					lcs_set.insert(0,S[i-c+1:i+1])
+					find = True
+					j_avant = j
+			j += 1
+		i += 1
 	return lcs_set
 
 ###############################################################################
@@ -224,13 +233,12 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	tab = {}
 	prefix4 = ''
 	verif = False
-
-	tab = lcs(As,Cs)
+	
+	tab = fcs(As,Cs)
 	if tab: 
 		prefix4 = tab[len(tab)-1]
-		if Cs.find(prefix4) < As.find(prefix4) and Cs.find(prefix4) != -1:
+		if Cs.find(prefix4) <= As.find(prefix4) and Cs.find(prefix4) != -1 and len(prefix4) >= len(prefix):
 			verif = True
-
 
 	#prefix suffix entre la solution du probleme source et le probleme dans la solution
 	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
@@ -256,28 +264,6 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	
 	#borne de fin de prefix
 	fin_dep = pos_prefix2_dans_cible+len(prefix2)
-	"""
-	if As == 'J\'aime pas les pommes.' or As == 'Inné.':
-		print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
-		print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
-		print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
-		print '  2eme ', prefix2, '|' ,  sousChaine2 ,'|' , suffix2,'\n'
-
-	
-		print ' 3 Correction' ,len(As), '| Prefix', pos3, '|', len(prefix3),'| Suffix',pos4, '|', len(suffix3) , '| Mid',len(sousChaine3), '\n'
-		print '  3eme ', prefix3, '|' ,  sousChaine3 ,'|' , suffix3,'\n'
-	
-
-		print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
-		print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
-		debut = 0
-		
-		if verif:
-			debut = pos3
-			fin_dep = debut + len(prefix4.decode('utf-8'))
-		
-		print Bs[debut:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-	"""	
 
 	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif
 
@@ -319,4 +305,27 @@ def suppr_char(As,Bs,pos1,prefix,sousChaine, suffix, prefix2, prefix3, sousChain
 
 
 	return fin_dep, sousChaine3
+
+################################################################################
+
+def lcs(S,T):
+	m = len(S)
+	n = len(T)
+	counter = [[0]*(n+1) for x in range(m+1)]
+	longest = 0
+	lcs_set = []
+	for i in range(m):
+		for j in range(n):
+		    if S[i] == T[j]:
+			c = counter[i][j] + 1
+			counter[i+1][j+1] = c
+			if c > longest:
+			    lcs_set = []
+			    longest = c
+			    lcs_set.insert(0,S[i-c+1:i+1])
+			elif c == longest:
+			    lcs_set.insert(0,S[i-c+1:i+1])
+
+	return lcs_set
+
 
