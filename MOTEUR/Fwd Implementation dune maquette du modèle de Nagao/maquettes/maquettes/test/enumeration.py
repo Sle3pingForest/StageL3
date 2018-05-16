@@ -40,7 +40,6 @@ def direct_iteration_strategy(self, string=None, strategy='naive'):
 	if __verbose__: print >> sys.stderr, 'Bs = "%s", strategy = %s' % (Bs, strategy)
 	if Bs == None or strategy == 'naive':
 		result = self.keys()
-		print 'je ne passe pas dans naive '
 	else:
 		init_memo_fast_distance(Bs)
 		if strategy == 'by distance':
@@ -88,7 +87,10 @@ def indirect_iteration_strategy(self, string=None, strategy='naive'):
 		elif strategy == 'closest':
 			first_N = 3
 			init_memo_fast_distance(Ds)
+			result = sorted(self.keys(), key=lambda Xs: memo_fast_distance(Xs))
+			print 'RESULT', result, '\n'
 			for Bs in sorted(self.keys(), key=lambda Xs: memo_fast_distance(Xs))[:first_N]:
+				print Bs
 				init_memo_fast_distance(Bs)
 				for As in sorted(self.keys(), key=lambda Xs: len(Bs) - memo_fast_similitude(Xs))[:first_N]:
 					if __verbose__: print >> sys.stderr, '# {} : {} :: {} : x'.format(Bs, As, Ds)
@@ -97,6 +99,7 @@ def indirect_iteration_strategy(self, string=None, strategy='naive'):
 						if __verbose__: print >> sys.stderr, '# {} : {} :: {} : {}'.format(Bs, As, Ds, CCs)
 						init_memo_fast_distance(CCs)
 						for Cs in sorted(self.keys(), key=lambda Xs: memo_fast_distance(Xs))[:first_N]:
+							print Cs
 							if __verbose__: print >> sys.stderr, '# {} : {} :: {} : {}'.format(Bs, As, Ds, Cs)
 							yield (As, Bs, Cs)
 
