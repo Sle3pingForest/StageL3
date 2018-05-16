@@ -76,6 +76,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 #		for As in bicorpus:
 		string = sentence
 		if sentence == False: string = Bs
+		print Bs
 		for As in bicorpus.iter(string, strategy='by distance', method='direct'):
 			init_memo_fast_distance(Bs)
 #			Case where the sentence is already in the case base
@@ -84,7 +85,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				print '{}\t{}', Bs,'\t',As[1]
 
 			else :
-				a_s, b_s, c_s = single_correction(As[0], Bs, As[1])
+				a_s, b_s, c_s, e_s, pos = single_correction(As[0], Bs, As[1])
 				if __verbose__: print >> sys.stderr, '#\t{} : {} : {} :: {} : {} : {}\n'.format(a_s, b_s, c_s, As[0], Bs, As[1])
 
 				#Filtre les cas où il n'y a pas eu de changement lors de la correction
@@ -94,7 +95,8 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				init_memo_fast_distance(As[0])
 				dist_src = memo_fast_distance(As[1])
 				Dt = solvenlg(As[0], As[1], Bs)	
-				if Dt != None and verifnlg(As[0], As[1], Bs, Dt):# and dist_cible == dist_src:
+				if dist_cible != 0 and Dt != None and verifnlg(As[0], As[1], Bs, Dt):# and dist_cible == dist_src:
+					print '\n',As[0]
 					print '{}\t{}'.format(Bs, Dt)
 					print '{}\t{}'.format(Bs, a_s+b_s+c_s)
 

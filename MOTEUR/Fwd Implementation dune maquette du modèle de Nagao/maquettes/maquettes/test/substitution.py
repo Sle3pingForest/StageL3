@@ -77,7 +77,7 @@ def single_correction(As, Bs, Cs):
 		#extraction sans le '/a'
 		sousChaine = Bs[pos1+len(prefix):pos2]
 
-		prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible,fin_dep,verif = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
+		prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
 
 		#chaine "corrigee"
 		if pos_prefix2_dans_cible == -1:
@@ -112,7 +112,7 @@ def single_correction(As, Bs, Cs):
 			#extraction sans le '/a'
 			sousChaine = Bs[pos1+len(prefix):pos2]
 		
-			prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible,fin_dep, verif = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
+			prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
 
 			#cas ou la modif est dans le prefix de Bs
 			if pos_prefix2_dans_cible == -1:
@@ -152,6 +152,7 @@ def single_correction(As, Bs, Cs):
 			pos_prefix2_dans_cible = 0
 			sousChaine3 = ''
 			fin_dep =0
+			pos = -1
 
 	if __verbose__: print >> sys.stderr, 'prefix/suffix({}, {}) = {}, {}'.format(As, Bs, prefix, suffix)
 
@@ -173,7 +174,7 @@ def single_correction(As, Bs, Cs):
 	print ' AAAAAAAAAAAAAAAAAAAAAAAAAAA ', As[len(prefix):-len(suffix)], Bs[len(prefix):-len(suffix)]
 	"""
 
-	return Bs[debut:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)]
+	return Bs[debut:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)], sousChaine3, pos
 
 ################################################################################
 
@@ -237,8 +238,12 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	tab = fcs(As,Cs)
 	if tab: 
 		prefix4 = tab[len(tab)-1]
-		if Cs.find(prefix4) <= As.find(prefix4) and Cs.find(prefix4) != -1 and len(prefix4) >= len(prefix):
-			verif = True
+		if len(prefix4) >= len(prefix):
+			if Cs.find(prefix) == -1:
+				verif = True
+			else:
+				if Cs.find(prefix4) <= Cs.find(prefix):
+					verif = True
 
 	#prefix suffix entre la solution du probleme source et le probleme dans la solution
 	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
@@ -265,8 +270,12 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	#borne de fin de prefix
 	fin_dep = pos_prefix2_dans_cible+len(prefix2)
 
-	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif
+	taille = pos3+len(prefix3)
+	
+	pos = calcul_pos(As, sousChaine3, taille) 
 
+
+	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos
 
 ############################################################################
 
@@ -305,6 +314,31 @@ def suppr_char(As,Bs,pos1,prefix,sousChaine, suffix, prefix2, prefix3, sousChain
 
 
 	return fin_dep, sousChaine3
+
+
+############################################################################
+
+def calcul_pos(phrase, empreinte, position):
+	phrase_modif = phrase.split(' ')
+	i=0
+	taille = len(phrase_modif)
+	t = 0
+	trouve = False
+	pos_em = -1
+	while i < taille and trouve == False:	
+		t += len( phrase_modif[i])
+		if t >= position:
+			pos_em = phrase_modif[i].find(empreinte)
+			pos_em = position - (t - len( phrase_modif[i]) )
+			if pos_em != -1:
+				trouve = True
+		
+		#ajout de lespace
+		t += 1
+		i += 1	
+	return pos_em
+		
+
 
 ################################################################################
 
