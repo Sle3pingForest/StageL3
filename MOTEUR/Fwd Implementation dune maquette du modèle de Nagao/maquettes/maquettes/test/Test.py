@@ -5,7 +5,7 @@ import sys
 import time
 
 from bilingual_data import Bicorpus, Bidictionary
-from substitution import single_substitution, single_correction
+from substitution import single_substitution, single_correction, rememoration_index
 from _fast_distance import init_memo_fast_distance, memo_fast_distance, memo_fast_similitude, fast_distance
 from _nlg import solvenlg, verifnlg
 
@@ -33,6 +33,8 @@ def read_argv():
 		%(prog)s  CORPUS
 
 		Ex: printf "J'aime pas nager." | python Test.py base_de_cas.txt -s 1 -t 2
+		mysql azerty qwerty
+		insert into CASE_BASE values (1,'je aimer let pommes', 'j\'aime les pommes','true','e aimer','\'aime',1,1,'fr');
 	'''
 
 	parser = argparse.ArgumentParser(version=this_version, description=this_description, usage=this_usage)
@@ -85,20 +87,23 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				print '{}\t{}', Bs,'\t',As[1]
 
 			else :
-				a_s, b_s, c_s, e_s, pos = single_correction(As[0], Bs, As[1])
+				a_s, b_s, c_s, e_s, pos, pos_em = single_correction(As[0], Bs, As[1])
 				if __verbose__: print >> sys.stderr, '#\t{} : {} : {} :: {} : {} : {}\n'.format(a_s, b_s, c_s, As[0], Bs, As[1])
 
 				#Filtre les cas où il n'y a pas eu de changement lors de la correction
-
-				dist_cible = memo_fast_distance(a_s+b_s+c_s)
+				Bt = a_s+b_s+c_s
+				dist_cible = memo_fast_distance(Bt)
 
 				init_memo_fast_distance(As[0])
 				dist_src = memo_fast_distance(As[1])
 				Dt = solvenlg(As[0], As[1], Bs)	
 				if dist_cible != 0 and Dt != None and verifnlg(As[0], As[1], Bs, Dt):# and dist_cible == dist_src:
-					print '\n',As[0]
+
+					phrase = rememoration_index(Bt, b_s, pos)
+					
+					print '\n',As[0], phrase, b_s
 					print '{}\t{}'.format(Bs, Dt)
-					print '{}\t{}'.format(Bs, a_s+b_s+c_s)
+					print '{}\t{}'.format(Bs, Bt)
 
 if __name__ == '__main__':
 
@@ -122,7 +127,7 @@ if __name__ == '__main__':
 		__verbose__ = options.verbose
 		t1 = time.time()
 		for filename in options.training_data:
-			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
+			bidata += Bicorpus.fromDb('CASE_BASE')  #Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
 		translate(bidata)
 		if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
 

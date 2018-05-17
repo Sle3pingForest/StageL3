@@ -105,13 +105,11 @@ def single_correction(As, Bs, Cs):
 		tab = lcs(As,Bs)
 		prefix = ''
 		if tab: prefix = tab[len(tab)-1]
-
 		if len(prefix) > 1:
 			pos1 = Bs.find( prefix )
 			pos2 = len(Bs) -1
 			#extraction sans le '/a'
 			sousChaine = Bs[pos1+len(prefix):pos2]
-		
 			prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
 
 			#cas ou la modif est dans le prefix de Bs
@@ -174,7 +172,7 @@ def single_correction(As, Bs, Cs):
 	print ' AAAAAAAAAAAAAAAAAAAAAAAAAAA ', As[len(prefix):-len(suffix)], Bs[len(prefix):-len(suffix)]
 	"""
 
-	return Bs[debut:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)], sousChaine3, pos
+	return Bs[debut:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)], sousChaine3, fin_dep, pos
 
 ################################################################################
 
@@ -272,10 +270,69 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 
 	taille = pos3+len(prefix3)
 	
-	pos = calcul_pos(As, sousChaine3, taille) 
+	pos, p, ind = calcul_pos(As, sousChaine3, taille) 
 
+	"""
+	if  As == 'J\'aime pas les pommes.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
+		print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
+		print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
+		print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
+		print '  2eme ', prefix2, '|' ,  sousChaine2 ,'|' , suffix2,'\n'
+
+
+		print ' 3 Correction' ,len(As), '| Prefix', pos3, '|', len(prefix3),'| Suffix',pos4, '|', len(suffix3) , '| Mid',len(sousChaine3), '\n'
+		print '  3eme ', prefix3, '|' ,  sousChaine3 ,'|' , suffix3,'\n'
+
+
+		print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
+		print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
+		print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
+	"""
 
 	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos
+
+############################################################################
+
+def rememoration_index(Ds, empreinte, pos_em_Ds):
+
+	"""
+	Récupère les mots a une distance de 1 a gauche et a droite de l'empreinte
+	>>> rememoration_index('Je n'aime pas nager', 'e n', 1)
+	('Je n'aime')
+	>>> rememoration_index('Je suis à Metz', 'à ', 9)
+	('suis à Metz')
+	>>> rememoration_index('J'aime pas les maths et l'algèbre', 'è', 9)
+	('l'algèbre')
+	"""
+
+	pos, split, indice = calcul_pos(Ds, empreinte,pos_em_Ds)
+	phrase = ''
+	if indice != -1:
+		taille_em = len(empreinte)
+		taille_split = len(split)
+		p = split[indice]
+		taille_mot = len(p)
+	
+		if taille_em == taille_mot:
+			avant = ''
+			apres = ''
+			if indice - 1 >= 0 : avant = split[indice-1] 
+			if indice + 1 < len(split) : apres = split[indice+1] 
+			phrase = avant + ' ' + empreinte + ' ' + apres
+		else:
+			phrase = split[indice]
+			if taille_em+pos > taille_mot:
+				phrase = split[indice]
+				if taille_em+pos > taille_mot:
+					j = indice + 1
+					while len(phrase) <= taille_em and j < taille_split:
+						phrase += ' ' + split[j]
+						j += 1
+			if len(empreinte) == len(phrase) and indice - 1 >= 0:
+				phrase = split[indice-1] + ' ' + phrase
+		
+	return phrase
+	
 
 ############################################################################
 
@@ -325,6 +382,7 @@ def calcul_pos(phrase, empreinte, position):
 	t = 0
 	trouve = False
 	pos_em = -1
+	pos = phrase.find(empreinte)
 	while i < taille and trouve == False:	
 		t += len( phrase_modif[i])
 		if t >= position:
@@ -335,8 +393,18 @@ def calcul_pos(phrase, empreinte, position):
 		
 		#ajout de lespace
 		t += 1
-		i += 1	
-	return pos_em
+		i += 1		
+	if trouve == False and pos == -1: i = -1
+	"""
+	if  pos != -1 and trouve == False:
+		t = 0
+		i = 0
+		while i < taille and trouve == False:	
+			t += len( phrase_modif[i])
+	"""
+	if trouve == True: i -= 1
+
+	return pos_em, phrase_modif, i
 		
 
 

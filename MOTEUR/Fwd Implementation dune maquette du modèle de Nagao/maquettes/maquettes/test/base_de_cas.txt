@@ -9,3 +9,4 @@ Je t'aimes.	Je t'aime.	Moi.
 Inné.	nées.	Moi.
 Il et comme moi.	Il est comme moi.	Moi.
 Tous le monde.	Tout le monde.	Moi.
+J'aime pas l'algebre et les maths.	J'aime pas l'algèbre et les mathématiques.	Moi.

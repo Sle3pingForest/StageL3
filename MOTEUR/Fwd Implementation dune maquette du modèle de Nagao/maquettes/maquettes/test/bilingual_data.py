@@ -6,6 +6,7 @@ import time
 
 from enumeration import iteration_strategy
 from _fast_distance import init_memo_fast_distance, memo_fast_distance, memo_fast_similitude
+from test_sql import connection
 
 #...!....1....!....2....!....3....!....4....!....5....!....6....!....7....!....8
 ################################################################################
@@ -39,7 +40,23 @@ class Bicorpus(dict):
 		for line in file:
 			A = line.rstrip('\n').split('\t')
 			bidata[A[source]] = A[target]
+			print A[source], A[target]
 		return cls(bidata=bidata)
+
+	@classmethod
+	def fromDb(cls, dataname):
+		
+		cnx = connection()
+		cursor = cnx.cursor()
+		query = ("SELECT problem, solution FROM "+ dataname)
+		cursor.execute(query)
+		bidata = {}
+		for (problem, solution) in cursor:
+			bidata[str(problem)] = str(solution)
+		cursor.close()
+		cnx.close()
+		return cls(bidata=bidata)
+
 
 	@classmethod
 	def fromInput(cls,src,corr):
