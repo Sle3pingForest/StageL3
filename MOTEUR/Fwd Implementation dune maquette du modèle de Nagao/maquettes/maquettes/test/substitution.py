@@ -259,6 +259,8 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	#prefix suffix entre le probleme source et sa solution dans le src
 	prefix3, suffix3 = commonprefix([As, Cs]), commonsuffix([As, Cs])
 	if verif: prefix3 = prefix4
+	#if As == 'Inné.':
+	#print As,Cs,prefix3, sousChaine2
 	pos3 = As.find(prefix3)
 	pos4 = As.find(suffix3)
 	# souschaine3 = chaine qui va etre remplacer par la souschaine 2
@@ -289,7 +291,7 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 		print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
 	"""
 
-	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos
+	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, taille
 
 ############################################################################
 
@@ -304,10 +306,9 @@ def rememoration_index(Ds, empreinte, pos_em_Ds):
 	>>> rememoration_index('J'aime pas les maths et l'algèbre', 'è', 9)
 	('l'algèbre')
 	"""
-
 	pos, split, indice = calcul_pos(Ds, empreinte,pos_em_Ds)
 	phrase = ''
-	if indice != -1:
+	if pos != -1:
 		taille_em = len(empreinte)
 		taille_split = len(split)
 		p = split[indice]
@@ -429,5 +430,21 @@ def lcs(S,T):
 			    lcs_set.insert(0,S[i-c+1:i+1])
 
 	return lcs_set
+
+################################################################################
+
+def dist_inclusion(phrase_index, probleme):
+	compteur = 0
+	if phrase_index != '':
+		phrase_modif = phrase_index.split(' ')
+		for i in range( len(phrase_modif) ):
+			if probleme.find(phrase_modif[i]) == -1:
+				compteur += 1
+		compteur += 1
+	return compteur
+
+
+
+
 
 

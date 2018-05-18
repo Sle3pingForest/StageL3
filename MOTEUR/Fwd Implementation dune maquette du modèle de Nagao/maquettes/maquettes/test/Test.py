@@ -5,7 +5,7 @@ import sys
 import time
 
 from bilingual_data import Bicorpus, Bidictionary
-from substitution import single_substitution, single_correction, rememoration_index
+from substitution import single_substitution, single_correction, rememoration_index, dist_inclusion
 from _fast_distance import init_memo_fast_distance, memo_fast_distance, memo_fast_similitude, fast_distance
 from _nlg import solvenlg, verifnlg
 
@@ -78,32 +78,85 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 #		for As in bicorpus:
 		string = sentence
 		if sentence == False: string = Bs
-		print Bs
+		# niveau d'index
+		k = 3
+		indice = 0
+		indexation = {}
+		couple = {}
 		for As in bicorpus.iter(string, strategy='by distance', method='direct'):
 			init_memo_fast_distance(Bs)
 #			Case where the sentence is already in the case base
 			dist = memo_fast_distance(As[0])
 			if  dist == 0:
 				print '{}\t{}', Bs,'\t',As[1]
-
+				sys.exit(0)
 			else :
 				a_s, b_s, c_s, e_s, pos, pos_em = single_correction(As[0], Bs, As[1])
-				if __verbose__: print >> sys.stderr, '#\t{} : {} : {} :: {} : {} : {}\n'.format(a_s, b_s, c_s, As[0], Bs, As[1])
-
-				#Filtre les cas où il n'y a pas eu de changement lors de la correction
 				Bt = a_s+b_s+c_s
 				dist_cible = memo_fast_distance(Bt)
 
-				init_memo_fast_distance(As[0])
-				dist_src = memo_fast_distance(As[1])
-				Dt = solvenlg(As[0], As[1], Bs)	
-				if dist_cible != 0 and Dt != None and verifnlg(As[0], As[1], Bs, Dt):# and dist_cible == dist_src:
+				if dist_cible != 0:
+					phrase = e_s
+					indexation[indice,0] = phrase
+					couple[indice,0] = As[0]
+					couple[indice,1] = As[1]
+					for i in range(1,k):
+						phrase = rememoration_index(As[0], phrase, pos_em)
+						indexation[indice,i] = phrase
 
-					phrase = rememoration_index(Bt, b_s, pos)
-					
-					print '\n',As[0], phrase, b_s
-					print '{}\t{}'.format(Bs, Dt)
-					print '{}\t{}'.format(Bs, Bt)
+					indice += 1
+				
+		if indice > 0:
+			result = [couple[0,0], couple[0,1]]
+			index = 0
+			for i in range(indice):
+				#print couple[i,0]
+				trouve = False
+				j = 0
+				while trouve == False and j < 3:
+					d_incA = dist_inclusion(indexation[index,j], Bs) 
+					d_incB = dist_inclusion(indexation[i,j], Bs) 
+					print result[0],index, d_incA, d_incB,indexation[index,j], indexation[i,j]
+					if  j == 2 and d_incA == d_incB:
+						init_memo_fast_distance(Bs)
+						dist_srcA = memo_fast_distance(couple[index,0])
+						dist_srcB = memo_fast_distance(couple[i,0])
+						if dist_srcB < dist_srcA:
+							result = [couple[i,0], couple[i,1]]
+							index = i
+					else :
+						if d_incB < d_incA:
+								result = [couple[i,0], couple[i,1]]
+								index = i
+								trouve = True
+						else: 
+							if d_incA < d_incB:
+								trouve = True
+					j += 1
+			#print result[0], result[1]
+			a_s, b_s, c_s, e_s, pos, pos_em = single_correction(result[0], Bs, result[1])
+			Bt = a_s+b_s+c_s
+			print '{} : {} :: {} : {}'.format(result[0], result[1],Bs, Bt)
+"""
+			
+			if __verbose__: print >> sys.stderr, '#\t{} : {} : {} :: {} : {} : {}\n'.format(a_s, b_s, c_s, As[0], Bs, As[1])
+
+			#Filtre les cas où il n'y a pas eu de changement lors de la correction
+			
+			dist_cible = memo_fast_distance(Bt)
+
+			init_memo_fast_distance(result[0])
+			dist_src = memo_fast_distance(result[1])
+			Dt = solvenlg(result[0], result[1], Bs)	
+
+			print '{}\t{}'.format(Bs, Bt)
+			if dist_cible != 0 and Dt != None and verifnlg(result[0], result[1], Bs, Dt):# and dist_cible == dist_src:
+
+				
+				print '{}\t{}'.format(Bs, Dt)
+				print '{}\t{}'.format(Bs, Bt)
+"""
+			
 
 if __name__ == '__main__':
 
@@ -127,7 +180,7 @@ if __name__ == '__main__':
 		__verbose__ = options.verbose
 		t1 = time.time()
 		for filename in options.training_data:
-			bidata += Bicorpus.fromDb('CASE_BASE')  #Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
+			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1) #Bicorpus.fromDb('CASE_BASE')  #Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
 		translate(bidata)
 		if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
 

@@ -40,7 +40,6 @@ class Bicorpus(dict):
 		for line in file:
 			A = line.rstrip('\n').split('\t')
 			bidata[A[source]] = A[target]
-			print A[source], A[target]
 		return cls(bidata=bidata)
 
 	@classmethod
