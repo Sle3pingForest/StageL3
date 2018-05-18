@@ -21,10 +21,22 @@ class Treatment_xml:
         #permettra de gerer les filtres
         return True
 
+    def count_position_error(self,before,after):
+        #calcul de la position de l'erreur dans le mot
+        i=0
+        #print(len(before))
+        #print(len(after))
+        while(i<len(before) and i <len(after) and before[i]==after[i]):
+              i = i+1
+        #print i
+        return i
+
     #processing to cvs file
     def treatment_cvs(self):
         #print "treatment"
-        nom ="base_de_cas_WiKoPaCo.csv"
+        # nom ="base_de_cas_WiKoPaCo.csv"
+        nom = raw_input("comment voulez vous nommer le fichier de sortie?\nle fichier sera automatiquement suivi de '.cvs'\n")
+        nom+=".cvs"
         fichier_txt = open(nom,"w")#ouverture en ecriture avec ecrasement
         print "file "+nom+" open"
         #racine du fichier xml
@@ -67,8 +79,10 @@ class Treatment_xml:
             fichier_txt.write("\t".encode('utf8'))
             fichier_txt.write(m_after.encode('utf8')) #après la correction
             fichier_txt.write("\t".encode('utf8'))
-            fichier_txt.write("0\t".encode('utf8')) #indice erreur mis a 0 pour tester , A MODIFIER!!!
-            fichier_txt.write("corpus WiKoPaCo .\t".encode('utf8')) #source
+            indice_erreur = self.count_position_error(m_before,m_after)
+            fichier_txt.write(str(indice_erreur).encode('utf8')) #indice erreur mis a 0 pour tester , A MODIFIER!!!
+            fichier_txt.write("\t".encode('utf8'))
+            fichier_txt.write("1\t".encode('utf8')) #source corpus wicopako = 1
             fichier_txt.write("fr\n".encode('utf8')) #langue
 
         fichier_txt.close()
@@ -78,10 +92,8 @@ class Treatment_xml:
         print("nombre d'element traité ="),
         print(nb_cas)
         
-######### TEST ##############
+######### Programme ##############
+#test = Treatment_xml('test.xml') #pour tester sur un plus petit fichier
 test = Treatment_xml('wikopaco.xml')
 test.treatment_cvs()
-        
-        
-        
-        
+
