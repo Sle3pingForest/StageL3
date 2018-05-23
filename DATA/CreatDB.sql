@@ -23,9 +23,9 @@ CREATE TABLE IF NOT EXISTS CASE_BASE (
 	problem varchar (200) CHARACTER SET utf8,
 	solution varchar(200) CHARACTER SET utf8,
 	status varchar(200) CHARACTER SET utf8,
-	erreur varchar(200) CHARACTER SET utf8,
+	error varchar(200) CHARACTER SET utf8,
 	correction varchar(200) CHARACTER SET utf8,
-	erreurIndex varchar(200) CHARACTER SET utf8,
+	errorIndex varchar(200) CHARACTER SET utf8,
 	idProvenance int NOT NULL ,
 	lang varchar(10) CHARACTER SET utf8,
 	
@@ -34,12 +34,4 @@ CONSTRAINT fk__provenance FOREIGN KEY (idProvenance) REFERENCES ORIGIN(idOrigin)
 CREATE TABLE IF NOT EXISTS CASES_TO_BE_VALIDATED (
 	idValidated int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	problem_to_be_validated varchar (200) CHARACTER SET utf8,
-	solution_to_be_validated varchar(200) CHARACTER SET utf8,
-	status varchar(200) CHARACTER SET utf8,
-	erreur varchar(200) CHARACTER SET utf8,
-	correction varchar(200) CHARACTER SET utf8,
-	erreurIndex varchar(200) CHARACTER SET utf8,
-	idProvenance_to_be_validated int NOT NULL ,
-	lang_to_be_validated varchar(10) CHARACTER SET utf8,
-	
-CONSTRAINT fk__provenance_to_be_validated FOREIGN KEY (idProvenance_to_be_validated) REFERENCES ORIGIN(idOrigin)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	solution_to_be_validated varchar(200) CHARACTER SET utf8);

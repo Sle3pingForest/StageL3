@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> linguistiCASE </title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+	<link rel="stylesheet" href="bootstrap/css/localCss.css" />
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+</head>
+
+<body>
+<h1 style="text-align:center;">
+	Bonjours  
+	<?php 
+		echo $_POST['user'];
+	?>
+</h1>
+<?php
+require_once('../connexion/connexion.php');
+include ('../data/insertion.php');
+
+	$insert = new Insertion();
+	//$insert->insertData('../data/base_de_cas_minimal.csv');
+	
+	class ADMIN
+	{
+		private $pdo;
+		function __construct()
+		{
+			$this->pdo = connect_bd();
+		}
+		
+		function infoAdmins($idAdmin)
+		{
+			$myliste = Array();
+			$sql="select * from ADMINS where idAdmin = ".$idAdmin;
+			foreach ($this->pdo->query($sql) as $row)
+			{
+				$myliste[] = $row;
+			}
+			return $myliste;
+		}
+	}
+
+	$admin = new ADMIN();
+	$num = 0;
+	echo "<div class='row'>";
+	echo"<div class='col-sm-8'>";
+		echo "<table align='center' class='table table-bordered'>";
+			echo "<thead>";
+			echo "<tr>";
+				echo "<th>";
+					echo "probleme";
+				echo "</th>";
+				echo "<th>";
+					echo "solution";
+				echo "</th>";
+			echo "</tr>";
+			echo "</thead>";
+			while($num < 20){
+				echo "<tr>";
+					echo "<td>";
+						//echo $liste[$num]["problem_to_be_validated"];
+					echo "</td>";
+					echo "<td>";
+						//echo $liste[$num]["solution_to_be_validated"];
+					echo "</td>";
+			
+				$num++;
+				echo "</tr>";
+		}
+		echo "</table>";
+	echo "</div>";	
+	echo "</div>";
+	
+
+
+
+
+?>
+</body>
+</html>

@@ -1,7 +1,5 @@
-BASE_CASE_COURANT: idCourant, SentenceFalse, SentenceTrue
-ADMIN: idAdmin,password,firstname, lastname, adresssMail
-BASE_CASE: idBase, SentenceFalse, SentenceTrue
 
-from, 11 BASE_CASE_COURANT, 1N ORIGIN
-ORIGIN: idOrigin, originSource
-comming, 11 BASE_CASE, 1N ORIGIN
+ADMIN: idAdmin,password,firstname, lastname, adresssMailcomming
+CASES: idCase, problem, solution, status, error, correction,erreurIndex,#idProvenance,lang
+source,1n ORIGIN, 11 CASES
+ORIGIN: idOrigin, originSource, note
