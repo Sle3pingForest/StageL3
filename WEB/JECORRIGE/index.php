@@ -37,7 +37,7 @@
 	</h3>
 	<br>
 
-	<form class="row" method="GET">
+	<form class="row">
 		<div class="col-sm-8">
 			<div class="input-group">
 				<span style="width: 250px" class="input-group-addon" id="erreurSentence">Entrer la phrase a corriger</span>
@@ -62,7 +62,7 @@
 	<br>
 
 
-	<form class="row invisible" method="GET" action="models/insertSentencesUser.php" id ="userCorrection" style=float:none; >
+	<form class="row invisible" id ="userCorrection" style=float:none; >
 
 
 		<div class="col-sm-8" >
@@ -72,7 +72,7 @@
 			</div>
 		</div>
 		<div class ="col-sm-4" id ="okUser">	
-				<button  type="submit" id="userValidated" style="width: 100px" class="btn p-3 mb-2 bg-primary text-white" >Valider</button>
+				<button  type="submit" id="userValidated" style="width: 100px" onclick="insertPhrase()" class="btn p-3 mb-2 bg-primary text-white" >OK</button>
 		</div>
 		<div class="col-sm-0" >
 			<input class="invisible" id="userProbleme" type="text" class="form-control" name="userProbleme">
@@ -152,11 +152,6 @@
 			}
 	}
 
-	function insertPhrase(){
-		window.location.reload();
-
-	}
-
 	function userCorrectionForm()
 	{
 		document.getElementById("OK").disabled = true;
@@ -167,3 +162,14 @@
 
 
 </script>
+<?php
+echo "<script language=\"javascript\">";
+echo "function insertPhrase(){";
+	//$insert = new Insertion();
+	echo "alert(document.getElementById(\"probleme\").value)";
+	//echo "alert(document.getElementById(\"userSentencef\").value)";
+	//$insert->insertProposition("document.getElementById('notOK')");
+	//echo"window.location.reload();";
+echo"}";
+echo "</script>";
+?>
