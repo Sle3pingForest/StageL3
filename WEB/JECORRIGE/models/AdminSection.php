@@ -21,8 +21,6 @@
 require_once('../connexion/connexion.php');
 include ('../data/insertion.php');
 
-	$insert = new Insertion();
-	//$insert->insertData('../data/base_de_cas_minimal.csv');
 	
 	class ADMIN
 	{
@@ -42,43 +40,68 @@ include ('../data/insertion.php');
 			}
 			return $myliste;
 		}
+
+
+		function valideData(){
+			echo "<h2 style='text-align:center'>";
+			echo "Valider les cas d'utilisateur ";
+			echo "<button type='button' type='submit' class='btn btn-info text-white' onclick='afficherCase()'>Afficher</button>";
+			echo "</h2>";
+			$num = 0;
+			echo "<div id='userProposition' class='row invisible'>";
+				echo"<div class='col-sm-8'>";
+					echo "<table align='center' class='table table-bordered'>";
+						echo "<thead>";
+						echo "<tr>";
+							echo "<th>";
+								echo "probleme";
+							echo "</th>";
+							echo "<th>";
+								echo "solution";
+							echo "</th>";
+						echo "</tr>";
+						echo "</thead>";
+						while($num < 20){
+							echo "<tr>";
+								echo "<td>";
+									//echo $liste[$num]["problem_to_be_validated"];
+								echo "</td>";
+								echo "<td>";
+									//echo $liste[$num]["solution_to_be_validated"];
+								echo "</td>";
+						
+							$num++;
+							echo "</tr>";
+					}
+					echo "</table>";
+				echo "</div>";	
+			echo "</div>";
+			echo "<script language=\"javascript\">";
+				echo "function afficherCase(){";
+					echo "document.getElementById('userProposition').style.visibility = 'visible';";
+				echo "}";
+			echo "</script>";
+
+		}
 	}
 
-	$admin = new ADMIN();
-	$num = 0;
-	echo "<div class='row'>";
-	echo"<div class='col-sm-8'>";
-		echo "<table align='center' class='table table-bordered'>";
-			echo "<thead>";
-			echo "<tr>";
-				echo "<th>";
-					echo "probleme";
-				echo "</th>";
-				echo "<th>";
-					echo "solution";
-				echo "</th>";
-			echo "</tr>";
-			echo "</thead>";
-			while($num < 20){
-				echo "<tr>";
-					echo "<td>";
-						//echo $liste[$num]["problem_to_be_validated"];
-					echo "</td>";
-					echo "<td>";
-						//echo $liste[$num]["solution_to_be_validated"];
-					echo "</td>";
-			
-				$num++;
-				echo "</tr>";
-		}
-		echo "</table>";
-	echo "</div>";	
-	echo "</div>";
+			echo "<h2 style='text-align:center'>";
+			echo "Restaurer la base de donnee ";
+			echo "<button type='button' type='submit' class='btn btn-danger text-white' onclick='insertData()'>Reset</button>";
+			echo "<script language=\"javascript\">";
+				echo "function insertData(){";
+					$insert = new Insertion();
+					$insert->insertData('../data/base_de_cas_minimal.csv');
+					echo "alert('Insertion Fait')";
+				echo "}";
+			echo "</script>";
+
+
+			echo "</h2>";
+			$admin = new ADMIN();
+			$admin->valideData();
 	
-
-
-
-
+	
 ?>
 </body>
 </html>

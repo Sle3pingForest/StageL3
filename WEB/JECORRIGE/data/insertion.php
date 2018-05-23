@@ -16,9 +16,6 @@ class Insertion
 		if (($handle = fopen($filename, "r")) !== FALSE) {
 		    while (($data = fgetcsv($handle, 1000, "\n")) !== FALSE) {
 		        $num = count($data);
-		        //echo "<p> $num champs à la ligne $row: <br /></p>\n";
-
-
 		        for ($c=0; $c < $num; $c++) {
 		        	$line  = $data[$c];
 					$col1 = explode("\t", $line);				
@@ -34,9 +31,6 @@ class Insertion
 					    "lang" => '\''.$col[7].'\'',
 					);
 		        	$array[] = $arrayLine;
-		        	/*echo "ligne: ". $row ;
-		        	echo $array[$row]["solution"];
-			        echo "<br />\n";*/
 		        }
 		        $row++;
 		    }
@@ -67,10 +61,14 @@ class Insertion
 		$res = str_replace(',(0,', '(0,', $data);
 		$valuesInfo = str_replace('_', '\\\'', $res);
 		$valuesInfo .= ';';
-		echo $valuesInfo;
-		$this->pdo->exec('INSERT INTO ORIGIN(idOrigin,originSource,note) VALUES(1,"testSource","testNOtes")');
+		//$this->pdo->exec('INSERT INTO ORIGIN(idOrigin,originSource,note) VALUES(1,"testSource","testNOtes")');
 		$this->pdo->exec('INSERT INTO CASES( idCase, problem, solution, status, error, correction, errorIndex, idProvenance, lang) values '.$valuesInfo );		
 	}
-}
 
+	function insertProposition($problem,$solution,$lang){
+		$string = $problem.','.$solution.','.'en attente'.','.1.','.$lang;
+		echo $string;
+		//$this->pdo->exec('INSERT INTO CASES(problem, solution, status, idProvenance, lang) values '.$string);
+	}
+}
 ?>
