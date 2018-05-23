@@ -226,12 +226,15 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	prefix4 = ''
 	verif = False
 	
-	tab = fcs(As,Cs)
+	tab = lcs(As,Cs)
 	if tab: 
 		prefix4 = tab[len(tab)-1]
-		if len(prefix4) >= len(prefix) and Cs.find(prefix4) <= Cs.find(prefix):
+		if len(prefix4) >= len(prefix):
 			if Cs.find(prefix) == -1:
 				verif = True
+			else:
+				if Cs.find(prefix4) <= Cs.find(prefix):
+					verif = True
 	
 	#prefix suffix entre la solution du probleme source et le probleme dans la solution
 	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
@@ -264,8 +267,8 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	
 	pos, p, ind = calcul_pos(As, sousChaine3, taille) 
 
-	
-	if  As == 'Je m\'arete.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
+	"""
+	if  As == 'Je t\'aimes.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 		
 		print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 		print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
@@ -276,7 +279,8 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 		print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 		print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 		print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-	
+		print fin_dep
+	"""
 	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, taille
 
 ############################################################################
@@ -362,10 +366,7 @@ def suppr_char(As,Bs,pos1,prefix,sousChaine, suffix, prefix2, prefix3, sousChain
 ############################################################################
 
 def calcul_pos(phrase, empreinte, position):
-	phrase_index = phrase.split('\'')
-	phrase_modif = []
-	for i in range(0,len(phrase_index)):
-		phrase_modif += phrase_index[i].split(' ')
+	phrase_modif = phrase.split(' ')
 	i=0
 	taille = len(phrase_modif)
 	t = 0
@@ -424,10 +425,7 @@ def lcs(S,T):
 def dist_inclusion(phrase_index, probleme):
 	compteur = 0
 	if phrase_index != '':
-		phrase_index = phrase_index.split('\'')
-		phrase_modif = []
-		for i in range(0,len(phrase_index)):
-			phrase_modif += phrase_index[i].split(' ')
+		phrase_modif = phrase_index.split(' ')
 		for i in range( len(phrase_modif) ):
 			if probleme.find(phrase_modif[i]) == -1:
 				compteur += 1

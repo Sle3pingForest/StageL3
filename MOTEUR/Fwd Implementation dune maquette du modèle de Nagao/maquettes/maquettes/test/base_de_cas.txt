@@ -13,3 +13,4 @@ J'aime pas l'algebre et les maths.	J'aime pas l'algèbre et les mathématiques.	
 Tu rigoles pas souvent.	Tu ne rigoles pas souvent.	Moi.
 T’as mangés ?	T'as mangé ?	Moi.
 Je t'aimes.	Je t'aime.	Moi.
+Je m'arete.	Je m'arrete	Moi.

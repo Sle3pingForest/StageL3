@@ -94,6 +94,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				a_s, b_s, c_s, e_s, pos, pos_em = single_correction(As[0], Bs, As[1])
 				Bt = a_s+b_s+c_s
 				dist_cible = memo_fast_distance(Bt)
+				print Bt,As[0]
 				if dist_cible != 0:
 					phrase = e_s
 					indexation[indice,0] = phrase
@@ -102,9 +103,12 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 					for i in range(1,k):
 						phrase = rememoration_index(As[0], phrase, pos_em)
 						indexation[indice,i] = phrase
-
+						"""
+						if As[0] == 'Je suis sur Nancy.':
+							print phrase, pos_em
+						"""
 					indice += 1
-		
+		#print indexation
 		if indice > 0:
 			result = [couple[0,0], couple[0,1]]
 			index = 0
@@ -115,7 +119,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				while trouve == False and j < 3:
 					d_incA = dist_inclusion(indexation[index,j], Bs) 
 					d_incB = dist_inclusion(indexation[i,j], Bs) 
-					#print result[0],j, d_incA, d_incB,indexation[index,j], indexation[i,j]
+					print result[0],j, d_incA, d_incB,indexation[index,j], indexation[i,j],'\t', couple[i,0]
 					if  j == 2 and d_incA == d_incB:
 						init_memo_fast_distance(Bs)
 						dist_srcA = memo_fast_distance(couple[index,0])

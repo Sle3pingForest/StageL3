@@ -184,6 +184,7 @@ def tree_substitution(As, Bs):
 def fcs(S,T):
 	"""
 	first common substring
+
 	"""
 	m = len(S)
 	n = len(T)
@@ -226,18 +227,22 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	prefix4 = ''
 	verif = False
 	
-	tab = fcs(As,Cs)
+	tab = lcs(As,Cs)
 	if tab: 
 		prefix4 = tab[len(tab)-1]
-		if len(prefix4) >= len(prefix) and Cs.find(prefix4) <= Cs.find(prefix):
+		if len(prefix4) >= len(prefix):
 			if Cs.find(prefix) == -1:
 				verif = True
+			else:
+				if Cs.find(prefix4) <= Cs.find(prefix):
+					verif = True
 	
 	#prefix suffix entre la solution du probleme source et le probleme dans la solution
 	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
 	if verif: prefix2 = prefix4
 	pos_prefix2 = Cs.find(prefix2)
 	pos_suffix2 = Cs.find(suffix2)
+	if pos_suffix2 <= pos_prefix2+ len(prefix2): pos_suffix2 = pos_prefix2++ len(prefix2)+1
 	# souschaine2 = chaine qui remplace qui se trouve entre le prefix et le suffixe
 	sousChaine2 = Cs[pos_prefix2+len(prefix2):pos_suffix2]
 
@@ -262,21 +267,26 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 
 	taille = pos3+len(prefix3)
 	
-	pos, p, ind = calcul_pos(As, sousChaine3, taille) 
+	pos, p, ind, ind_em = calcul_pos(As, sousChaine3, taille) 
 
-	
+	"""
 	if  As == 'Je m\'arete.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 		
 		print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 		print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
 		print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
 		print '  2eme ', prefix2, '|' ,  sousChaine2 ,'|' , suffix2,'\n'
+
+
 		print ' 3 Correction' ,len(As), '| Prefix', pos3, '|', len(prefix3),'| Suffix',pos4, '|', len(suffix3) , '| Mid',len(sousChaine3), '\n'
 		print '  3eme ', prefix3, '|' ,  sousChaine3 ,'|' , suffix3,'\n'
+
+
 		print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 		print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 		print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-	
+		print fin_dep
+	"""
 	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, taille
 
 ############################################################################
@@ -292,14 +302,19 @@ def rememoration_index(Ds, empreinte, pos_em_Ds):
 	>>> rememoration_index('J'aime pas les maths et l'algèbre', 'è', 9)
 	('l'algèbre')
 	"""
-	pos, split, indice = calcul_pos(Ds, empreinte,pos_em_Ds)
+
+	if Ds == 'Je m\'arete.':
+		print empreinte
+
+	pos, split, indice, indice_debut_em = calcul_pos(Ds, empreinte,pos_em_Ds)
+	em_split = empreinte.split(' ')
 	phrase = ''
+
 	if pos != -1:
 		taille_em = len(empreinte)
 		taille_split = len(split)
 		p = split[indice]
 		taille_mot = len(p)
-	
 		if taille_em == taille_mot:
 			avant = ''
 			apres = ''
@@ -307,17 +322,16 @@ def rememoration_index(Ds, empreinte, pos_em_Ds):
 			if indice + 1 < len(split) : apres = split[indice+1] 
 			phrase = avant + ' ' + empreinte + ' ' + apres
 		else:
-			phrase = split[indice]
+			phrase = split[indice_debut_em]
+			taille_mot = len(phrase)
 			if taille_em+pos > taille_mot:
-				phrase = split[indice]
-				if taille_em+pos > taille_mot:
-					j = indice + 1
-					while len(phrase) <= taille_em and j < taille_split:
-						phrase += ' ' + split[j]
-						j += 1
-			if len(empreinte) == len(phrase) and indice - 1 >= 0:
-				phrase = split[indice-1] + ' ' + phrase
-		
+				j = indice_debut_em + 1
+				while len(phrase) <= taille_em and j < taille_split:
+					phrase += ' ' + split[j]
+					j += 1
+			if indice_debut_em - 1 >= 0 and len(split[indice_debut_em]) == len(em_split[0]):
+				phrase = split[indice_debut_em-1] + ' ' + phrase
+	
 	return phrase
 	
 
@@ -366,10 +380,13 @@ def calcul_pos(phrase, empreinte, position):
 	phrase_modif = []
 	for i in range(0,len(phrase_index)):
 		phrase_modif += phrase_index[i].split(' ')
-	i=0
+	i = 0
+	k = 0
+	y = 0
 	taille = len(phrase_modif)
 	t = 0
 	trouve = False
+	changer = False
 	pos_em = -1
 	pos = phrase.find(empreinte)
 	while i < taille and trouve == False:	
@@ -379,10 +396,12 @@ def calcul_pos(phrase, empreinte, position):
 			pos_em = position - (t - len( phrase_modif[i]) )
 			if pos_em != -1:
 				trouve = True
-		
+		if t >= pos and changer == False:
+			k = i
+			changer = True
 		#ajout de lespace
 		t += 1
-		i += 1		
+		i += 1	
 	if trouve == False and pos == -1: i = -1
 	"""
 	if  pos != -1 and trouve == False:
@@ -390,10 +409,13 @@ def calcul_pos(phrase, empreinte, position):
 		i = 0
 		while i < taille and trouve == False:	
 			t += len( phrase_modif[i])
+
+	if phrase == 'Je suis sur Nancy.':
+		print pos, empreinte, pos_em, position, i 
 	"""
 	if trouve == True: i -= 1
 
-	return pos_em, phrase_modif, i
+	return pos_em, phrase_modif, i, k
 		
 
 
@@ -429,7 +451,13 @@ def dist_inclusion(phrase_index, probleme):
 		for i in range(0,len(phrase_index)):
 			phrase_modif += phrase_index[i].split(' ')
 		for i in range( len(phrase_modif) ):
-			if probleme.find(phrase_modif[i]) == -1:
+			if probleme.find(phrase_modif[i]) == -1 and phrase_modif[i] != '':
 				compteur += 1
 		compteur += 1
 	return compteur
+
+
+
+
+
+
