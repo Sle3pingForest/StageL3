@@ -21,6 +21,51 @@ class Treatment_xml:
         #permettra de gerer les filtres
         return True
 
+    def deleting_correction_duplicate(self,nom,root):
+        #permet de supprimer les modifications faite puis remise a l'etat initial (fonctionne sur le fichier wikopaco.xml)
+        print("deleting_correction_duplicate")
+        compteur = 0
+        taille_root = len(root)
+        #for child in root:
+        for i in range(0,taille_root):
+            #print taille_root
+            #print i
+            if(taille_root<=i):
+                print "break"
+                break
+            before_id = root[i].get('wp_before_rev_id')
+            after_id = root[i].get('wp_after_rev_id')
+            # before_id = child.get('wp_before_rev_id')
+            # after_id = child.get('wp_after_rev_id')
+            #for modif in root:
+            for j in range(i,taille_root):
+                if(taille_root<=j):
+                    print "break"
+                    break
+                #print "\tj = ",
+                #print str(j)
+                #bef_id = modif.get('wp_before_rev_id')
+                #aft_id = modif.get('wp_after_rev_id')
+                bef_id = root[j].get('wp_before_rev_id')
+                aft_id = root[j].get('wp_after_rev_id')
+                if(before_id!=bef_id and after_id==bef_id):
+                    tmp1=root[i]
+                    tmp2 = root[j]
+                    compteur +=1
+                    print compteur
+                    root.remove(tmp1)
+                    root.remove(tmp2)
+                    #root.remove(child)
+                    #root.remove(modif)
+                    taille_root = len(root)
+                    break
+            
+            self.tree.write(nom.encode('utf8'))
+        print(str(compteur)+" couple suppr")
+
+
+
+                     
     def count_position_error(self,before,after):
         #calcul de la position de l'erreur dans le mot
         i=0
@@ -32,15 +77,14 @@ class Treatment_xml:
         return i
 
     #processing to cvs file
-    def treatment_cvs(self):
+    def treatment_cvs(self,root):
         #print "treatment"
         # nom ="base_de_cas_WiKoPaCo.csv"
-        nom = raw_input("comment voulez vous nommer le fichier de sortie?\nle fichier sera automatiquement suivi de '.cvs'\n")
-        nom+=".cvs"
+        nom = raw_input("comment voulez vous nommer le fichier de sortie?\nle fichier sera automatiquement suivi de '.csv'\n")
+        nom+=".csv"
         fichier_txt = open(nom,"w")#ouverture en ecriture avec ecrasement
         print "file "+nom+" open"
-        #racine du fichier xml
-        root = self.get_root()
+       
         #compteur du nombre de cas traité
         compteur = 0
         nb_cas=0
@@ -93,7 +137,12 @@ class Treatment_xml:
         print(nb_cas)
         
 ######### Programme ##############
-#test = Treatment_xml('test.xml') #pour tester sur un plus petit fichier
-test = Treatment_xml('wikopaco.xml')
-test.treatment_cvs()
+nom = 'wikopaco (copie).xml'
+#nom = 'test.xml' #pour tester sur un plus petit fichier
+
+test = Treatment_xml(nom)
+#racine du fichier xml
+root = test.get_root()
+test.deleting_correction_duplicate(nom,root)
+test.treatment_cvs(root)
 

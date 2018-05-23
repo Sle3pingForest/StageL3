@@ -1,0 +1,26 @@
+
+/*create table*/
+
+DROP TABLE IF EXISTS `ADMINS`;
+DROP TABLE IF EXISTS `ORIGIN`;
+DROP TABLE IF EXISTS `BASE_CASE`;
+
+CREATE TABLE IF NOT EXISTS ADMINS(
+		idAdmin int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		password varchar(30) DEFAULT NULL,
+		firstname varchar(30) DEFAULT NULL,
+		lastname varchar(30) DEFAULT NULL,
+		mailAdmin varchar(30) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+		
+CREATE TABLE IF NOT EXISTS ORIGIN(
+		idOrigin int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		originSource varchar(200) CHARACTER SET utf8,
+		note varchar(200) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS BASE_CASE (
+	`idBaseCase` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`sentenceFalse` varchar (200) CHARACTER SET utf8,
+	`sentenceTrue` varchar(200) CHARACTER SET utf8,
+	`idProvenance` int NOT NULL ,
+	
+CONSTRAINT fk__provenance FOREIGN KEY (idProvenance) REFERENCES ORIGIN(idOrigin)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
