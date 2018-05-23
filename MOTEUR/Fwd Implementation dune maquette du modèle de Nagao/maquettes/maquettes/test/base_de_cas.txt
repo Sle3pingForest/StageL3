@@ -10,3 +10,6 @@ Inné.	nées.	Moi.
 Il et comme moi.	Il est comme moi.	Moi.
 Tous le monde.	Tout le monde.	Moi.
 J'aime pas l'algebre et les maths.	J'aime pas l'algèbre et les mathématiques.	Moi.
+Tu rigoles pas souvent.	Tu ne rigoles pas souvent.	Moi.
+T’as mangés ?	T'as mangé ?	Moi.
+Je t'aimes.	Je t'aime.	Moi.
