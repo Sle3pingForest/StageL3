@@ -94,7 +94,6 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				a_s, b_s, c_s, e_s, pos, pos_em = single_correction(As[0], Bs, As[1])
 				Bt = a_s+b_s+c_s
 				dist_cible = memo_fast_distance(Bt)
-
 				if dist_cible != 0:
 					phrase = e_s
 					indexation[indice,0] = phrase
@@ -105,7 +104,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 						indexation[indice,i] = phrase
 
 					indice += 1
-				
+		
 		if indice > 0:
 			result = [couple[0,0], couple[0,1]]
 			index = 0
@@ -116,7 +115,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				while trouve == False and j < 3:
 					d_incA = dist_inclusion(indexation[index,j], Bs) 
 					d_incB = dist_inclusion(indexation[i,j], Bs) 
-					print result[0],index, d_incA, d_incB,indexation[index,j], indexation[i,j]
+					#print result[0],j, d_incA, d_incB,indexation[index,j], indexation[i,j]
 					if  j == 2 and d_incA == d_incB:
 						init_memo_fast_distance(Bs)
 						dist_srcA = memo_fast_distance(couple[index,0])
@@ -125,13 +124,14 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 							result = [couple[i,0], couple[i,1]]
 							index = i
 					else :
-						if d_incB < d_incA:
-								result = [couple[i,0], couple[i,1]]
-								index = i
-								trouve = True
-						else: 
-							if d_incA < d_incB:
-								trouve = True
+						if d_incB != 0 and d_incA != 0:
+							if d_incB < d_incA:
+									result = [couple[i,0], couple[i,1]]
+									index = i
+									trouve = True
+							else: 
+								if d_incA < d_incB:
+									trouve = True
 					j += 1
 			#print result[0], result[1]
 			a_s, b_s, c_s, e_s, pos, pos_em = single_correction(result[0], Bs, result[1])
