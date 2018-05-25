@@ -17,3 +17,14 @@ ratio, cluster ?
 
 - Développement de l’étape de l’adaptation
 ** )
+
+
+
+
+titre
+
+empreinte = transformation
+
+equation analogie
+
+mieux expliquer 
