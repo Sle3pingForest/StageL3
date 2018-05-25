@@ -89,7 +89,9 @@
         </div>
     </div>
     <div class="footer-copyright text-center row" style="margin-bottom: auto ;">
-        <a class="col-md-4"> linguistiCASE.com </a>
+        <div class="col-md-4">
+         	<img class="col-md-4" height="32" width="60" src="img/logoCorrector.png">
+     	</div>
         <p class="glyphicon glyphicon-copyright-mark col-md-4">2018Copyright: </p>
         <a class="glyphicon glyphicon-envelope col-md-4">cont@ct </a>
     </div>
