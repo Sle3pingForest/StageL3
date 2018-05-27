@@ -1,5 +1,4 @@
-
-ADMIN: idAdmin,password,firstname, lastname, adresssMailcomming
+ADMIN: idAdmin,password,username,  adresssMail
 CASES: idCase, problem, solution, status, error, correction,erreurIndex,#idProvenance,lang
 source,1n ORIGIN, 11 CASES
 ORIGIN: idOrigin, originSource, note
