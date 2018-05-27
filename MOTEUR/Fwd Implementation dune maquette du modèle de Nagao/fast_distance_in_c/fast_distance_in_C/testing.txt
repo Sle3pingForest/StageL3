@@ -31,3 +31,6 @@ Nothing is displayed when all tests are successfully passed.
 >>> memo_fast_distance('nées')
 4
 
+init_memo_fast_distance('Tu manges pas.')
+memo_fast_distance('Tu rigoles pas souvent.')
+memo_fast_distance('T’as mangés ?')
