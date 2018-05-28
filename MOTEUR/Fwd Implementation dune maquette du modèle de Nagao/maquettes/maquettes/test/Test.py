@@ -31,8 +31,12 @@ def read_argv():
 	this_description = __description__
 	this_usage = '''
 		%(prog)s  CORPUS
-
+		commande de base
 		Ex: printf "J'aime pas nager." | python Test.py base_de_cas.txt -s 1 -t 2
+		
+		commande pour site php
+		Ex: python Test.py base_de_cas.txt -s 1 -t 2 -se "J'aime pas nager."
+
 		mysql azerty qwerty
 		insert into CASE_BASE values (1,'je aimer let pommes', 'j\'aime les pommes','true','e aimer','\'aime',1,1,'fr');
 	'''
@@ -48,6 +52,9 @@ def read_argv():
 					help=source_and_target_help)
 	parser.add_argument('-t', '--target',
 					action='store', type=int, default=2,
+					help=source_and_target_help)
+	parser.add_argument('-se', '--sentence',
+					action='store', type=str, default=3,
 					help=source_and_target_help)
 	parser.add_argument('-V', '--verbose',
 					action='store_true',
@@ -79,7 +86,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 		string = sentence
 		if sentence == False: string = Bs
 		# niveau d'index
-		k = 3
+		k = 6
 		indice = 0
 		indexation = {}
 		couple = {}
@@ -107,6 +114,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 						if As[0] == 'Je suis sur Nancy.':
 							print phrase, pos_em
 						"""
+						print phrase
 					indice += 1
 		#print indexation
 		if indice > 0:
@@ -119,7 +127,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 				while trouve == False and j < 3:
 					d_incA = dist_inclusion(indexation[index,j], Bs) 
 					d_incB = dist_inclusion(indexation[i,j], Bs) 
-					print result[0],j, d_incA, d_incB,indexation[index,j], indexation[i,j],'\t', couple[i,0]
+					#print result[0],j, d_incA, d_incB,indexation[index,j], indexation[i,j],'\t', couple[i,0]
 					if  j == 2 and d_incA == d_incB:
 						init_memo_fast_distance(Bs)
 						dist_srcA = memo_fast_distance(couple[index,0])
@@ -185,7 +193,7 @@ if __name__ == '__main__':
 		t1 = time.time()
 		for filename in options.training_data:
 			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1) #Bicorpus.fromDb('CASE_BASE')  #Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
-		translate(bidata)
+		translate(bidata, options.sentence)
 		if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
 
 	
