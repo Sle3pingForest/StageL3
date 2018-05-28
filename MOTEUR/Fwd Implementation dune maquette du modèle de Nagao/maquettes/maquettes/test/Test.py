@@ -37,6 +37,9 @@ def read_argv():
 		commande pour site php
 		Ex: python Test.py base_de_cas.txt -s 1 -t 2 -se "J'aime pas nager."
 
+		sudo systemctl start apache2
+		sudo systemctl start mysql
+
 		mysql azerty qwerty
 		insert into CASE_BASE values (1,'je aimer let pommes', 'j\'aime les pommes','true','e aimer','\'aime',1,1,'fr');
 	'''
@@ -95,13 +98,12 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 #			Case where the sentence is already in the case base
 			dist = memo_fast_distance(As[0])
 			if  dist == 0:
-				print '{}\t{}', Bs,'\t',As[1]
+				print '{}\t{}'.format(Bs,As[1])
 				sys.exit(0)
 			else :
 				a_s, b_s, c_s, e_s, pos, pos_em = single_correction(As[0], Bs, As[1])
 				Bt = a_s+b_s+c_s
 				dist_cible = memo_fast_distance(Bt)
-				print Bt,As[0]
 				if dist_cible != 0:
 					phrase = e_s
 					indexation[indice,0] = phrase
@@ -114,14 +116,12 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 						if As[0] == 'Je suis sur Nancy.':
 							print phrase, pos_em
 						"""
-						print phrase
 					indice += 1
 		#print indexation
 		if indice > 0:
 			result = [couple[0,0], couple[0,1]]
 			index = 0
 			for i in range(indice):
-				#print couple[i,0]
 				trouve = False
 				j = 0
 				while trouve == False and j < 3:

@@ -264,11 +264,11 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	
 	pos, p, ind = calcul_pos(As, sousChaine3, taille) 
 
-	
+	"""
 	if  As == 'Je m\'arete.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 		
 		print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
-		print As ,' je suis dans le suffixe ', Cs#, As.split(suffix, len(As) - len(prefix)) , '\n'
+		print As ,' je suis dans le suffixe ', Cs #, As.split(suffix, len(As) - len(prefix)) , '\n'
 		print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
 		print '  2eme ', prefix2, '|' ,  sousChaine2 ,'|' , suffix2,'\n'
 		print ' 3 Correction' ,len(As), '| Prefix', pos3, '|', len(prefix3),'| Suffix',pos4, '|', len(suffix3) , '| Mid',len(sousChaine3), '\n'
@@ -276,7 +276,7 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 		print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 		print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 		print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
-	
+	"""
 	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, taille
 
 ############################################################################
@@ -293,31 +293,36 @@ def rememoration_index(Ds, empreinte, pos_em_Ds):
 	('l'algèbre')
 	"""
 	pos, split, indice = calcul_pos(Ds, empreinte,pos_em_Ds)
+	avant = ''
 	phrase = ''
+	apres = ''
+	indice_avant = indice - 1
+	indice_apres = indice + 1
 	if pos != -1:
 		taille_em = len(empreinte)
 		taille_split = len(split)
-		p = split[indice]
-		taille_mot = len(p)
-	
-		if taille_em == taille_mot:
-			avant = ''
-			apres = ''
-			if indice - 1 >= 0 : avant = split[indice-1] 
-			if indice + 1 < len(split) : apres = split[indice+1] 
+		phrase = split[indice]
+		#print empreinte,taille_em, Ds
+		if taille_em == len(phrase):
+			if indice_avant >= 0 : avant = split[indice_avant]
+			if indice_apres < len(split) : apres = split[indice_apres] 
 			phrase = avant + ' ' + empreinte + ' ' + apres
 		else:
-			phrase = split[indice]
-			if taille_em+pos > taille_mot:
-				phrase = split[indice]
-				if taille_em+pos > taille_mot:
-					j = indice + 1
-					while len(phrase) <= taille_em and j < taille_split:
-						phrase += ' ' + split[j]
-						j += 1
-			if len(empreinte) == len(phrase) and indice - 1 >= 0:
-				phrase = split[indice-1] + ' ' + phrase
-		
+			while len(phrase) <= taille_em and len(phrase) < len(Ds):
+				if indice_apres < taille_split:
+					apres = ' ' + split[indice_apres]
+					indice_apres += 1
+				else :
+					apres = ''
+				if indice_avant >= 0:
+					avant = split[indice_avant] + ' '
+					indice_avant -= 1
+				else :
+					avant = ''
+				phrase = avant + phrase + apres
+
+	#print avant + '|' + phrase + '|' + apres + '|' + empreinte
+	
 	return phrase
 	
 
