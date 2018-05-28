@@ -60,7 +60,7 @@ class Treatment_xml:
                     taille_root = len(root)
                     break
             
-            self.tree.write(nom.encode('utf8'))
+        self.tree.write(nom.encode('utf8'))
         print(str(compteur)+" couple suppr")
 
 
