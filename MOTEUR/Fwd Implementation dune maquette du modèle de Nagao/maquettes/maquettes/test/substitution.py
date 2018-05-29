@@ -61,34 +61,16 @@ def single_correction(As, Bs, Cs):
 
 	#prefix suffix entre le probleme source et probleme cible
 	prefix, suffix = commonprefix([Bs, As]), commonsuffix([Bs, As])
+	
 	verif = False
-	if  len(prefix) > 1 or len(suffix) > 1:	
+	if  len(prefix) > 1:	
 	#Cas ou il y a un debut ou une fin qui ressemble
 		pos1 = Bs.find(prefix)
 		pos2 = Bs.find(suffix)
 		#extraction sans le '/a'
 		sousChaine = Bs[pos1+len(prefix):pos2]
 
-		prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
-
-		#chaine "corrigee"
-		if pos_prefix2_dans_cible == -1:
-			fin_dep = len(sousChaine)
-			#avoir l'espace manquant
-			if len(sousChaine.split(' ')) > 1: fin_dep += 1
-
-		#Cas d une suppression de caractere donc quand la souschaine2 est vide
-		#Je suppose que cest toujours la fin du mot qui est supprimee
-		if sousChaine2 == "" or Cs.split('.')[0] == sousChaine2:
-			tab = lcs(As,Bs)
-			prefix = tab[len(tab)-1]
-			pos1 = Bs.find( prefix )
-			pos2 = len(Bs) -1
-			sousChaine = Bs[pos1+len(prefix):pos2]
-
-			
-			fin_dep, sousChaine3 = suppr_char(As,Bs,pos1,prefix,sousChaine, suffix, prefix2, prefix3, sousChaine3, fin_dep)
-			verif = False
+		prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos_souschaine3, pos, p, ind = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
 
 			
 	else:
@@ -97,15 +79,19 @@ def single_correction(As, Bs, Cs):
 		utilisation de la distance lcs (longest common string)
 		"""
 		tab = lcs(As,Bs)
+		
 		prefix = ''
-		if tab: prefix = tab[len(tab)-1]
+		if tab: 
+			prefix = tab[len(tab)-1]
+		
+
 		if len(prefix) > 1:
 			pos1 = Bs.find( prefix )
 			pos2 = len(Bs) -1
 			#extraction sans le '/a'
 			sousChaine = Bs[pos1+len(prefix):pos2]
 
-			prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
+			prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos_souschaine3, pos, p, ind = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
 			#print As,prefix, len(prefix)
 			#cas ou la modif est dans le prefix de Bs
 			if pos_prefix2_dans_cible == -1:
@@ -127,13 +113,6 @@ def single_correction(As, Bs, Cs):
 									taille += 1
 						fin_dep = taille
 						verif = False
-			
-			#Cas d une suppression de caractere donc quand la souschaine2 est vide
-			#Je suppose que cest toujours la fin du mot qui est supprimee
-			if sousChaine2 == "":
-				fin_dep, sousChaine3 = suppr_char(As,Bs,pos1,prefix,sousChaine, suffix, prefix2, prefix3, sousChaine3, fin_dep)
-				verif = False
-
 		else:
 
 			#Cas où il n'y a aucune ressemblance retourne la meme chaine
@@ -142,13 +121,59 @@ def single_correction(As, Bs, Cs):
 			sousChaine2 = ''
 			pos_prefix2_dans_cible = 0
 			sousChaine3 = ''
-			fin_dep =0
-			pos = -1
+			fin_dep = 0
+			deb_fin = 0
+			pos_souschaine3 = -1
 
 	if __verbose__: print >> sys.stderr, 'prefix/suffix({}, {}) = {}, {}'.format(As, Bs, prefix, suffix)
 
+	if pos_souschaine3 != -1:
+		Ps = Bs[0:pos1]
+		phrase_index = Ps.split('\'')
+		phrase_modif = []
+		for i in range(0,len(phrase_index)):
+			phrase_modif += phrase_index[i].split(' ')
+		mot_avant = len( phrase_modif)
 
+
+		i = 0
+		t = 0
+		while i < mot_avant:
+			if phrase_modif[i] != '':
+				t += len(phrase_modif[i])
+				#espace
+				t += 1
+				i += 1
+			else:
+				mot_avant -= 1
+		
+
+		phrase_index = Bs.split('\'')
+		phrase_modif = []
+		for m in range(0,len(phrase_index)):
+			phrase_modif += phrase_index[m].split(' ')
+
+		j = i
+		fin = i + ind
+
+		if fin <= len ( phrase_modif ):
+			for j in range(j,fin):
+				t += len(phrase_modif[j])
+				taille = pos1 + pos + len( sousChaine3 )
+				"""
+				if (i == fin - 1 and (taille < len(phrase_modif[j]) or taille > len(phrase_modif[j]))  ) == False:
+					t += 1
+				"""
+				if t < len(Bs) and Bs[t] == ' ':
+					t += 1 
+			fin_dep = t + pos
+			#if As == 'J\'aime pas les pommes.': print fin_dep , t , pos
+			
+		
+	
+	deb_fin = fin_dep + len( sousChaine3 )
 	debut = 0
+	"""
 	if verif:
 		index = As.find(prefix3)
 		if index != -1:
@@ -160,13 +185,9 @@ def single_correction(As, Bs, Cs):
 	deb_fin = fin_dep+len(sousChaine3)
 	if deb_fin > len(Bs) and fin_dep < len(Bs): 
 		deb_fin = fin_dep
-
-	"""
-	point a checker	
-	print ' AAAAAAAAAAAAAAAAAAAAAAAAAAA ', As[len(prefix):-len(suffix)], Bs[len(prefix):-len(suffix)]
 	"""
 
-	return Bs[debut:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)], sousChaine3, fin_dep, pos
+	return Bs[debut:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)], sousChaine3, fin_dep, pos_souschaine3
 
 ################################################################################
 
@@ -260,13 +281,14 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	#borne de fin de prefix
 	fin_dep = pos_prefix2_dans_cible+len(prefix2)
 
-	taille = pos3+len(prefix3)
+	pos_souschaine3 = pos3+len(prefix3)
 	
-	pos, p, ind = calcul_pos(As, sousChaine3, taille) 
+	pos, p, ind = calcul_pos(As, sousChaine3, pos_souschaine3) 
 
 	"""
-	if  As == 'Je m\'arete.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
+	if  As == 'Je manges.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 		
+		print pos, p , ind
 		print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
 		print As ,' je suis dans le suffixe ', Cs #, As.split(suffix, len(As) - len(prefix)) , '\n'
 		print ' 2 Correction' ,len(Cs), '| Prefix', pos_prefix2, '|', len(prefix2),'| Suffix',pos_suffix2, '|', len(suffix2) , '| Mid',len(sousChaine2), '\n'
@@ -276,8 +298,10 @@ def calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 		print '  3eme ',As, pos_prefix2 ,  len(prefix2) ,  taille
 		print ' 4eme ',As[pos_prefix2:pos_prefix2+len(prefix2)],  As[taille:len(As)]
 		print Bs[0:fin_dep] , '|', sousChaine2, '|', Bs[fin_dep+len(sousChaine3):len(Bs)]
+		print 'fin_dep',fin_dep, 'dep_fin', fin_dep+len(sousChaine3)
 	"""
-	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, taille
+
+	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos_souschaine3, pos, p, ind
 
 ############################################################################
 
@@ -303,7 +327,7 @@ def rememoration_index(Ds, empreinte, pos_em_Ds):
 		taille_split = len(split)
 		phrase = split[indice]
 		#print empreinte,taille_em, Ds
-		if taille_em == len(phrase):
+		if taille_em == len(phrase) or empreinte == '':
 			if indice_avant >= 0 : avant = split[indice_avant]
 			if indice_apres < len(split) : apres = split[indice_apres] 
 			phrase = avant + ' ' + empreinte + ' ' + apres

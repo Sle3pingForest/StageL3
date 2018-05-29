@@ -89,7 +89,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 		string = sentence
 		if sentence == False: string = Bs
 		# niveau d'index
-		k = 6
+		k = 3
 		indice = 0
 		indexation = {}
 		couple = {}
@@ -98,9 +98,10 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 #			Case where the sentence is already in the case base
 			dist = memo_fast_distance(As[0])
 			if  dist == 0:
-				print '{}\t{}'.format(Bs,As[1])
+				print '{}'.format(As[1])
 				sys.exit(0)
 			else :
+				
 				a_s, b_s, c_s, e_s, pos, pos_em = single_correction(As[0], Bs, As[1])
 				Bt = a_s+b_s+c_s
 				dist_cible = memo_fast_distance(Bt)
@@ -146,9 +147,12 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 									trouve = True
 					j += 1
 			#print result[0], result[1]
+			
 			a_s, b_s, c_s, e_s, pos, pos_em = single_correction(result[0], Bs, result[1])
 			Bt = a_s+b_s+c_s
-			print '{} : {} :: {} : {}'.format(result[0], result[1],Bs, Bt)
+			print '{}'.format(Bt)
+
+			#print '{} : {} :: {} : {}'.format(result[0], result[1],Bs, Bt)
 """
 			
 			if __verbose__: print >> sys.stderr, '#\t{} : {} : {} :: {} : {} : {}\n'.format(a_s, b_s, c_s, As[0], Bs, As[1])
