@@ -1,0 +1,65 @@
+I hate apples.	Je déteste les pommes.	제가 사과를 싫어해요.	我恨苹果。	Saya benci apel.	-	1.000000 0.868273 1.000000 0.446048 1.000000	94436
+Who bought an apple?	Qui a acheté une pomme?	누가 사과를 샀어요?	谁买了一个苹果?	Siapa yang membeli sebuah apel?	-	1.000000 1.000000 1.000000 1.000000 1.000000	94436
+I love apples.	J’aime les pommes.	제가 사과를 좋아해요.	我爱苹果。	Saya suka apel.	-	1.000000 0.867427 1.000000 0.754520 1.000000	94435
+I finished an apple.	J’ai fini une pomme.	제가 사과를 다 먹었어요.	我吃完了一个苹果。	Saya menghabiskan sebuah apel.	-	1.000000 0.759924 1.000000 0.445534 1.000000	94435
+I love this apple.	J’aime cette pomme.	제가 이 사과를 종아해요.	我爱这个苹果。	Saya suka apel ini.	-	1.000000 1.000000 1.000000 1.000000 1.000000	94434
+I love green apples	J’aime les pommes vertes.	제가 녹색 사과를 좋아해요.	我爱绿苹果。	Saya suka apel hijau.	-	1.000000 0.906607 1.000000 0.578980 1.000000	94434
+I eat an apple.	Je mange une pomme.	제가 사과를 먹어요.	我吃一个苹果。	Saya makan sebuah apel.	-	1.000000 0.822080 1.000000 0.511496 1.000000	94434
+I love eating apples.	J’ai mangé des pommes.	제가 사과를 먹는 것을 좋아해요.	我爱吃苹果。	Saya suka makan apel.	-	1.000000 0.818432 1.000000 0.511546 1.000000	94434
+I do not love apples.	Je n’aime pas les pommes.	제가 사과를 좋아하지 않아요.	我不爱苹果。	Saya tidak suka apel.	-	1.000000 0.934666 1.000000 0.466665 1.000000	94433
+hate	déteste	싫어해요.	我恨苹果。	benci	-	0.648278 1.000000 0.514329 0.284913 0.544467	60321
+do not	n’aime pas	좋아하지 않아요.	我不爱苹果。	tidak	-	0.605779 0.840340 0.469692 0.250503 0.605779	50691
+finished	J’ai fini	다 먹었어요.	我吃完了一个苹果。	menghabiskan	-	0.519991 1.000000 0.254637 0.141188 0.519991	29926
+green apples	pommes vertes.	녹색	我爱绿苹果。	hijau.	-	0.428965 0.525230 0.428965 0.180603 0.911558	29457
+finished	fini	다 먹었어요.	我吃完了一个苹果。	menghabiskan	-	0.480009 1.000000 0.235058 0.130332 0.480009	27625
+green apples	pommes vertes.	녹색	我爱绿苹果。	apel hijau.	-	0.387753 0.474770 0.387753 0.163252 0.732416	26627
+finished an apple.	J’ai fini une pomme.	다 먹었어요.	我吃完了一个苹果。	menghabiskan sebuah	-	0.566512 0.194071 0.205209 0.113781 0.505884	24117
+eating	J’ai mangé des	먹는 것을	我爱吃苹果。	makan	-	0.456191 0.537397 0.505536 0.119217 0.270555	22008
+do not	Je n’aime pas	좋아하지 않아요.	我不爱苹果。	tidak	-	0.243860 1.000000 0.189077 0.100842 0.243860	20406
+hate	Je déteste	싫어해요.	我恨苹果。	benci	-	0.217329 1.000000 0.172423 0.095514 0.182527	20222
+eat an apple.	mange une pomme.	먹어요.	我吃一个苹果。	makan sebuah	-	0.415184 0.791200 0.197973 0.096711 0.583535	17855
+eat	mange	먹어요.	我吃一个苹果。	makan	-	0.555020 1.000000 0.183714 0.089745 0.203690	16569
+love apples.	J’aime les pommes.	좋아해요.	我爱苹果。	suka	-	1.000000 0.132573 0.469763 0.115317 0.422499	14433
+eat	Je mange	먹어요.	我吃一个苹果。	makan	-	0.444980 1.000000 0.147291 0.071952 0.163306	13284
+finished an apple.	fini une pomme.	다 먹었어요.	我吃完了一个苹果。	menghabiskan sebuah	-	0.299194 1.000000 0.108378 0.060092 0.267174	12737
+eating	mangé des	먹는 것을	我爱吃苹果。	makan	-	0.244637 0.691956 0.271098 0.063931 0.145088	11802
+eating	J’ai mangé des	먹는 것을 좋아해요.	我爱吃苹果。	makan	-	0.228987 0.269748 0.236872 0.059841 0.135806	11047
+hate apples.	déteste les pommes.	싫어해요.	我恨苹果。	benci	-	0.408781 1.000000 0.084464 0.046789 0.089413	9906
+love	J’aime	좋아해요.	我爱苹果。	suka	-	1.000000 1.000000 0.319327 0.078388 0.287199	9811
+green apples	J’aime les pommes vertes.	녹색	我爱绿苹果。	apel hijau.	-	0.141663 0.093393 0.141663 0.059643 0.267584	9728
+do not	Je n’aime pas les	좋아하지 않아요.	我不爱苹果。	tidak	-	0.116086 1.000000 0.090008 0.048004 0.116086	9714
+hate	Je déteste les	싫어해요.	我恨苹果。	benci	-	0.103968 1.000000 0.082486 0.045693 0.087319	9674
+do not love	n’aime pas	좋아하지 않아요.	我不爱苹果。	tidak suka	-	1.000000 0.159660 0.089239 0.047594 0.397237	9631
+do not love apples.	n’aime pas les pommes.	좋아하지 않아요.	我不爱苹果。	tidak suka	-	0.548310 1.000000 0.074247 0.039598 0.330501	8013
+eat an apple.	Je mange une pomme.	먹어요.	我吃一个苹果。	sebuah	-	0.186025 0.069643 0.088703 0.043332 0.459110	8000
+hate apples.	Je déteste les pommes.	싫어해요.	我恨苹果。	benci	-	0.323319 0.072037 0.066805 0.037007 0.070720	7835
+eating apples.	J’ai mangé des pommes.	먹는 것을	我爱吃苹果。	makan apel.	-	0.442957 0.067401 0.178642 0.042128 0.543504	7777
+eat an apple.	Je mange une pomme.	먹어요.	我吃一个苹果。	makan sebuah	-	0.156865 0.058726 0.074798 0.036539 0.220472	6746
+love eating apples.	J’ai mangé des pommes.	먹는 것을 좋아해요.	我爱吃苹果。	suka	-	0.454707 0.057556 0.142398 0.035974 0.194403	6641
+eat an	Je mange une	먹어요.	我吃一个苹果。	makan sebuah apel.	-	0.382032 0.674511 0.073413 0.035862 0.537724	6621
+do not love apples.	Je n’aime pas les pommes.	좋아하지 않아요.	我不爱苹果。	tidak suka	-	0.451690 0.065334 0.061163 0.032621 0.272262	6601
+love eating apples.	mangé des pommes.	먹는 것을 좋아해요.	我爱吃苹果。	suka makan	-	0.451010 0.587496 0.141240 0.035682 0.455722	6587
+finished an	J’ai fini une	다 먹었어요.	我吃完了一个苹果。	menghabiskan sebuah apel.	-	0.378290 0.518918 0.056014 0.031058 0.535203	6583
+love eating	J’ai mangé des	먹는 것을 좋아해요.	我爱吃苹果。	suka makan	-	0.671513 0.160135 0.140618 0.035524 0.453715	6558
+eating apples.	J’ai mangé des pommes.	먹는 것을 좋아해요.	我爱吃苹果。	makan apel.	-	0.372045 0.056611 0.140060 0.035384 0.456496	6532
+hate apples.	Je déteste les pommes.	싫어해요.	我恨苹果。	benci apel.	-	0.267899 0.059689 0.055354 0.030664 1.000000	6492
+apples.	les pommes.	좋아해요.	我爱苹果。	apel.	-	1.000000 1.000000 0.210910 0.051774 1.000000	6480
+finished an	J’ai fini une	다 먹었어요.	我吃完了一个苹果。	menghabiskan sebuah	-	0.350707 0.481082 0.051930 0.028793 0.128018	6103
+finished an apple.	J’ai fini une pomme.	다 먹었어요.	我吃完了一个苹果。	menghabiskan sebuah apel.	-	0.134293 0.046005 0.048645 0.026972 0.464797	5717
+eat an apple.	Je mange une pomme.	먹어요.	我吃一个苹果。	makan sebuah apel.	-	0.132357 0.049551 0.063112 0.030830 0.462276	5692
+eat an	mange une	먹어요.	我吃一个苹果。	makan sebuah	-	0.272517 0.628476 0.052368 0.025582 0.154356	4723
+finished an	fini une	다 먹었어요.	我吃完了一个苹果。	menghabiskan sebuah	-	0.271003 1.000000 0.040128 0.022250 0.098924	4716
+eat an apple.	mange une pomme.	먹어요.	我吃一个苹果。	sebuah	-	0.109569 0.208800 0.052246 0.025522 0.270416	4712
+eating	mangé des	먹는 것을 좋아해요.	我爱吃苹果。	makan	-	0.070186 0.198523 0.072603 0.018342 0.041626	3386
+do not	n’aime pas les	좋아하지 않아요.	我不爱苹果。	tidak	-	0.034274 1.000000 0.026574 0.014173 0.034274	2868
+green apples	les pommes vertes.	녹색	我爱绿苹果。	hijau.	-	0.041619 1.000000 0.041619 0.017523 0.088442	2858
+hate	déteste les	싫어해요.	我恨苹果。	benci	-	0.030425 1.000000 0.024139 0.013372 0.025553	2831
+eat an	mange une	먹어요.	我吃一个苹果。	sebuah	-	0.161099 0.371524 0.030957 0.015123 0.160230	2792
+eating apples.	mangé des pommes.	먹는 것을	我爱吃苹果。	makan	-	0.110896 0.173653 0.044724 0.010547 0.023935	1947
+eat an	Je mange une	먹어요.	我吃一个苹果。	sebuah	-	0.110842 0.195701 0.021300 0.010405 0.110244	1921
+love eating apples.	mangé des pommes.	먹는 것을 좋아해요.	我爱吃苹果。	suka	-	0.094283 0.122815 0.029526 0.007459 0.040309	1377
+love eating	J’ai mangé des	먹는 것을 좋아해요.	我爱吃苹果。	suka	-	0.137211 0.032720 0.028733 0.007259 0.039226	1340
+love eating	mangé des	먹는 것을 좋아해요.	我爱吃苹果。	suka makan	-	0.134036 0.076747 0.028068 0.007091 0.090563	1309
+eating apples.	mangé des pommes.	먹는 것을 좋아해요.	我爱吃苹果。	makan	-	0.074101 0.116036 0.027896 0.007047 0.015994	1301
+eat an	Je mange une	먹어요.	我吃一个苹果。	makan sebuah	-	0.073510 0.129788 0.014126 0.006901 0.041637	1274
+love eating	mangé des	먹는 것을 좋아해요.	我爱吃苹果。	suka	-	0.057239 0.032774 0.011986 0.003028 0.016364	559

@@ -62,7 +62,8 @@ class Insertion
 		$valuesInfo = str_replace('_', '\\\'', $res);
 		$valuesInfo .= ';';
 		//$this->pdo->exec('INSERT INTO ORIGIN(idOrigin,originSource,note) VALUES(1,"test","testNOtes")');
-		$this->pdo->exec('INSERT INTO CASES( idCase, problem, solution, status, error, correction, errorIndex, idProvenance, lang) values '.$valuesInfo );
+		$this->pdo->exec('INSERT INTO CASES( idCase, problem, solution, status, error, correction, 
+						errorIndex, idProvenance, lang) values '.$valuesInfo );
 	}
 
 	function insertProposition($string , $lang){
@@ -70,20 +71,17 @@ class Insertion
 				echo ("<script LANGUAGE='JavaScript'>
     				confirm('Voulez vous inserer votre phrase dans notre data pour ameliorer notre site');
     				</script>");
-				//$this->pdo->exec('INSERT INTO CASES(problem, solution, status, idProvenance, lang) values '.$string);
+				$this->pdo->exec('INSERT INTO CASES(problem, solution, status, idProvenance, lang) values '.$string);
 		}
 		if($lang == 'en'){
 			echo ("<script LANGUAGE='JavaScript'>
     				confirm('Do you want to insert your request to us DB');
     				</script>");
-				//$this->pdo->exec('INSERT INTO CASES(problem, solution, status, idProvenance, lang) values '.$string);
-		}
-		$command = escapeshellcmd('php -v');
-		$output = shell_exec($command);
-		echo $output;
-		/*echo ("<script LANGUAGE='JavaScript'>
+				$this->pdo->exec('INSERT INTO CASES(problem, solution, status, idProvenance, lang) values '.$string);
+		} 
+		echo ("<script LANGUAGE='JavaScript'>
     		window.location.href='../index.php';
-    		</script>");*/
+    		</script>");
 
 	}
 }
