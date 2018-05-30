@@ -1,7 +1,7 @@
 
 <?php
-define('USER','bdly');
-define('PASSWD','15041994');
+define('USER','root');
+define('PASSWD','');
 define('SERVER','localhost');
-define('BASE','Corrector');
+define('BASE','dbly');
 ?>

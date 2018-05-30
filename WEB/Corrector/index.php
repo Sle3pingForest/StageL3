@@ -22,7 +22,7 @@
 			</div>
 		 </div>
 	<h1 style="text-align:center;">
-		Bienvenue! - Welcome!
+		Bienvenue ! - Welcome !
 	</h1>		
 	<br>
 	<h3 id = "lang" style="text-align:center;">
@@ -45,7 +45,7 @@
 			</div>
 		</div>
 		<div class ="col-sm-4">	
-			<button type="button" type="submit" style ="width: 100px" id="runButton" class="btn p-3 mb-2 bg-primary text-white" onclick="selectPhrase()" >Valider</button>
+			<button type="button" style ="width: 100px" id="runButton" class="btn p-3 mb-2 bg-primary text-white" >Vérifier</button>
 		</div>	
 	</form>
 	<br>
@@ -99,6 +99,7 @@
 </html>
 
 
+
 <script type="text/javascript">
 
 	//this function print the interface with the langage selected
@@ -108,7 +109,7 @@
 		if(n === 0){
 			document.getElementById("erreurSentence").innerHTML= "Entrer la phrase a corriger";
 			document.getElementById("correctSentence").innerHTML = "Voici la correction";
-			document.getElementById("runButton").innerHTML = "Verifier";
+			document.getElementById("runButton").innerHTML = "Vérifier";
 			document.getElementsByName('probleme')[0].placeholder='je nage pas';
 			document.getElementsByName('solution')[0].placeholder='je ne nage pas';
 			document.getElementById('linguistiCASEInfo').innerHTML='linguistiCASE est une site permet de corriger les phrases erreurs a partir de RAPC (raisonnement a partir de case)';
@@ -141,9 +142,9 @@
 		}
 	}
 
-
-	function selectPhrase(){
-			if(document.getElementById("notOK") === null && document.getElementById("OK") === null  && langselect.toString().localeCompare('fr') == 0){
+	  $(function() {
+        $('#runButton').click(function() {			
+        	if(document.getElementById("notOK") === null && document.getElementById("OK") === null  && langselect.toString().localeCompare('fr') == 0){
 				$("#reponseButton").append('<button  style="margin-right:5px; width: 100px" type="submit" id="OK"  class="btn btn-success">Correct</button>');
 				$("#reponseButton").append('<button type="button" style="margin-right:5px; width: 100px" type="submit" id="notOK" onclick="userCorrectionForm()" class="btn btn-danger">Incorrect</button>');
 				langselect ='fr';
@@ -156,7 +157,14 @@
 			//envoyer le probleme de la form 1 au initProbleme de la form2
 			document.getElementById("initProblem").value= document.getElementById("probleme").value;
 			document.getElementById("langSol").value= langselect;
-	}
+
+	 		$.get('models/moteur.php?probleme=test', function(data) {
+	            document.getElementById("solution").value= data;
+	          });
+
+        });   
+
+      });
 
 	function userCorrectionForm()
 	{

@@ -41,6 +41,17 @@ include ('../data/insertion.php');
 			return $myliste;
 		}
 
+		function selectEnAttente()
+		{
+			$myliste = Array();
+			$sql="select * from CASES where status = 'en attente'";
+			foreach ($this->pdo->query($sql) as $row)
+			{
+				$myliste[] = $row;
+			}
+			return $myliste;
+		}
+
 
 		function valideData(){
 			echo "<h2 style='text-align:center'>";
@@ -48,26 +59,40 @@ include ('../data/insertion.php');
 			echo "<button type='button' type='submit' class='btn btn-info text-white' onclick='afficherCase()'>Afficher</button>";
 			echo "</h2>";
 			$num = 0;
+			$liste = $this->selectEnAttente();
 			echo "<div id='userProposition' class='row invisible'>";
-				echo"<div class='col-sm-8'>";
+				echo"<div class='col-sm-12'>";
 					echo "<table align='center' class='table table-bordered'>";
 						echo "<thead>";
-						echo "<tr>";
+						echo "<tr style='text-align:center'>";
 							echo "<th>";
-								echo "probleme";
+								echo "Probleme";
 							echo "</th>";
 							echo "<th>";
-								echo "solution";
+								echo "Solution";
 							echo "</th>";
+							echo "<th>";
+								echo "Langue";
+							echo "</th>";
+							echo "<th>";
+								echo "";
+							echo "</th>";
+
 						echo "</tr>";
 						echo "</thead>";
-						while($num < 20){
-							echo "<tr>";
+						while($num < sizeof($liste)){
+							echo "<tr style='text-align:center'>";
 								echo "<td>";
-									//echo $liste[$num]["problem_to_be_validated"];
+									echo $liste[$num]["problem"];
 								echo "</td>";
 								echo "<td>";
-									//echo $liste[$num]["solution_to_be_validated"];
+									echo $liste[$num]["solution"];
+								echo "</td>";
+								echo "<td>";
+									echo $liste[$num]["lang"];
+								echo "</td>";
+								echo "<td>";
+									echo "<button type='button' type='submit' class='btn btn-info text-white''>OK</button>";
 								echo "</td>";
 						
 							$num++;
@@ -86,7 +111,7 @@ include ('../data/insertion.php');
 	}
 
 	echo "<h2 style='text-align:center'>";
-	echo "Restaurer la base de donnee ";
+	echo "Restaurer la base de données ";
 	echo "<button type='button' type='submit' class='btn btn-danger text-white' onclick='insertData()'>Reset</button>";
 	echo "<script language=\"javascript\">";
 		echo "function insertData(){";

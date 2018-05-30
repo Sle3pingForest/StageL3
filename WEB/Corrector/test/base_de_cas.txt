@@ -1,0 +1,16 @@
+Phrase fausse.	Phrase corrigée.	Source.
+J'aime pas les pommes.	Je n'aime pas les pommes.	Exemple Yves Lepage.
+Je suis sur Nancy.	Je suis à Nancy.	Wikipedia.
+Au jour d'aujourd'hui.	Aujourd'hui.	Site LCI.	
+J'ai été au cinéma.	Je suis allé au cinéma.	 Wikipedia.
+J'amènerai une bouteille.	J'apporterai une bouteille.	Wikipedia.
+Elle apporte son enfant.	Elle amène son enfant.	Wikipedia.
+Je t'aimes.	Je t'aime.	Moi.
+Inné.	nées.	Moi.
+Il et comme moi.	Il est comme moi.	Moi.
+Tous le monde.	Tout le monde.	Moi.
+J'aime pas l'algebre et les maths.	J'aime pas l'algèbre et les mathématiques.	Moi.
+Tu rigoles pas souvent.	Tu ne rigoles pas souvent.	Moi.
+T’as mangés ?	T'as mangé ?	Moi.
+Je t'aimes.	Je t'aime.	Moi.
+Je m'arete.	Je m'arrete	Moi.
