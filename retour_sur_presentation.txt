@@ -1,0 +1,50 @@
+Retour sur la présentation de Nam LY
+1 : nom des encadrants : loria et université WASEDA
+2 : pas de point a la fin des phrase : departement talc : Bruno Guillaume responsable ,equipe orpailleur
+3 : mettre des photos ou nom autour des shémas , mettre uniquement le shema
+6 : remarque générale : caractère trop petit zoomé au max ; avant signe de ponctuation double : mettre un espace
+7 : enlever le mot exemple ; bdd pas table mais relation ; statut : correct/incorect/en attente
+8 : en anglais pas d'espace avant le point d'interrogation
+9 : revoir le scenario , faire en animation 
+Conclusion : mettre perspective du futur
+durée 12 min si démo 2 min = 14 min c'est plutot bien
+'fr' ou 'en' plutôt que drapeau
+perspective : administrateur différent
+
+Retour sur la présentation de André GIANG
+1 : ajout les tuteurs
+3 : 'Code de Yves LEPAGE' mettre les 's' a correcteur de phrases
+4 : définir cas ; choix d'un exemple qui utilise l'adaptation
+5 : prendre un éxemple qui ai un défaut gramatical , utiliser toujours le même exemple; mettre un s à caractères ; adaptation 3 phrases
+6 : bien expliquer que c'est un cas général
+7 : taille des caractère ; supprimer les commentaires sur les flèches
+8 : trouver un bon exemple commun a toute la présentation ; utiliser un autre verbe que 'aime' tels que 'adore'
+10 : utiliser terme cas et non couple
+12 : guillemets partout ou nul part exemple en italique ou ecrire cible = "tu manges pas" par exemple
+13 : indexation ; phrase avec des points et en italique
+14 : parler du comparatif  expliquer que c'est sur la base de cas minimal
+15 : rediger la conclusion
+
+retour su la présentztion de Damien LEVY
+
+3-base de cas initial
+4- taille de string, expliquer STATUS, indice de la premiere difference, les notions sont pas introduire dans le bon sens: wicopaco
+5- plus petit et en bas l'article
+6- attention des espace avant les virgulles, animations et couleur
+7- phrase incorrect
+8- les [...] pour les parties inutiles
+9- espace pour le nombre  sup 3 chiffres
+11- sans S a longue, precier la nature du pc
+12- preparer la conclusion
+
+
+retour rapport :
+remerciement après sommaire
+description de l'entreprise reformulé et cité site du loria
+departement 4 orpailleur
+
+
+
+
+
+  
