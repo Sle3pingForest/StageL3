@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS CASES(
 	error varchar(200) CHARACTER SET utf8,
 	correction varchar(200) CHARACTER SET utf8,
 	errorIndex varchar(200) CHARACTER SET utf8,
-	idProvenance int NOT NULL ,
+	idProvenance int NOT NULL,
 	lang varchar(10) CHARACTER SET utf8,
 
 CONSTRAINT fk__provenance FOREIGN KEY (idProvenance) REFERENCES ORIGIN(idOrigin)) ENGINE=InnoDB DEFAULT CHARSET=utf8;

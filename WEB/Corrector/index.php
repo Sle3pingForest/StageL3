@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title> linguistiCASE </title>
+	<title> CORRECTOR </title>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 	<link rel="stylesheet" href="bootstrap/css/localCss.css" />
@@ -10,7 +10,13 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 </head>
 <body class="p-3 mb-2 bg-info text-white">	
-	<a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+	<div class ="row">
+		<div class="col-md-4 ">
+	        <img class="col-md-4" height="32" width="60" style="margin: 5% 0;" src="img/logoCorrector.png">
+	    </div>
+	    <div class= "col-md-8" style="text-align:right;">
+			<a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+		</div>
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     	  	<div class="modal-dialog loginmodal-container">
 				<h1>Login to Your Account</h1><br>
@@ -21,8 +27,9 @@
 				</form>
 			</div>
 		 </div>
+	</div>		 
 	<h1 style="text-align:center;">
-		Bienvenue ! - Welcome !
+		Bienvenue ! - Welcome!
 	</h1>		
 	<br>
 	<h3 id = "lang" style="text-align:center;">
@@ -45,7 +52,7 @@
 			</div>
 		</div>
 		<div class ="col-sm-4">	
-			<button type="button" style ="width: 100px" id="runButton" class="btn p-3 mb-2 bg-primary text-white" >Vérifier</button>
+			<button type="button" style ="width: 100px" id="runButton" class="btn p-3 mb-2 bg-primary text-white" >Corriger</button>
 		</div>	
 	</form>
 	<br>
@@ -83,15 +90,12 @@
     <div class="container-fluid text-center text-md-left" style="margin-bottom: 5% ";>
         <div class="row">
             <div class="col-md-12">
-                <h5 class="text-uppercase">linguistiCASE</h5>
-                <p id="linguistiCASEInfo">linguistiCASE est une site permet de corriger les phrases a partir de RAPC (raisonnement a partir de case)</p>
+                <h5 class="text-uppercase">Corrector</h5>
+                <p id="Corrector">Corrector est une site permet de corriger les phrases à partir de RAPC (raisonnement a partir de case)</p>
             </div>
         </div>
     </div>
     <div class="footer-copyright text-center row" style="margin-bottom: auto ;">
-        <div class="col-md-4">
-         	<img class="col-md-4" height="32" width="60" src="img/logoCorrector.png">
-     	</div>
         <p class="glyphicon glyphicon-copyright-mark col-md-4">2018Copyright: </p>
         <a class="glyphicon glyphicon-envelope col-md-4">cont@ct </a>
     </div>
@@ -109,10 +113,10 @@
 		if(n === 0){
 			document.getElementById("erreurSentence").innerHTML= "Entrer la phrase a corriger";
 			document.getElementById("correctSentence").innerHTML = "Voici la correction";
-			document.getElementById("runButton").innerHTML = "Vérifier";
+			document.getElementById("runButton").innerHTML = "Corriger";
 			document.getElementsByName('probleme')[0].placeholder='je nage pas';
 			document.getElementsByName('solution')[0].placeholder='je ne nage pas';
-			document.getElementById('linguistiCASEInfo').innerHTML='linguistiCASE est une site permet de corriger les phrases erreurs a partir de RAPC (raisonnement a partir de case)';
+			document.getElementById('linguistiCASEInfo').innerHTML='linguistiCASE est une site permet de corriger les phrases à partir de RAPC (raisonnement a partir de case)';
 			langselect = 'fr';
 			if(document.getElementById("OK") != null){
 				document.getElementById("OK").innerHTML = "Correct";
@@ -125,7 +129,7 @@
 		else{
 			document.getElementById("erreurSentence").innerHTML="Enter the sentence to corrige";
 			document.getElementById("correctSentence").innerHTML = "Here the correct sentence";
-			document.getElementById("runButton").innerHTML = "Verify";
+			document.getElementById("runButton").innerHTML = "Revise";
 			document.getElementsByName('probleme')[0].placeholder='i cannott swin';
 			document.getElementsByName('solution')[0].placeholder='i can\'t swin';
 			document.getElementById('linguistiCASEInfo').innerHTML='linguistiCASE is a website that corrects bad sentences ';
