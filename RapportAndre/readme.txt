@@ -114,6 +114,19 @@ Avant propos dans l'introduction
 
 
 
+page 9 
+
+b  par 1  par "l' " utilisateur
+
+
+page 10 
+
+c par 1  li 2 correction sans s  ou de correction de phrases
+
+par 1 l 3 doit sans r
+
+
+d Modification sans s d'une phrase ou modifier
 
 
 
