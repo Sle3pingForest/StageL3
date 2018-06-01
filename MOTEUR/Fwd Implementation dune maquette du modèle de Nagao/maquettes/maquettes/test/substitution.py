@@ -167,7 +167,6 @@ def single_correction(As, Bs, Cs):
 				if t < len(Bs) and Bs[t] == ' ':
 					t += 1 
 			fin_dep = t + pos
-			#if As == 'J\'aime pas les pommes.': print fin_dep , t , pos
 			
 		
 	

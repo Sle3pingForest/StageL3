@@ -31,8 +31,16 @@ def read_argv():
 	this_description = __description__
 	this_usage = '''
 		%(prog)s  CORPUS
+
+
+		cat EBMT_test.txt | cut -f 2 | python direct_model.py EBMT_corpus.txt EBMT_dictionary.txt -s 2 -t 5
+
+
+
 		commande de base
 		Ex: printf "J'aime pas nager." | python Test.py base_de_cas.txt -s 1 -t 2
+
+		
 		
 		commande pour site php
 		Ex: python Test.py base_de_cas.txt -s 1 -t 2 -se "J'aime pas nager."
@@ -93,7 +101,12 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 		indice = 0
 		indexation = {}
 		couple = {}
+		first = ''
+		compteur = 0
 		for As in bicorpus.iter(string, strategy='by distance', method='direct'):
+			if compteur == 0:
+				first = As[0]			
+				compteur = 1
 			init_memo_fast_distance(Bs)
 #			Case where the sentence is already in the case base
 			dist = memo_fast_distance(As[0])
@@ -110,6 +123,7 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 					indexation[indice,0] = phrase
 					couple[indice,0] = As[0]
 					couple[indice,1] = As[1]
+					#start to 1, 0 is the substring to replace 
 					for i in range(1,k):
 						phrase = rememoration_index(As[0], phrase, pos_em)
 						indexation[indice,i] = phrase
@@ -118,8 +132,9 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 							print phrase, pos_em
 						"""
 					indice += 1
-		#print indexation
+
 		if indice > 0:
+			#search the best case with index rememoration
 			result = [couple[0,0], couple[0,1]]
 			index = 0
 			for i in range(indice):
@@ -146,11 +161,14 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 								if d_incA < d_incB:
 									trouve = True
 					j += 1
-			#print result[0], result[1]
+			
 			
 			a_s, b_s, c_s, e_s, pos, pos_em = single_correction(result[0], Bs, result[1])
 			Bt = a_s+b_s+c_s
-			print '{}'.format(Bt)
+			#print 'Problème cible - {}\t - Remémoration index - {}\t - Remémoration distance LCS - {}'.format(Bs,result[0], first)
+			print '{}\t{}'.format(Bs,Bt)
+		else:
+			print '{}'.format(Bs)
 
 			#print '{} : {} :: {} : {}'.format(result[0], result[1],Bs, Bt)
 """
