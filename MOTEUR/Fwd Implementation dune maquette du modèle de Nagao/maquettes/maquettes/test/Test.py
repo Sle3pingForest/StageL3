@@ -5,8 +5,8 @@ import sys
 import time
 
 from bilingual_data import Bicorpus, Bidictionary
-from substitution import single_substitution, single_correction, rememoration_index, dist_inclusion
-from _fast_distance import init_memo_fast_distance, memo_fast_distance, memo_fast_similitude, fast_distance
+from substitution import single_correction, rememoration_index, dist_inclusion, choix_rememoration_index
+from _fast_distance import init_memo_fast_distance, memo_fast_distance, memo_fast_similitude
 from _nlg import solvenlg, verifnlg
 
 #...!....1....!....2....!....3....!....4....!....5....!....6....!....7....!....8
@@ -35,13 +35,9 @@ def read_argv():
 
 		cat EBMT_test.txt | cut -f 2 | python direct_model.py EBMT_corpus.txt EBMT_dictionary.txt -s 2 -t 5
 
-
-
 		commande de base
 		Ex: printf "J'aime pas nager." | python Test.py base_de_cas.txt -s 1 -t 2
-
-		
-		
+	
 		commande pour site php
 		Ex: python Test.py base_de_cas.txt -s 1 -t 2 -se "J'aime pas nager."
 
@@ -75,38 +71,23 @@ def read_argv():
 
 ################################################################################
 
-def translate(bicorpus, sentence = False, file=sys.stdin):
-	"""
-	input: Bs, a sentence in the source language
-	output: list of Bt, sentences in the target language, candidate translations
-	data (passed as arguments):
-		bicorpus = list of pairs (As, At) where At is the translation of As.
-		bidictionary = bilingual dictionary of (a_s, a_t) where a_s is a word, and a_t its translation.
-	"""
+def correct(bicorpus, sentence = False, file=sys.stdin):
 	if sentence != False: 
 		tab = [sentence]
 		file = tab
 #	bidictionary = bicorpus
 	for Bs in file:
-		#compteur de la plus basse distance entre la chaine et les cas dans le dictionnaire
-		dist = sys.maxint
-		super_dist = sys.maxint
+		string = sentence
 		Bs = Bs.rstrip('\n')
 		if __verbose__: print >> sys.stderr, '\n# Translating sentence: {}'.format(Bs)
 #		for As in bicorpus:
-		string = sentence
 		if sentence == False: string = Bs
 		# niveau d'index
 		k = 3
 		indice = 0
 		indexation = {}
 		couple = {}
-		first = ''
-		compteur = 0
 		for As in bicorpus.iter(string, strategy='by distance', method='direct'):
-			if compteur == 0:
-				first = As[0]			
-				compteur = 1
 			init_memo_fast_distance(Bs)
 #			Case where the sentence is already in the case base
 			dist = memo_fast_distance(As[0])
@@ -127,48 +108,14 @@ def translate(bicorpus, sentence = False, file=sys.stdin):
 					for i in range(1,k):
 						phrase = rememoration_index(As[0], phrase, pos_em)
 						indexation[indice,i] = phrase
-						"""
-						if As[0] == 'Je suis sur Nancy.':
-							print phrase, pos_em
-						"""
 					indice += 1
 
 		if indice > 0:
-			#search the best case with index rememoration
-			result = [couple[0,0], couple[0,1]]
-			index = 0
-			for i in range(indice):
-				trouve = False
-				j = 0
-				while trouve == False and j < 3:
-					d_incA = dist_inclusion(indexation[index,j], Bs) 
-					d_incB = dist_inclusion(indexation[i,j], Bs) 
-					#print result[0],j, d_incA, d_incB,indexation[index,j], indexation[i,j],'\t', couple[i,0]
-					if  j == 2 and d_incA == d_incB:
-						init_memo_fast_distance(Bs)
-						dist_srcA = memo_fast_distance(couple[index,0])
-						dist_srcB = memo_fast_distance(couple[i,0])
-						if dist_srcB < dist_srcA:
-							result = [couple[i,0], couple[i,1]]
-							index = i
-					else :
-						if d_incB != 0 and d_incA != 0:
-							if d_incB < d_incA:
-									result = [couple[i,0], couple[i,1]]
-									index = i
-									trouve = True
-							else: 
-								if d_incA < d_incB:
-									trouve = True
-					j += 1
-			
+			result = choix_rememoration_index(Bs, indice, couple, indexation)
 			
 			a_s, b_s, c_s, e_s, pos, pos_em = single_correction(result[0], Bs, result[1])
 			Bt = a_s+b_s+c_s
-			#print 'Problème cible - {}\t - Remémoration index - {}\t - Remémoration distance LCS - {}'.format(Bs,result[0], first)
-			print '{}\t{}'.format(Bs,Bt)
-		else:
-			print '{}'.format(Bs)
+			print '{}'.format(Bt)
 
 			#print '{} : {} :: {} : {}'.format(result[0], result[1],Bs, Bt)
 """
@@ -208,14 +155,14 @@ if __name__ == '__main__':
 			sys.stdin = base_de_cas
 			bidata += Bicorpus.fromFile(open(base_de_cas), 0, 1)
 		
-		translate(bidata, phrase)
+		correct(bidata, phrase)
 	else:	
 		options = read_argv()
 		__verbose__ = options.verbose
 		t1 = time.time()
 		for filename in options.training_data:
 			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1) #Bicorpus.fromDb('CASE_BASE')  #Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
-		translate(bidata, options.sentence)
+		correct(bidata, options.sentence)
 		if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
 
 	
