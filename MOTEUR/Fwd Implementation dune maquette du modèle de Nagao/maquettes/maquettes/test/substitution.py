@@ -29,7 +29,7 @@ def single_correction(As, Bs, Cs):
 	def commonsuffix(list):
 		return commonprefix([s[::-1] for s in list])[::-1]
 
-
+	pos_souschaine3 = 0
 	#prefix suffix entre le probleme source et probleme cible
 	prefix, suffix = commonprefix([Bs, As]), commonsuffix([Bs, As])
 	if  len(prefix) > 1:	
@@ -50,54 +50,15 @@ def single_correction(As, Bs, Cs):
 			sousChaine = Bs[pos1+len(prefix):pos2]
 		else:
 			#Case where there are nothing similar
-			prefix3 = ''
-			prefix2 = ''
 			sousChaine2 = ''
-			pos_prefix2_dans_cible = 0
 			sousChaine3 = ''
 			fin_dep = 0
-			deb_fin = 0
 			pos_souschaine3 = -1
 
 	if __verbose__: print >> sys.stderr, 'prefix/suffix({}, {}) = {}, {}'.format(As, Bs, prefix, suffix)
 
 	if pos_souschaine3 != -1:
-		prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos_souschaine3, pos, p, ind = calcul_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
-		#search position of end of prefix
-		Ps = Bs[0:pos1]
-		phrase_index = Ps.split('\'')
-		phrase_modif = []
-		for i in range(0,len(phrase_index)):
-			phrase_modif += phrase_index[i].split(' ')
-		mot_avant = len( phrase_modif)
-		i = 0
-		t = 0
-		while i < mot_avant:
-			if phrase_modif[i] != '':
-				t += len(phrase_modif[i])
-				#espace
-				t += 1
-				i += 1
-			else:
-				mot_avant -= 1
-		phrase_index = Bs.split('\'')
-		phrase_modif = []
-		for m in range(0,len(phrase_index)):
-			phrase_modif += phrase_index[m].split(' ')
-		j = i
-		fin = i + ind
-		if fin <= len ( phrase_modif ):
-			for j in range(j,fin):
-				t += len(phrase_modif[j])
-				taille = pos1 + pos + len( sousChaine3 )
-				"""
-				if (i == fin - 1 and (taille < len(phrase_modif[j]) or taille > len(phrase_modif[j]))  ) == False:
-					t += 1
-				"""
-				if t < len(Bs) and Bs[t] == ' ':
-					t += 1 
-			fin_dep = t + pos
-			
+		sousChaine2, sousChaine3, fin_dep, pos_souschaine3 = search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine)
 		
 	deb_fin = fin_dep + len( sousChaine3 )
 	debut = 0
@@ -174,6 +135,7 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	tab = {}
 	prefix4 = ''
 	verif = False
+	pos1 = Bs.find(prefix)
 	
 	tab = fcs(As,Cs)
 	if tab: 
@@ -189,9 +151,7 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	pos_suffix2 = Cs.find(suffix2)
 	# souschaine2 = chaine qui remplace qui se trouve entre le prefix et le suffixe
 	sousChaine2 = Cs[pos_prefix2+len(prefix2):pos_suffix2]
-
 	taille = pos_prefix2+len(prefix2) + len(sousChaine2)
-
 	#position du prefix2 dans le probleme cible
 	pos_prefix2_dans_cible = Bs.find(prefix2)
 
@@ -213,6 +173,43 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 	
 	pos, p, ind = calcul_pos(As, sousChaine3, pos_souschaine3) 
 
+	#search position where to do substitution
+	Ps = Bs[0:pos1]
+	phrase_index = Ps.split('\'')
+	phrase_modif = []
+	for i in range(0,len(phrase_index)):
+		phrase_modif += phrase_index[i].split(' ')
+	word_before = len( phrase_modif)
+	i = 0
+	t = 0
+	while i < word_before:
+		if phrase_modif[i] != '':
+			t += len(phrase_modif[i])
+			#espace
+			if t < len(Bs) and Bs[t] == ' ':
+				t += 1 
+			i += 1
+		else:
+			word_before -= 1
+	phrase_index = Bs.split('\'')
+	phrase_modif = []
+	for m in range(0,len(phrase_index)):
+		phrase_modif += phrase_index[m].split(' ')
+	j = i
+	fin = i + ind
+	if As == 'J\'aime pas les pommes.' :
+		print prefix
+	if fin <= len ( phrase_modif ):
+		for j in range(j,fin):
+			t += len(phrase_modif[j])
+			taille = pos1 + pos + len( sousChaine3 )
+			if t < len(Bs) and Bs[t] == ' ':
+				t += 1 
+			if As == 'J\'aime pas les pommes.' :
+				print t, phrase_modif[j]
+		fin_dep = t + pos
+
+
 	"""
 	if  As == 'J\'aime pas les pommes.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 		
@@ -229,7 +226,7 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 		print 'fin_dep',fin_dep, 'dep_fin', fin_dep+len(sousChaine3)
 	"""
 	
-	return prefix2, suffix2, sousChaine2, prefix3, suffix3, sousChaine3, pos_prefix2_dans_cible, fin_dep, verif, pos_souschaine3, pos, p, ind
+	return sousChaine2, sousChaine3, fin_dep, pos_souschaine3
 
 ############################################################################
 
@@ -278,6 +275,7 @@ def rememoration_index(Ds, empreinte, pos_em_Ds):
 
 def calcul_pos(phrase, empreinte, position):
 	"""
+	return
 	phrase_modif is split of all word 
 	i is the index of the word where there is the substitution
 	pos_em is the position of empreinte in the word where the substitution begin
@@ -295,12 +293,11 @@ def calcul_pos(phrase, empreinte, position):
 	while i < taille and trouve == False:	
 		t += len( phrase_modif[i])
 		if t >= position:
-			pos_em = phrase_modif[i].find(empreinte)			
+			pos_em = phrase_modif[i].find(empreinte)		
+			pos_em = position - (t - len( phrase_modif[i]) )	
 			if pos_em != -1:
 				trouve = True
-			else:
-				pos_em = position - (t - len( phrase_modif[i]) )
-				trouve = True
+
 		#ajout de lespace
 		t += 1
 		i += 1		
@@ -392,7 +389,10 @@ def choix_rememoration_index(Bs, indice, couple, indexation):
 ################################################################################
 
 def base_case_param(As,Cs):
-
+	"""
+	Get information to insert in database table CASES
+	modification before/after + position
+	"""
 	from os.path import commonprefix
 	def longest_commonsuffix(list_of_strings):
 		reversed_strings = [' '.join(s.split()[::-1]) for s in list_of_strings]

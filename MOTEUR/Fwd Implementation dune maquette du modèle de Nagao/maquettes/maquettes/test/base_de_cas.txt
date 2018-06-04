@@ -14,3 +14,4 @@ Tu rigoles pas souvent.	Tu ne rigoles pas souvent.	Moi.
 T'as mangés ?	T'as mangé ?	Moi.
 Je m'arete.	Je m'arrete.	Moi.
 Je manges.	Je mange.	Moi.
+j'aime pas les pommes.	je n'aime pas les pommes.	Exemple.
