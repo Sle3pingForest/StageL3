@@ -388,3 +388,42 @@ def choix_rememoration_index(Bs, indice, couple, indexation):
 							trouve = True
 			j += 1
 	return result
+
+################################################################################
+
+def base_case_param(As,Cs):
+
+	from os.path import commonprefix
+	def longest_commonsuffix(list_of_strings):
+		reversed_strings = [' '.join(s.split()[::-1]) for s in list_of_strings]
+		reversed_lcs = commonprefix(reversed_strings)
+		lcs = ' '.join(reversed_lcs.split()[::-1])
+		return lcs
+
+	def commonsuffix(list):
+		return commonprefix([s[::-1] for s in list])[::-1]
+
+
+	#prefix suffix entre le probleme source et probleme cible
+	prefix, suffix = commonprefix([As, Cs]), commonsuffix([As, Cs])
+	
+	pos_prefix1 = As.find(prefix)
+	pos_suffix1 = As.find(suffix)
+	# souschaine3 = chaine qui va etre remplacer par la souschaine 2
+	sousChaine = As[pos_prefix1+len(prefix):pos_suffix1]
+	#print prefix3,sousChaine3,suffix3
+
+
+	#prefix suffix entre la solution du probleme source et le probleme dans la solution
+	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
+	pos_prefix2 = Cs.find(prefix2)
+	pos_suffix2 = Cs.find(suffix2)
+	# souschaine2 = chaine qui remplace qui se trouve entre le prefix et le suffixe
+	sousChaine2 = Cs[pos_prefix2+len(prefix2):pos_suffix2]
+
+
+	pos_souschaine = pos_prefix1+len(prefix)
+
+	return sousChaine, sousChaine2,  pos_souschaine
+
+	

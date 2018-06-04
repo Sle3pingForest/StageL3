@@ -5,7 +5,7 @@ import sys
 import time
 
 from bilingual_data import Bicorpus, Bidictionary
-from substitution import single_substitution, single_correction
+from substitution import base_case_param
 from _fast_distance import init_memo_fast_distance, memo_fast_distance, memo_fast_similitude, fast_distance
 
 #...!....1....!....2....!....3....!....4....!....5....!....6....!....7....!....8
@@ -31,7 +31,7 @@ def read_argv():
 	this_usage = '''
 		%(prog)s  CORPUS
 
-		Ex: python Test.py base_de_cas.txt -s 1 -t 2
+		Ex: python empreinte.py base_de_cas.txt -s 1 -t 2
 	'''
 
 	parser = argparse.ArgumentParser(version=this_version, description=this_description, usage=this_usage)
@@ -63,10 +63,10 @@ def translate(bicorpus, file=sys.stdin):
 		bidictionary = bilingual dictionary of (a_s, a_t) where a_s is a word, and a_t its translation.
 	"""
 	for As in bicorpus.iter('', strategy='naive', method='direct'):
-		a_s, b_s, c_s, e_s, pos = single_correction(As[0], As[1], As[1])
+		a_s, b_s, pos = base_case_param(As[0], As[1])
 		if __verbose__: print >> sys.stderr, '#\t{} : {} : {} :: {} : {}\n'.format(a_s, b_s, c_s, As[0], As[1])
 
-		print '{}\t  | {}\t {}\t {}'.format(e_s, b_s, pos, As[0])
+		print '{}\t{}\t{}\t{}'.format(a_s, b_s, pos, As[0])
 
 if __name__ == '__main__':
 	bidata = Bicorpus()
