@@ -197,16 +197,12 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 		phrase_modif += phrase_index[m].split(' ')
 	j = i
 	fin = i + ind
-	if As == 'J\'aime pas les pommes.' :
-		print prefix
 	if fin <= len ( phrase_modif ):
 		for j in range(j,fin):
 			t += len(phrase_modif[j])
 			taille = pos1 + pos + len( sousChaine3 )
 			if t < len(Bs) and Bs[t] == ' ':
 				t += 1 
-			if As == 'J\'aime pas les pommes.' :
-				print t, phrase_modif[j]
 		fin_dep = t + pos
 
 
