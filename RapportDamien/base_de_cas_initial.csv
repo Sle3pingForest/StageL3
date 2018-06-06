@@ -1,5 +1,5 @@
 PHRASE AVANT CORRECTION	PHRASE APRÈS CORRECTION	STATUT	ERREUR	CORRECTION	INDICE DE PREMIÈRE DIFFÉRENCE	INDICE DE SOURCE	LANGUE				
-J'aime pas les pommes.	Je n'aime pas les pommes.	CORRECT	j'aime	je n'aime	1	2	fr				
+J'aime pas les pommes.	Je n'aime pas les pommes.	Correct	j'aime	je n'aime	1	2	fr				
 Je suis sur Nancy.	Je suis à Nancy.	True	sur	à	0	2	fr				
 Au jour d'aujourd'hui.	Aujourd'hui.	True	Au jour d'		0	2	fr				
 J'ai été au cinéma.	Je suis allé au cinéma.	True	J'ai été	Je suis allé	1	2	fr				
@@ -22,7 +22,7 @@ J'ai manger.	J'ai mangé.	True	manger	mangé	4	2	fr
 											
 										PHRASE AVANT CORRECTION	J'aime pas les pommes.
 										PHRASE APRÈS CORRECTION	Je n'aime pas les pommes.
-										STATUT	CORRECT
+										STATUT	Correct
 										GROUPE DE MOTS AVANT MODIFICATION	j'aime
 										GROUPE DE MOTS APRÈS MODIFICATION	je n'aime
 										INDICE DE PREMIÈRE DIFFÉRENCE	1
