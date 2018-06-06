@@ -1,0 +1,21 @@
+J'aime pas les pommes.	Je n'aime pas les pommes.	True	j'aime	je n'aime	3	Exemple Yves Lepage.	fr
+Je suis sur Nancy.	Je suis à Nancy.	True	sur	à	0	Wikipedia.	fr
+Au jour d'aujourd'hui.	Aujourd'hui.	True	Au jour d'	""	0	Site LCI.	fr
+J'ai été au cinéma.	Je suis allé au cinéma.	True	J'ai été	Je suis allé	1	Wikipedia.	fr
+J'amènerai une bouteille.	J'apporterai une bouteille.	True	amènerai	apporterai	1	Wikipedia.	fr
+Elle apporte son enfant.	Elle amène son enfant.	True	apporte	amène	1	Wikipedia.	fr
+C'est de la faute de sa femme.	C'est la faute de sa femme.	True	de	""	0	Wikipedia.	fr
+Ils croivent.	Ils croient.	True	croivent	croient	4	Site LCI.	fr
+Tu es trop nul.	Tu es très nul.	True	trop	très	2	Moi.	fr
+Nous avons été à Paris.	Nous sommes allés à Paris.	True	avons été	sommes allés	0	Site lefigaro.	fr
+Après qu'il ait dîné.	Après qu'il a dîné.	True	ait	a	1	Site cnewsmatin.	fr
+Après qu'il soit arrivé, il est allé chez sa mère.	Après qu'il est arrivé, il est allé chez sa mère.	True	soit	est	0	Site osez-ecrire-votre-roman.	fr
+Lui aussi n'a pas compris pourquoi elle chante.	Lui non plus n'a pas compris pourquoi elle chante.	True	aussi	non plus	0	Site osez-ecrire-votre-roman.	fr
+Ce n'est pas de ma faute.	Ce n'est pas ma faute.	True	de	""	0	Site osez-ecrire-votre-roman.	fr
+De façon à ce que.	De façon que.	True	à ce	""	0	Site etudiant.aujourdhui.fr	fr
+J'ai manger.	J'ai mangé.	True	manger	mangé	4	moi.	fr
+Je m'arrete.	Je m'arrête.	Moi.
+Je manges.	Je mange.	Moi.
+J'aime pas l'algebre et les maths.	J'aime pas l'algèbre et les mathématiques.	Moi.
+Tous le monde.	Tout le monde.	Moi.
+She don't do anything.	She doesn't do anything.	Moi.
