@@ -1,15 +1,30 @@
-PHRASE FAUSSE	PHRASE CORRIGÉ	STATUT	ERREUR	CORRECTION	INDICE DE PREMIÈRE DIFFÉRENCE	INDICE DE SOURCE	LANGUE
-J'aime pas les pommes.	Je n'aime pas les pommes.	True	j'aime	je n'aime	1	2	fr
-Je suis sur Nancy.	Je suis à Nancy.	True	sur	à	0	2	fr
-Au jour d'aujourd'hui.	Aujourd'hui.	True	Au jour d'		0	2	fr
-J'ai été au cinéma.	Je suis allé au cinéma.	True	J'ai été	Je suis allé	1	2	fr
-J'amènerai une bouteille.	J'apporterai une bouteille.	True	amènerai	apporterai	1	2	fr
-Elle apporte son enfant.	Elle amène son enfant.	True	apporte	amène	1	2	fr
-Ils croivent.	Ils croient.	True	croivent	croient	4	2	fr
-Tu es trop nul.	Tu es très nul.	True	trop	très	2	2	fr
-Nous avons été à Paris.	Nous sommes allés à Paris.	True	avons été	sommes allés	0	2	fr
-Après qu'il ait dîné.	Après qu'il a dîné.	True	ait	a	1	2	fr
-Après qu'il soit arrivé, il est allé chez sa mère.	Après qu'il est arrivé, il est allé chez sa mère.	True	soit	est	0	2	fr
-Lui aussi n'a pas compris pourquoi elle chante.	Lui non plus n'a pas compris pourquoi elle chante.	True	aussi	non plus	0	2	fr
-De façon à ce que.	De façon que.	True	à ce		0	2	fr
-J'ai manger.	J'ai mangé.	True	manger	mangé	4	2	fr
+PHRASE AVANT CORRECTION	PHRASE APRÈS CORRECTION	STATUT	ERREUR	CORRECTION	INDICE DE PREMIÈRE DIFFÉRENCE	INDICE DE SOURCE	LANGUE				
+J'aime pas les pommes.	Je n'aime pas les pommes.	CORRECT	j'aime	je n'aime	1	2	fr				
+Je suis sur Nancy.	Je suis à Nancy.	True	sur	à	0	2	fr				
+Au jour d'aujourd'hui.	Aujourd'hui.	True	Au jour d'		0	2	fr				
+J'ai été au cinéma.	Je suis allé au cinéma.	True	J'ai été	Je suis allé	1	2	fr				
+J'amènerai une bouteille.	J'apporterai une bouteille.	True	amènerai	apporterai	1	2	fr				
+Elle apporte son enfant.	Elle amène son enfant.	True	apporte	amène	1	2	fr				
+Ils croivent.	Ils croient.	True	croivent	croient	4	2	fr				
+Tu es trop nul.	Tu es très nul.	True	trop	très	2	2	fr				
+Nous avons été à Paris.	Nous sommes allés à Paris.	True	avons été	sommes allés	0	2	fr				
+Après qu'il ait dîné.	Après qu'il a dîné.	True	ait	a	1	2	fr				
+Après qu'il soit arrivé, il est allé chez sa mère.	Après qu'il est arrivé, il est allé chez sa mère.	True	soit	est	0	2	fr				
+Lui aussi n'a pas compris pourquoi elle chante.	Lui non plus n'a pas compris pourquoi elle chante.	True	aussi	non plus	0	2	fr				
+De façon à ce que.	De façon que.	True	à ce		0	2	fr				
+J'ai manger.	J'ai mangé.	True	manger	mangé	4	2	fr				
+											
+											
+											
+											
+											
+											
+											
+										PHRASE AVANT CORRECTION	J'aime pas les pommes.
+										PHRASE APRÈS CORRECTION	Je n'aime pas les pommes.
+										STATUT	CORRECT
+										GROUPE DE MOTS AVANT MODIFICATION	j'aime
+										GROUPE DE MOTS APRÈS MODIFICATION	je n'aime
+										INDICE DE PREMIÈRE DIFFÉRENCE	1
+										INDICE DE SOURCE	2
+										LANGUE	fr
