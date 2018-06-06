@@ -1,7 +1,7 @@
 
 <?php
-define('USER','root');
-define('PASSWD','');
-define('SERVER','localhost');
-define('BASE','dbly');
+define('USER','root');//nom utilisateur de la base de donne
+define('PASSWD',''); //mdp
+define('SERVER','localhost');//nom de server
+define('BASE','dbly');//nom de db
 ?>
