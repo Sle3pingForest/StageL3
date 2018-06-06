@@ -21,9 +21,9 @@ def single_correction(As, Bs, Cs):
 	"""
 	input: three arguments to resolve analogy equation
 		As : Cs :: Bs : x
-		As is source problem
-		Cs correction of Cs
-		Bs current problem we would resolve
+		As = is source problem
+		Cs = correction of Cs
+		Bs = current problem we would resolve
 	output: three strings to concatenate to obtain solution and some positions for rememoration_index
 		Bs prefix 
 		modification after to apply
@@ -137,6 +137,22 @@ def fcs(S,T):
 ###############################################################################
 
 def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
+	"""
+	Search string to replace to correct Bs
+	input:
+		As = is source problem
+		Cs = correction of Cs
+		Bs = current problem we would resolve
+		prefix = common prefix between As and Bs
+		suffix = common suffix between As and Bs
+		sousChaine = string in Bs between prefix, suffix
+	output:
+		sousChaine2 = string to apply to correct sentence
+		sousChaine3 = string to replace to correct sentence
+		fin_dep = position end of prefix of Bs
+		pos_souschaine3 = position of sousChaine3
+		
+	"""
 	from os.path import commonprefix
 	def longest_commonsuffix(list_of_strings):
 		reversed_strings = [' '.join(s.split()[::-1]) for s in list_of_strings]
@@ -244,7 +260,7 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 def rememoration_index(Ds, empreinte, pos_em_Ds):
 
 	"""
-	Récupère les mots a une distance de 1 a gauche et a droite de l'empreinte
+	Retrieve 1 word to the right and to the left of the string empreinte
 	>>> rememoration_index('Je n'aime pas nager', 'e n', 1)
 	('Je n'aime')
 	>>> rememoration_index('Je suis à Metz', 'à ', 9)

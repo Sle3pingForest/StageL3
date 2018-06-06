@@ -5,7 +5,7 @@ import sys
 import time
 
 from bilingual_data import Bicorpus, Bidictionary
-from substitution import single_correction, rememoration_index, dist_inclusion, choix_rememoration_index
+from substitution import single_correction, rememoration_index, dist_inclusion, choice_rememoration_index
 from _fast_distance import init_memo_fast_distance, memo_fast_distance
 
 #...!....1....!....2....!....3....!....4....!....5....!....6....!....7....!....8
@@ -32,7 +32,7 @@ def read_argv():
 		%(prog)s  CORPUS
 		
 		Ex:
-		cat test_rememoration.txt | cut -f 2 | python direct_model.py base_de_cas.txt -s 1 -t 2
+		cat test_rememoration.txt | python moteur.py base_de_cas.txt -s 1 -t 2
 
 		or
 		
@@ -98,7 +98,7 @@ def correct(bicorpus, sentence = False, file=sys.stdin):
 						indexation[indice,i] = phrase
 					indice += 1
 		if indice > 0:
-			result = choice_rememoration_index(Bs, indice, couple, indexation)
+			result = choice_rememoration_index(Bs, indice, couple, indexation, k)
 			a_s, b_s, c_s, e_s, pos, pos_em = single_correction(result[0], Bs, result[1])
 			Bt = a_s+b_s+c_s
 			print '{}'.format(Bt)
