@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title> linguistiCASE </title>
+	<title> CORRECTOR </title>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 	<link rel="stylesheet" href="bootstrap/css/localCss.css" />
@@ -53,9 +53,10 @@ include ('../data/insertion.php');
 		}
 
 
+		// cette fonction permet de valider les case bon pour les admin , le changement de statut en attent en tru est en cours de developpement
 		function valideData(){
 			echo "<h2 style='text-align:center'>";
-			echo "Valider les cas d'utilisateur ";
+			echo "Valider les cas d'utilisateurs ";
 			echo "<button type='button' type='submit' class='btn btn-info text-white' onclick='afficherCase()'>Afficher</button>";
 			echo "</h2>";
 			$num = 0;
@@ -75,7 +76,7 @@ include ('../data/insertion.php');
 								echo "Langue";
 							echo "</th>";
 							echo "<th>";
-								echo "";
+								echo "Correct?";
 							echo "</th>";
 
 						echo "</tr>";
@@ -92,13 +93,13 @@ include ('../data/insertion.php');
 									echo $liste[$num]["lang"];
 								echo "</td>";
 								echo "<td>";
-									echo "<button type='button' type='submit' class='btn btn-info text-white''>OK</button>";
+								echo "<input id='checkBox' type='checkbox'>";
 								echo "</td>";
-						
 							$num++;
 							echo "</tr>";
 					}
-					echo "</table>";
+				echo "</table>";
+				echo "<button style='float:right' type='button' type='submit' class='btn btn-info text-white''>Valider</button>";
 				echo "</div>";	
 			echo "</div>";
 			echo "<script language=\"javascript\">";
@@ -111,16 +112,31 @@ include ('../data/insertion.php');
 	}
 
 	echo "<h2 style='text-align:center'>";
-	echo "Restaurer la base de données ";
-	echo "<button type='button' type='submit' class='btn btn-danger text-white' onclick='insertData()'>Reset</button>";
+	echo "Insertion base de cas initiale ";
+	echo "<button type='button' type='submit' class='btn btn-danger text-white' onclick='insertMin()'>Insérer</button>";
 	echo "<script language=\"javascript\">";
-		echo "function insertData(){";
+		echo "function insertMin(){";
 			$insert = new Insertion();
-			$insert->insertData('../data/base_de_cas_minimal.csv');
+			$insert->insertOrigine('../data/origine.csv');
+			$insert->insertCaseBase('../data/base_de_cas_minimal.csv');
 			echo "alert('Insertion Fait')";
 		echo "}";
 	echo "</script>";
 	echo "</h2>";
+
+	echo "<h2 style='text-align:center'>";
+	echo "Insertion base de cas de WiCoPaCo ";
+	echo "<button type='button' type='submit' class='btn btn-danger text-white' onclick='insertwiko()'>Insérer</button>";
+	echo "<script language=\"javascript\">";
+		echo "function insertMwiko(){";
+			$insert = new Insertion();
+			$insert->insertOrigine('../data/origine.csv');
+			//$insert->insertCaseBase('../data/base_de_cas_WiKoPaCo.csv');
+			echo "alert('Insertion Fait')";
+		echo "}";
+	echo "</script>";
+	echo "</h2>";
+
 	$admin = new ADMIN();
 	$admin->valideData();
 	
