@@ -14,6 +14,8 @@ from _fast_distance import init_memo_fast_distance, memo_fast_distance
 __author__ = 'Yves Lepage <yves.lepage@waseda.jp>, André Giang <andre.giang8@etu.univ-lorraine.fr>'
 __date__, __version__ = '06/06/2018', '1.0'
 __description__ = '''
+	This version is to launch with website and database
+
 	Correct the sentences given on the standard input
 	using Nagao's direct model of translation by analogy.
 	For that, uses the bicorpus and the bilingual dictionary
@@ -30,17 +32,11 @@ def read_argv():
 	this_description = __description__
 	this_usage = '''
 		%(prog)s  CORPUS
-		
-		Ex:
-		cat test_rememoration.txt | python moteur.py base_de_cas.txt -s 1 -t 2
+	
+		Ex: python Test.py base_de_cas.txt -s 1 -t 2 -se "J'aime pas nager."
 
-		or
-		
-		printf "J'aime pas nager." | python moteur.py base_de_cas.txt -s 1 -t 2
-
-		or 
-		
-		python moteur.py
+		sudo systemctl start apache2
+		sudo systemctl start mysql
 
 	'''
 
@@ -55,6 +51,9 @@ def read_argv():
 					help=source_and_target_help)
 	parser.add_argument('-t', '--target',
 					action='store', type=int, default=2,
+					help=source_and_target_help)
+	parser.add_argument('-se', '--sentence',
+					action='store', type=str, default=3,
 					help=source_and_target_help)
 	parser.add_argument('-V', '--verbose',
 					action='store_true',
@@ -75,19 +74,20 @@ def correct(bicorpus, sentence = False, file=sys.stdin):
 		if __verbose__: print >> sys.stderr, '\n# Translating sentence: {}'.format(Bs)
 #		for As in bicorpus:
 		if sentence == False: string = Bs
-#		index level
+		# niveau d'index
 		k = 3
 		indice = 0
 		indexation = {}
 		couple = {}
 		for As in bicorpus.iter(string, strategy='by distance', method='direct'):
 			init_memo_fast_distance(Bs)
-			dist = memo_fast_distance(As[0])
 #			Case where the sentence is already in the case base
+			dist = memo_fast_distance(As[0])
 			if  dist == 0:
 				print '{}'.format(As[1])
 				sys.exit(0)
-			else :	
+			else :
+				
 				a_s, b_s, c_s, e_s, pos, pos_em = single_correction(As[0], Bs, As[1])
 				Bt = a_s+b_s+c_s
 				dist_cible = memo_fast_distance(Bt)
@@ -96,41 +96,31 @@ def correct(bicorpus, sentence = False, file=sys.stdin):
 					indexation[indice,0] = phrase
 					couple[indice,0] = As[0]
 					couple[indice,1] = As[1]
-#					start to 1, 0 is the substring to replace 
+					#start to 1, 0 is the substring to replace 
 					for i in range(1,k):
 						phrase = rememoration_index(As[0], phrase, pos_em)
 						indexation[indice,i] = phrase
 					indice += 1
+
 		if indice > 0:
 			result = choice_rememoration_index(Bs, indice, couple, indexation, k)
+			
 			a_s, b_s, c_s, e_s, pos, pos_em = single_correction(result[0], Bs, result[1])
 			Bt = a_s+b_s+c_s
 			print '{}'.format(Bt)
+
 			
 
 if __name__ == '__main__':
 	bidata = Bicorpus()
-	if len(sys.argv)  == 1:
-		phrase = raw_input('Rentrez la phrase à corriger : ')
-		choix = raw_input('Voulez vous entrer une correction ? O/n : ')
-		if choix == 'O':
-			src = raw_input('Rentrez la phrase source fausse : ')
-			src_corr = raw_input('Rentrez la phrase source corrigée : ')
-			bidata += Bicorpus.fromInput(src,src_corr)
-		elif choix == 'n':
-			base_de_cas = raw_input('Rentrez le nom de la base de cas à utiliser : ')
-			sys.stdin = base_de_cas
-			bidata += Bicorpus.fromFile(open(base_de_cas), 0, 1)
-		
-		correct(bidata, phrase)
-	else:	
-		options = read_argv()
-		__verbose__ = options.verbose
-		t1 = time.time()
-		for filename in options.training_data:
-			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1) #Bicorpus.fromDb('CASE_BASE')
-		correct(bidata)
-		if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
+	options = read_argv()
+	__verbose__ = options.verbose
+	t1 = time.time()
+	for filename in options.training_data:
+#			name of table in database
+		bidata += Bicorpus.fromDb('CASES')
+	correct(bidata, options.sentence)
+	if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
 
 	
 	

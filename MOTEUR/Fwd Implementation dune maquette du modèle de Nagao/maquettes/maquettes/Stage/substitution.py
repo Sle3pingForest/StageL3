@@ -77,19 +77,6 @@ def single_correction(As, Bs, Cs):
 		
 	deb_fin = fin_dep + len( sousChaine3 )
 	debut = 0
-	"""
-	if verif:
-		index = As.find(prefix3)
-		if index != -1:
-			debut = index
-			fin_dep = debut + len(prefix3.decode('utf-8'))
-
-
-	# borne de debut du suffix
-	deb_fin = fin_dep+len(sousChaine3)
-	if deb_fin > len(Bs) and fin_dep < len(Bs): 
-		deb_fin = fin_dep
-	"""
 
 	return Bs[debut:fin_dep], sousChaine2, Bs[deb_fin:len(Bs)], sousChaine3, fin_dep, pos_souschaine3
 
@@ -175,29 +162,26 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 			if Cs.find(prefix) == -1:
 				verif = True
 	
-	#prefix suffix entre la solution du probleme source et le probleme dans la solution
+	#prefix suffix between source solution and source problem
 	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
 	if verif: prefix2 = prefix4
 	pos_prefix2 = Cs.find(prefix2)
 	pos_suffix2 = Cs.find(suffix2)
-	# souschaine2 = chaine qui remplace qui se trouve entre le prefix et le suffixe
+	# souschaine2 = substring which wil replace sousChaine3
 	sousChaine2 = Cs[pos_prefix2+len(prefix2):pos_suffix2]
 	taille = pos_prefix2+len(prefix2) + len(sousChaine2)
-	#position du prefix2 dans le probleme cible
+	#position prefix2 in problem to correct
 	pos_prefix2_dans_cible = Bs.find(prefix2)
 
-	#prefix suffix entre le probleme source et sa solution dans le src
+	#prefix suffix between source problem and his solution
 	prefix3, suffix3 = commonprefix([As, Cs]), commonsuffix([As, Cs])
 	if verif: prefix3 = prefix4
-	#if As == 'Inné.':
-	#print As,Cs,prefix3, sousChaine2
 	pos3 = As.find(prefix3)
 	pos4 = As.find(suffix3)
-	# souschaine3 = chaine qui va etre remplacer par la souschaine 2
+	# souschaine3 = substring which will be replace by sousChaine2
 	sousChaine3 = As[pos3+len(prefix3):pos4]
-	#print prefix3,sousChaine3,suffix3
 	
-	#borne de fin de prefix
+	#end of prefix
 	fin_dep = pos_prefix2_dans_cible+len(prefix2)
 
 	pos_souschaine3 = pos3+len(prefix3)
@@ -238,7 +222,7 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 
 
 	"""
-	if  As == 'J\'aime pas les pommes.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
+	if  As == 'J\'adore pas les pommes.' :#or As == 'Je tues.' or As == 'C\'est de la faute de sa femme.':
 		
 		print pos, p , ind
 		print '\n 1er' , prefix, '|' ,  sousChaine ,'|' , suffix
@@ -258,7 +242,6 @@ def search_prefix_suffix(As,Bs,Cs, prefix, suffix, sousChaine):
 ############################################################################
 
 def rememoration_index(Ds, empreinte, pos_em_Ds):
-
 	"""
 	Retrieve 1 word to the right and to the left of the string empreinte
 	>>> rememoration_index('Je n'aime pas nager', 'e n', 1)
@@ -302,6 +285,10 @@ def rememoration_index(Ds, empreinte, pos_em_Ds):
 
 def calcul_pos(phrase, empreinte, position):
 	"""
+	input:
+		phrase = sentence
+		empreinte = substring in sentence
+		position = position of empreinte
 	output:
 		phrase_modif = split of all word 
 		i = index of the word where there is the substitution
@@ -325,7 +312,7 @@ def calcul_pos(phrase, empreinte, position):
 			if pos_em != -1:
 				trouve = True
 
-		#ajout de lespace
+		#add a space
 		t += 1
 		i += 1		
 
@@ -367,7 +354,11 @@ def lcs(S,T):
 
 def dist_inclusion(phrase_index, probleme):
 	"""
-	return number of word that's not in the probleme
+	input:
+		phrase_index = words around the substring to replace and the substring in source problem
+		probleme = problem we want to correct
+	output:
+		return number of word that's not in problem
 	"""
 	compteur = 0
 	if phrase_index != '':
@@ -402,7 +393,6 @@ def choice_rememoration_index(Bs, indice, couple, indexation, k):
 		while trouve == False and j < k:
 			d_incA = dist_inclusion(indexation[index,j], Bs) 
 			d_incB = dist_inclusion(indexation[i,j], Bs) 
-			#print result[0],j, d_incA, d_incB,indexation[index,j], indexation[i,j],'\t', couple[i,0]
 			if  j == 2 and d_incA == d_incB:
 				init_memo_fast_distance(Bs)
 				dist_srcA = memo_fast_distance(couple[index,0])
@@ -441,21 +431,20 @@ def base_case_param(As,Cs):
 		return commonprefix([s[::-1] for s in list])[::-1]
 
 
-	#prefix suffix entre le probleme source et probleme cible
+	#prefix suffix between source problem and origin problem 
 	prefix, suffix = commonprefix([As, Cs]), commonsuffix([As, Cs])
 	
 	pos_prefix1 = As.find(prefix)
 	pos_suffix1 = As.find(suffix)
-	# souschaine3 = chaine qui va etre remplacer par la souschaine 2
+	# souschaine3 = substring which will be replace by sousChaine2
 	sousChaine = As[pos_prefix1+len(prefix):pos_suffix1]
-	#print prefix3,sousChaine3,suffix3
 
 
-	#prefix suffix entre la solution du probleme source et le probleme dans la solution
+	#prefix suffix between source solution and source problem
 	prefix2, suffix2 = commonprefix([Cs, As]), commonsuffix([Cs, As])
 	pos_prefix2 = Cs.find(prefix2)
 	pos_suffix2 = Cs.find(suffix2)
-	# souschaine2 = chaine qui remplace qui se trouve entre le prefix et le suffixe
+	# souschaine2 = substring which wil replace sousChaine3
 	sousChaine2 = Cs[pos_prefix2+len(prefix2):pos_suffix2]
 
 
