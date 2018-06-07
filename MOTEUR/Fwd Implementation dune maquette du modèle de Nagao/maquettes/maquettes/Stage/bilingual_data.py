@@ -43,17 +43,17 @@ class Bicorpus(dict):
 		return cls(bidata=bidata)
 
 	@classmethod
-	def fromDb(cls, dataname):
+	def fromDb(cls, table):
 		"""
 		Connect to database and get column problem and solution.
 		"""
 		cnx = connection()
 		cursor = cnx.cursor()
-		query = ("SELECT problem, solution FROM "+ dataname)
+		query = ("SELECT problem, solution FROM "+ table)
 		cursor.execute(query)
 		bidata = {}
 		for (problem, solution) in cursor:
-			bidata[str(problem)] = str(solution)
+			bidata[str(problem.encode('utf-8') )] = str(solution.encode('utf-8') )
 		cursor.close()
 		cnx.close()
 		return cls(bidata=bidata)

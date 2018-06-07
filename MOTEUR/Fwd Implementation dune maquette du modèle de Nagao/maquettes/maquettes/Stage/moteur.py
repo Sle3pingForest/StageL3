@@ -38,6 +38,10 @@ def read_argv():
 		
 		printf "J'aime pas nager." | python moteur.py base_de_cas.txt -s 1 -t 2
 
+		or 
+		
+		python moteur.py
+
 	'''
 
 	parser = argparse.ArgumentParser(version=this_version, description=this_description, usage=this_usage)
