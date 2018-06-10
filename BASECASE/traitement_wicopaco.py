@@ -27,11 +27,10 @@ class Treatment_xml:
         return True
 
     def deleting_correction_duplicate(self,nom,root):
-        #permet de supprimer les modifications faite puis remise a l'etat initial (fonctionne sur le fichier wikopaco.xml)
+        #permet de supprimer les modifications faite puis remise a l'etat initial (fonctionne sur le fichier wicopaco.xml)
         print("deleting_correction_duplicate")
         compteur = 0
         taille_root = len(root)
-        #for child in root:
         for i in range(0,taille_root):
             if(i%1000==0):
                 print i #affiche le compteur régulièrement afin d'avoir une idée de ce qui est deja traité
@@ -42,17 +41,10 @@ class Treatment_xml:
                 break
             before_id = root[i].get('wp_before_rev_id')
             after_id = root[i].get('wp_after_rev_id')
-            # before_id = child.get('wp_before_rev_id')
-            # after_id = child.get('wp_after_rev_id')
-            #for modif in root:
             for j in range(i,taille_root):
                 if(taille_root<=j):
                     print "break"
                     break
-                #print "\tj = ",
-                #print str(j)
-                #bef_id = modif.get('wp_before_rev_id')
-                #aft_id = modif.get('wp_after_rev_id')
                 bef_id = root[j].get('wp_before_rev_id')
                 aft_id = root[j].get('wp_after_rev_id')
                 if(before_id!=bef_id and after_id==bef_id):
@@ -62,8 +54,6 @@ class Treatment_xml:
                     print compteur
                     root.remove(tmp1)
                     root.remove(tmp2)
-                    #root.remove(child)
-                    #root.remove(modif)
                     taille_root = len(root)
                     break
             
@@ -86,7 +76,6 @@ class Treatment_xml:
     #processing to cvs file
     def treatment_cvs(self,root):
         #print "treatment"
-        # nom ="base_de_cas_WiKoPaCo.csv"
         nom = raw_input("comment voulez vous nommer le fichier de sortie?\nle fichier sera automatiquement suivi de '.csv'\n")
         nom+=".csv"
         fichier_txt = open(nom,"w")#ouverture en ecriture avec ecrasement
@@ -97,8 +86,6 @@ class Treatment_xml:
         nb_cas=0
         #acces aux balises <modif>
         for modif in root:
-            #filtre des cas
-            # if(self.get_terms()):
             nb_cas+=1
             compteur+=1
             #gestion des balises <before> et <after>
@@ -148,6 +135,6 @@ nom =raw_input('nom du fichier à traiter? ')
 test = Treatment_xml(nom)
 #racine du fichier xml
 root = test.get_root()
-test.deleting_correction_duplicate(nom,root)
+test.deleting_correction_duplicate(nom,root) #filtre
 test.treatment_cvs(root)
 

@@ -2,6 +2,8 @@ base_de_cas(initiale).txt contient la première version de la base de cas créé
 
 base_de_cas_initiale.csv contient la base initiale ayant toutes les informations à insérer dans la base de données.
 
+base_de_cas_WiKoPaCo.csv.zip contient le fichier csv extrait de la version de 8 nov 2009 avec utilisation du filtre
+
 origine.csv contient les informations concernant les sources.
 
 sans_filtre_traite.csv.zip contient le fichier csv extrait de wicopaco sans utilisation de filtre
