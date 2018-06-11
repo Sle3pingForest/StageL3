@@ -1,0 +1,9 @@
+apple	pomme	사과	苹果	apel
+green	verte	녹색	绿	hijau
+red	rouge	빨깐	红	merah
+pear	poire	배	梨	pir
+like	aime	좋아해요	喜欢	suka
+You	Tu	당신	你	Kamu
+They	Ils	그 사람들	他们	Mereka
+an apple	une pomme	사과	一个苹果	sebuah apel
+a pear	une poire	배	一个梨	sebuah pir

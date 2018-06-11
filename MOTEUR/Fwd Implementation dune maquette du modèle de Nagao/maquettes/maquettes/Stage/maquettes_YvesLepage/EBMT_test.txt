@@ -1,0 +1,13 @@
+I love apples.	J’aime les pommes.	제가 사과를 좋아해요.	我爱苹果。	Saya suka apel.
+They love apples.	Ils aiment les pommes.	그들이 사과를 사랑해요.	他们爱苹果。	Mereka suka apel.
+I love apricots.	J’aime les abricots.	제가 살구를 사랑해요.	我爱杏仁。	Saya suka aprikot.
+You hate apples.	Vous détestez les pommes.	당신이 사과를 싫어해요.	你讨厌苹果。	Kamu benci apel.
+I love pears.	J’aime les poires.	제가 배를 사랑해요.	我讨厌梨子。	Saya suka pir.
+I eat a pear.	Je mange une poire.	제가 배를 먹어요.	我吃一个梨子。	Saya makan sebuah pir.
+I love red apples.	J’aime les pommes rouges.	제가 빨간 사과를 사랑해요.	我爱红苹果。	Saya suka apel merah.
+I love red pears.	J’aime les poires rouges.	제가 빨간 배를 사랑해요.	我爱红梨子。	Saya suka pir merah.
+You hate green pears.	Vous détestez les poires vertes.	당신이 녹색 배를 싫어해요.	你讨厌绿梨子。	Kamu benci pir hijau.
+You like green pears.	Vous aimez les pommes vertes.	당신이 녹색 배를 사랑해요.	你喜欢绿梨子。	Kamu suka pir hijau.
+I do not love this apple.	Je n’aime pas cette pomme.	당신이 녹색 배를 사랑해요.		我不爱这个苹果。	Saya tidak suka apel ini.
+
+They love pears. Ils aiment les poires.

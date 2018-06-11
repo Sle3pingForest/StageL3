@@ -128,7 +128,7 @@ if __name__ == '__main__':
 		__verbose__ = options.verbose
 		t1 = time.time()
 		for filename in options.training_data:
-			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1) #Bicorpus.fromDb('CASE_BASE')
+			bidata += Bicorpus.fromFile(open(filename), source=options.source-1, target=options.target-1)
 		correct(bidata)
 		if __verbose__: print >> sys.stderr, '# Processing time: ' + ('%.2f' % (time.time() - t1)) + 's'
 

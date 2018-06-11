@@ -1,0 +1,153 @@
+# *** auf Deutsch ***
+
+setzen : setzte :: lachen : lachte
+lang : längste :: scharf : schärfste
+sprechen : wir sprächen :: nehmen : wir nähmen
+sprechen : er spräche :: nehmen : er nähme
+sprechen : du sprächest :: nehmen : du nähmest
+sprechen : ihr sprächet :: nehmen : ihr nähmet
+sprechen : ihr aussprächet :: nehmen : ihr ausnähmet
+fliehen : er floh :: schließen : er schloß
+sprechen : aussprächet :: nehmen : ausnähmet
+
+# *** bi llugha 'l 3arabiya ***
+
+ضسمضكض : ضقسضمض :: كعسمهكعر : كعقسهمعر
+ضسمضكض : ضقسضمض :: كعسمهك : كعقسهم
+#نضفضزض : نضضفهز :: سضنضوض : سضضنهر
+
+huzila : huzAl :: Sudi`a : SudA`
+kalb : kulaib :: masjid : musaijid
+yaSilu : yaSala :: yasimu : yasama
+aslama : arsala :: muslimun : mursilun
+aslama : arsala :: muslim : mursil
+kataba : kAtib :: sakana : sAkin
+huzila : huzAl :: Sudi`a : SudA`
+
+# *** Akkadien ***
+
+ukaSSad : uktanaSSad :: uSakSad : uStanakSad
+
+# *** Hébreu ***
+
+iahmod : mahmAd :: ia`abor : ma`abAr
+mélex : mlaxím :: dérex : draxím
+mélex : mlaxím :: rések : rsakím
+
+# *** Proto-sémitique ***
+
+yaqtilu : qatil :: yuqtilu : qutil
+yasriqu : sariq :: yanqimu : naqim
+
+# *** 普通话 ***
+
+科学 : 科学家 :: 政治 : 政治家
+我 : 我们 :: 他 : 他们
+今年 : 今天 :: 明年 : 明天
+读 : 读者 :: 学 : 学者
+勇 : 勇者 :: 强 : 强者
+车 : 车行 :: 药 : 药行
+学 : 学院 :: 医 : 医院
+工程 : 工程师 :: 理发 : 理发师
+kexue : kexuejia :: zhengzhi : zhengzhijia
+wo : women :: ta : tamen
+jinnian : jintian :: mingnian : mingtian
+du : duzhe :: xue : xuezhe
+AduA : AduzheA :: AxueA : AxuezheA
+yong : yongzhe :: qiang : qiangzhe
+che : chehang :: yao : yaohang
+xue : xueyuan :: yi : yiyuan
+gongcheng : gongchengshi :: lifa : lifashi
+
+# *** en français ***
+
+dues : indu :: nées : inné
+inné : nées :: indu : dues
+réaction : réactionnaire :: répression : répressionnaire
+aimer : ils aimaient :: marcher : ils marchaient
+pardonner : impardonnable :: décorer : imdécorable
+joindre : je joins :: oindre : je oins
+logique : logiciel :: ludique : ludiciel
+prendrai : prendre :: viendrai : viendre
+changer : tu changes :: observer : tu observes
+marcher : tu marches :: démenager : tu démenages
+préférer : je préfère :: vénérer : je vénère
+préférer : je préfère :: révérer : je révère
+préférer : je préfère :: zébrer : je zèbre
+fini : infini :: exact : inexact
+recevoir : j'ai reçu :: percevoir : j'ai perçu
+décevoir : j'ai déçu :: percevoir : j'ai perçu
+concevoir : j'ai conçu :: percevoir : j'ai perçu
+le grand chien : les grands chiens :: le petit chat : les petits chats
+la table : les tables :: la maison : les maisons
+un escabeau : des escabeaux :: un plateau : des plateaux
+
+# *** 日本語で ***
+
+食べる : 食べます :: 認める : 認めます
+痛い : 痛む :: 親しい : 親しむ
+あれ : これ :: あっち : こっち
+乗る : 乗せる :: 寄る : 寄せる
+自由 : 不自由な :: 用意 : 不用意な
+飛びます : 飛ぶ :: 選びます : 選ぶ
+飲む : 飲みます :: 進む : 進みます
+飲みます : 飲んでみます :: 進みます : 進んでみます
+冷める : 冷まる :: 決める : 決まる
+乗る : 乗せる :: 寄る : 寄せる
+新しい : 新しかった :: 嬉しい : 嬉しかった
+新しい : 新しかった :: きれい : きれかった
+
+# *** lingua latine ***
+
+oratorem : orator :: honorem : honor
+facio : conficio :: capio : concipio
+amo : amas :: oro : oras
+amo : amat :: oro : orat
+amo : amamus :: oro : oramus
+
+# *** dalam bahasa melayu ***
+
+tinggal : ketinggalan :: duduk : kedudukan
+pekerja : kerja :: pelawat : lawat
+kawan : mengawani :: keliling : mengelilingi
+isteri : beristeri :: ladang : berladang
+keras : mengeraskan :: kena : mengenakan
+
+# *** po polsku ***
+
+biorąc : bierzesz :: piorąc : pierzesz
+ubezpieczony : ubezpieczeni :: obrażony : obrażeni
+spiewać : spiewaczka :: łechtać : łechtaczka
+wyszedłem : wyszłaS :: poszedłem : poszłaS
+rozproszyć : rozpraszać :: rozmnożyć się : rozmnażać się
+stworzyć : stwarzać :: rozmnożyć się : rozmnażać się
+stworzyć : stwarzać :: mnożyć się : mnażać się
+wyszedłeś : wyszłaś :: poszedłeś : poszłaś
+zgubiony : zgubieni :: zmartwiony : zmartwieni
+ṥpiewać : ṥpiewaczka :: biegać : biegaczka
+
+# *** in English ***
+
+wolf : wolves :: leaf : leaves
+wolf : wolves :: calf : calves
+
+# EXEMPLES FORMELS
+
+bb : ab :: ba : aa
+a : aa :: aaa : aaaa
+b : ab :: aab : aaab
+b : ba :: baa : baaa
+ab : aabb :: aaabbb : aaaabbbb
+ab : abab :: ababab : abababab
+aab : aaaabb :: aaaaaabbb : aaaaaaaabbbb
+aba : aabbaa :: aaabbbaaa : aaaabbbbaaaa
+ab : aabb :: aaaaaaabbbbbbb : aaaaaaaabbbbbbbb
+abc : aabbcc :: aaabbbccc : aaaabbbbcccc
+a : aa :: aaaaaaa : aaaaaaaa
+b : ab :: aaaaaaab : aaaaaaaab
+ab : aabb :: aaaaaaabbbbbbb : aaaaaaaabbbbbbbb
+ab : abab :: ababababababab : abababababababab
+aab : aaaabb :: aaaaaaaaaaaaaabbbbbbb : aaaaaaaaaaaaaaaabbbbbbbb
+aba : aabbaa :: aaaaaaabbbbbbbaaaaaaa : aaaaaaaabbbbbbbbaaaaaaaa
+aab : aaaabb :: aaaaaaaaaaaaaabbbbbbb : aaaaaaaaaaaaaaaabbbbbbbb
+abc : aabbcc :: aaaaaaabbbbbbbccccccc : aaaaaaaabbbbbbbbcccccccc
